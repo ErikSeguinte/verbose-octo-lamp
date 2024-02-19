@@ -1,5 +1,8 @@
 FROM mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
 # Install MongoDB command line tools - though mongo-database-tools not available on arm64
 ARG MONGO_TOOLS_VERSION=6.0
 RUN . /etc/os-release \
@@ -8,7 +11,7 @@ RUN . /etc/os-release \
     && apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y mongodb-mongosh \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then apt-get install -y mongodb-database-tools; fi \
-    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+    && apt-get clean -y && rm -rf /var/lib/apt/lists/* && corepack enable
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
