@@ -1,22 +1,40 @@
+"use client";
 import { DateTime } from "luxon";
-
+import { useEffect, useState } from "react";
 
 const Timezone = () => {
+  const [Timezones, setTimezones] = useState<JSX.Element[]>([]);
+  const [localTimezone, setLocalTimezone] = useState<string>("");
 
-    const timezoneNames: string[] = Intl.supportedValuesOf("timeZone")
-    const tzList = timezoneNames.map((tz) => <option key={"z" + tz}> {tz} </option>)
+  useEffect(() => {
+    const localTime = DateTime.local();
+    setLocalTimezone(localTime.zoneName);
+    const timezoneNames: string[] = Intl.supportedValuesOf("timeZone");
+    const tzList = timezoneNames.map((tz) => (
+      <option key={"z" + tz}> {tz} </option>
+    ));
+    setTimezones(tzList);
+  }, []);
 
-    return (
-        <div className='flex flex-col justify-center items-center'>
-            <label className="form-control w-full max-w-xs">
-                <div className="label">
-                    <span className="label-text">Please select you Timezone</span>
-                </div>
-                <select className="select select-bordered" suppressHydrationWarning>
-                    {tzList}
-                </select>
-            </label>
-        </div>)
-}
+  return (
+    <div className="flex flex-col justify-center items-center">
+      <label className="form-control w-full max-w-xs">
+        <div className="label">
+          <span className="label-text">Please select you Timezone</span>
+        </div>
+        <select
+          className="select select-bordered"
+          suppressHydrationWarning
+          defaultValue={localTimezone}
+        >
+          <option value="none" selected disabled hidden>
+            {localTimezone}
+          </option>
+          {Timezones ? Timezones : null}
+        </select>
+      </label>
+    </div>
+  );
+};
 
-export default Timezone
+export default Timezone;
