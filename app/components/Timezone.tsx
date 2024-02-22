@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 const Timezone = () => {
   const [Timezones, setTimezones] = useState<JSX.Element[]>([]);
   const [localTimezone, setLocalTimezone] = useState<string>("");
+  const [selectedTimezone, setSelectedTimezone] = useState<string>("");
 
   useEffect(() => {
     const localTime = DateTime.local();
@@ -14,7 +15,8 @@ const Timezone = () => {
       <option key={"z" + tz}> {tz} </option>
     ));
     setTimezones(tzList);
-  }, []);
+    setSelectedTimezone(localTimezone);
+  }, [localTimezone]);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -25,14 +27,16 @@ const Timezone = () => {
         <select
           className="select select-bordered"
           suppressHydrationWarning
-          defaultValue={localTimezone}
+          value={selectedTimezone}
+          onChange={(e) => {
+            setSelectedTimezone(e.target.value);
+          }}
         >
-          <option value="none" selected disabled hidden>
-            {localTimezone}
-          </option>
           {Timezones ? Timezones : null}
         </select>
       </label>
+
+      <h1>{selectedTimezone}</h1>
     </div>
   );
 };
