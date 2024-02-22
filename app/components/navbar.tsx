@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -9,7 +11,9 @@ const Navbar = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Link</a>
+            <Link href="/events">
+              Events
+            </Link>
           </li>
           <li>
             <details>
