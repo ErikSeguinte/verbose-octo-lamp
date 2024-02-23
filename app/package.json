@@ -13,6 +13,7 @@
     "@mantine/dates": "^7.5.3",
     "@mantine/form": "^7.5.3",
     "@mantine/hooks": "^7.5.3",
+    "@tabler/icons-react": "^2.47.0",
     "dayjs": "^1.11.10",
     "luxon": "^3.4.4",
     "next": "14.1.0",
