@@ -1,8 +1,12 @@
+"use client"
 import React from "react";
+import { useState } from "react";
 import DaterangePicker from "@/components/daterangePicker";
 
 const NewEventPage = () => {
+  const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
   return (
+<div className="flex justify-center w-screen">
     <div className="prose m-10">
       <h1>Create a new event</h1>
 
@@ -14,9 +18,13 @@ const NewEventPage = () => {
       </p>
 
       <section className="not-prose">
-        <DaterangePicker/>
+        <DaterangePicker
+          dates={dates}
+          setDates={setDates}
+        />
       </section>
     </div>
+</div>
   );
 };
 
