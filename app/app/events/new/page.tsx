@@ -7,23 +7,27 @@ import { useState } from "react";
 
 const NewEventPage = () => {
   const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
+  const [selectedTimezone, setSelectedTimezone] = useState<string | null>("");
   return (
     <div className="flex justify-center w-screen">
       <div className="prose m-10">
         <h2> Select your timezone. </h2>
         <p>
           Events often span multiple timezones. To ensure that availabilities
-          are properly syncronized, please ensure that the correct timezone is
+          are properly synchronized, please ensure that the correct timezone is
           chosen below. The select box will have attempted its best guess at
           your current timezone based on your browser settings. The textbox
           itself is searchable, as there are a metric shit-ton of timezones, so
           it may be easier to start typing and filtering them. Timezones are in
-          the format <Code>America/Los Angeles</Code> or{" "}
+          the format <Code>America/Los Angeles</Code> or
           <Code>Europe/London</Code>.
         </p>
 
         <div className="not-prose">
-          <TimezoneSelect />
+          <TimezoneSelect
+            selectedTimezone={selectedTimezone}
+            setSelectedTimezone={setSelectedTimezone}
+          />
         </div>
 
         <h2>Create a new event</h2>
