@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import PrelineScript from "@/components/PrelineScript";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,15 +16,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const className = `${inter.className}  bg-white`
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={className}>
         <nav>
           {" "}
           <Navbar />{" "}
         </nav>
         {children}
       </body>
+      <PrelineScript />
     </html>
   );
 }
