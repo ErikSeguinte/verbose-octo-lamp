@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from 'next/image'
+
+import favicon from "@/assets/tomaketinylon_logo.jpg"
 
 const Navbar = () => {
   const userId = 1
@@ -10,9 +13,11 @@ const Navbar = () => {
         className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
         aria-label="Global"
       >
-        <Link className="flex-none text-xl font-semibold dark:text-white" href="/">
+        <div className="flex items-center justify-between">
+        <Image src={favicon} alt="" height={40} className="pr-1"/>
+        <Link className=" text-xl font-semibold dark:text-white" href="/">
           Verbose Octo Cat
-        </Link>
+        </Link></div>
         <div className="flex flex-row items-center gap-5 mt-5 sm:justify-end sm:mt-0 sm:ps-5">
           {/* <a
             className="font-medium text-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
