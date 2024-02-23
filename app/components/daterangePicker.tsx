@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useState, Dispatch } from "react";
+import { Dispatch, useState } from "react";
 import { DatePickerInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
 import { rem } from "@mantine/core";
@@ -16,17 +16,17 @@ const DaterangePicker = ({
   setDates: Dispatch<doubleDateOrNull>;
 }) => {
   const icon = (
-    <IconCalendar style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+    <IconCalendar stroke={1.5} style={{ width: rem(18), height: rem(18) }} />
   );
   return (
     <DatePickerInput
-      type="range"
       label="Pick dates range"
-      placeholder="Pick dates range"
-      value={dates}
-      onChange={setDates}
       leftSection={icon}
       leftSectionPointerEvents="none"
+      placeholder="Pick dates range"
+      type="range"
+      value={dates}
+      onChange={setDates}
     />
   );
 };

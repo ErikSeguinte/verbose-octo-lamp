@@ -12,23 +12,29 @@ const Timezone = () => {
     const localTime = DateTime.local();
     setLocalTimezone(localTime.zoneName);
     setSelectedTimezone(localTimezone);
+    setSearchValue(localTimezone)
   }, [localTimezone]);
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1>{selectedTimezone}</h1>
+
       <br />
 
       <Select
+        data={Intl.supportedValuesOf("timeZone")} 
         label="Please select your timezone"
-        placeholder={localTimezone}
-        data={Intl.supportedValuesOf("timeZone")}
-        searchable
         limit={100}
-        onChange={(_value) => setSelectedTimezone(_value)}
         searchValue={searchValue}
+        styles={{ wrapper: { width: 600 } }}
+        value={selectedTimezone}
+        clearable
+        searchable
+        onChange={(_value) => setSelectedTimezone(_value)}
         onSearchChange={setSearchValue}
+
       />
+
+<h1>{selectedTimezone}</h1>
     </div>
   );
 };

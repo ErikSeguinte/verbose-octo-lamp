@@ -10,11 +10,11 @@ const Navbar = () => {
   return (
     <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-sm py-4 dark:bg-gray-800">
       <nav
-        className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
         aria-label="Global"
+        className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
       >
         <div className="flex items-center justify-between">
-        <Image src={favicon} alt="" height={40} className="pr-1"/>
+        <Image alt="" className="pr-1" height={40} src={favicon}/>
         <Link className=" text-xl font-semibold dark:text-white" href="/">
           Verbose Octo Cat
         </Link></div>

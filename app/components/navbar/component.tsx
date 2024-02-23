@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { Container, Group, Burger } from '@mantine/core';
+import { Burger, Container, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './styles.module.css';
 import favicon from "@/assets/tomaketinylon_logo.jpg";
@@ -22,10 +22,10 @@ export default function Navbar() {
 
   const items = links.map((link) => (
     <Link
-      key={link.label}
-      href={link.link}
       className={classes.link}
       data-active={active === link.link || undefined}
+      href={link.link}
+      key={link.label}
       onClick={(event) => {
         setActive(link.link);
       }}
@@ -36,9 +36,9 @@ export default function Navbar() {
 
   return (
     <header className={classes.header}>
-      <Container size="md" className={classes.inner}>
+      <Container className={classes.inner} size="md">
         <Group>
-      <Image src={favicon} alt="" height={48} className="pr-1" />
+      <Image alt="" className="pr-1" height={48} src={favicon} />
       <Link href="/" onClick={(event)=> {setActive("")}}>
         <h1 className="text-xl font-bold">Verbose Octo Lamp</h1>
         </Link>
@@ -47,7 +47,7 @@ export default function Navbar() {
           {items}
         </Group>
 
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+        <Burger hiddenFrom="xs" opened={opened} size="sm" onClick={toggle} />
       </Container>
     </header>
   );
