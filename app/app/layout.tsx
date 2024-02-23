@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import PrelineScript from "@/components/PrelineScript";
+import Navbar from "@/components/navbar/component";
+// import PrelineScript from "@/components/PrelineScript";
+import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
+
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,18 +20,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const className = `${inter.className}  bg-white`
+  const className = `${inter.className}  bg-white`;
   return (
     <html lang="en">
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className={className}>
-        <nav>
-          {" "}
-          <Navbar />{" "}
-        </nav>
-        {children}
+        <MantineProvider>
+          <nav>
+            {" "}
+            <Navbar />{" "}
+          </nav>
+          {children}
+        </MantineProvider>
       </body>
-      <PrelineScript />
+      {/* <PrelineScript /> */}
     </html>
   );
 }
