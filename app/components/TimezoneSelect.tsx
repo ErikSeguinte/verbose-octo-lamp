@@ -14,6 +14,7 @@ const Timezone = ({
 }) => {
   const [localTimezone, setLocalTimezone] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
+  const [saveTimezoneChecked, setSaveTimezoneChecked] = useState<boolean>(false);
 
   useEffect(() => {
     const localTime = DateTime.local();
@@ -22,9 +23,17 @@ const Timezone = ({
     setSearchValue(localTimezone);
   }, [localTimezone, setSelectedTimezone]);
 
+  useEffect(() => {
+    if (saveTimezoneChecked) {
+      selectedTimezone &&
+        window.localStorage.setItem("localTimezone", selectedTimezone);
+    } else {
+      window.localStorage.removeItem("localTimezone");
+    }
+  }, [saveTimezoneChecked, selectedTimezone]);
+
   return (
     <div className="flex flex-col justify-center items-center">
-
       <Paper radius="md" shadow="md" withBorder>
         <Stack>
           <Select
@@ -41,17 +50,25 @@ const Timezone = ({
             onChange={(_value) => setSelectedTimezone(_value)}
             onSearchChange={setSearchValue}
           />
+
+          <Checkbox
+            className="pl-5 "
+            label="I acknowledge that the above selection is correct."
+            defaultChecked
+          />
+          <Checkbox
+            className="pl-5 "
+            label="Remember my timezone."
+            value={saveTimezoneChecked}
+            onChange={() => {
+              const newState = !saveTimezoneChecked;
+              setSaveTimezoneChecked((checked: boolean) => {
+                alert(`setting state to ${newState}`);
+                return !checked;
+              });
+            }}
+          />
         </Stack>
-        <Checkbox
-          className="pl-5 pt-5"
-          label="I acknowledge that the above selection is correct."
-          defaultChecked
-        />
-                <Checkbox
-          className="pl-5 pt-2"
-          label="Remember my timezone."
-          defaultChecked
-        />
         <div></div>
         <br />
       </Paper>
