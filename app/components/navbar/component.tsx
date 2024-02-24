@@ -1,20 +1,20 @@
-"use client"
-import { useState } from 'react';
-import { Burger, Container, Group } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import classes from './styles.module.css';
+"use client";
+import { Burger, Container, Group } from "@mantine/core";
+import classes from "./styles.module.css";
 import favicon from "@/assets/tomaketinylon_logo.jpg";
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
+import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
 
-const userId = 1
+const userId = 1;
+
 const links = [
-  { link: '/events', label: 'Events' },
-  { link: '/events/new', label: 'New Event' },
-  { link: `/users/${userId}`, label: 'User' },
-  { link: '/community', label: 'Community' },
+  { link: "/events", label: "Events" },
+  { link: "/events/new", label: "New Event" },
+  { link: `/users/${userId}`, label: "User" },
+  { link: "/community", label: "Community" },
 ];
-
 
 export default function Navbar() {
   const [opened, { toggle }] = useDisclosure(false);
@@ -26,7 +26,8 @@ export default function Navbar() {
       data-active={active === link.link || undefined}
       href={link.link}
       key={link.label}
-      onClick={(event) => {
+      onClick={(_) => {
+        _;
         setActive(link.link);
       }}
     >
@@ -38,11 +39,17 @@ export default function Navbar() {
     <header className={classes.header}>
       <Container className={classes.inner} size="md">
         <Group>
-      <Image alt="" className="pr-1" height={48} src={favicon} />
-      <Link href="/" onClick={(event)=> {setActive("")}}>
-        <h1 className="text-xl font-bold">Verbose Octo Lamp</h1>
-        </Link>
-      </Group>
+          <Image alt="" className="pr-1" height={48} src={favicon} />
+          <Link
+            href="/"
+            // eslint-disable-next-line no-unused-vars
+            onClick={(_) => {
+              setActive("");
+            }}
+          >
+            <h1 className="text-xl font-bold">Verbose Octo Lamp</h1>
+          </Link>
+        </Group>
         <Group gap={5} visibleFrom="xs">
           {items}
         </Group>

@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/navbar/component";
-// import PrelineScript from "@/components/PrelineScript";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-
+import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { Inter } from "next/font/google";
+import type { Metadata } from "next";
+import Navbar from "@/components/navbar/component";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +34,6 @@ export default function RootLayout({
           {children}
         </MantineProvider>
       </body>
-      {/* <PrelineScript /> */}
     </html>
   );
 }

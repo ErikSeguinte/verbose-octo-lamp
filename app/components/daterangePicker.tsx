@@ -26,6 +26,7 @@ const DaterangePicker = ({
       placeholder="Pick dates range"
       type="range"
       value={dates}
+      withAsterisk
       onChange={setDates}
     />
   );

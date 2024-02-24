@@ -1,6 +1,6 @@
 "use client";
+import { Dispatch, useEffect, useState } from "react";
 import { DateTime } from "luxon";
-import { useEffect, useState, Dispatch } from "react";
 import { Select } from "@mantine/core";
 
 const Timezone = ({
@@ -18,23 +18,24 @@ const Timezone = ({
     setLocalTimezone(localTime.zoneName);
     setSelectedTimezone(localTimezone);
     setSearchValue(localTimezone);
-  }, [localTimezone]);
+  }, [localTimezone, setSelectedTimezone]);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <br />
 
       <Select
-        label="Please select your timezone"
         data={Intl.supportedValuesOf("timeZone")}
+        label="Please select your timezone"
+        limit={100}
+        searchValue={searchValue}
+        styles={{ wrapper: { width: 600 } }}
         value={selectedTimezone}
         clearable
         searchable
-        limit={100}
+        withAsterisk
         onChange={(_value) => setSelectedTimezone(_value)}
-        searchValue={searchValue}
         onSearchChange={setSearchValue}
-        styles={{ wrapper: { width: 600 } }}
       />
 
       <h1>{selectedTimezone}</h1>
