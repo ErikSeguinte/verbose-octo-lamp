@@ -19,11 +19,11 @@ const NewEventPage = () => {
 
   const handleSubmit = (event: React.MouseEvent) => {
     event.preventDefault();
-    const [start, end] = dates
-    const newEvent = Event.fromJsDates(eventName, start!, end!)
+    const [start, end] = dates;
+    const newEvent = Event.fromJsDates(eventName, start!, end!);
 
     const message = newEvent.toString();
-    alert(message)
+    alert(message);
   };
 
   return (

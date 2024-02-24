@@ -12,8 +12,12 @@ export class Event {
   }
 
   static fromJsDates(eventName: string, startDate: Date, endDate: Date): Event {
-    const start: LuxDateTime = LuxDateTime.fromJSDate(startDate);
-    const end: LuxDateTime = LuxDateTime.fromJSDate(endDate);
+    const startLocal: LuxDateTime =
+      LuxDateTime.fromJSDate(startDate).setZone("utc");
+    const endLocal: LuxDateTime = LuxDateTime.fromJSDate(endDate).setZone("utc");
+
+    const start = startLocal.plus({ minutes: startLocal.offset });
+    const end = endLocal.plus({ minutes: startLocal.offset });
     return new Event(eventName, start, end);
   }
 
