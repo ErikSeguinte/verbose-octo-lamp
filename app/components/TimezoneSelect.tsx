@@ -14,7 +14,17 @@ const Timezone = ({
 }) => {
   const [localTimezone, setLocalTimezone] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
-  const [saveTimezoneChecked, setSaveTimezoneChecked] = useState<boolean>(false);
+  const [saveTimezoneChecked, setSaveTimezoneChecked] =
+    useState<boolean>(false);
+
+  const saveTimezone = (checked: boolean) => {
+    if (checked) {
+      selectedTimezone &&
+        window.localStorage.setItem("localTimezone", selectedTimezone!);
+    } else {
+      window.localStorage.removeItem("localTimezone");
+    }
+  };
 
   useEffect(() => {
     const localTime = DateTime.local();
@@ -23,15 +33,13 @@ const Timezone = ({
     setSearchValue(localTimezone);
   }, [localTimezone, setSelectedTimezone]);
 
-  useEffect(() => {
-    if (saveTimezoneChecked) {
-      selectedTimezone &&
-        window.localStorage.setItem("localTimezone", selectedTimezone);
-    } else {
-      window.localStorage.removeItem("localTimezone");
-    }
-  }, [saveTimezoneChecked, selectedTimezone]);
-
+  const handleCheck = () => {
+    const newState = !saveTimezoneChecked;
+    setSaveTimezoneChecked((state: boolean) => {
+      return !state;
+    });
+    saveTimezone(newState);
+  };
   return (
     <div className="flex flex-col justify-center items-center">
       <Paper radius="md" shadow="md" withBorder>
@@ -47,8 +55,11 @@ const Timezone = ({
             clearable
             searchable
             withAsterisk
-            onChange={(_value) => setSelectedTimezone(_value)}
             onSearchChange={setSearchValue}
+            onChange={(_value) => {
+              setSelectedTimezone(_value);
+              saveTimezone(saveTimezoneChecked);
+            }}
           />
 
           <Checkbox
@@ -57,16 +68,10 @@ const Timezone = ({
             defaultChecked
           />
           <Checkbox
+            checked={saveTimezoneChecked}
             className="pl-5 "
             label="Remember my timezone."
-            value={saveTimezoneChecked}
-            onChange={() => {
-              const newState = !saveTimezoneChecked;
-              setSaveTimezoneChecked((checked: boolean) => {
-                alert(`setting state to ${newState}`);
-                return !checked;
-              });
-            }}
+            onChange={handleCheck}
           />
         </Stack>
         <div></div>
