@@ -7,6 +7,7 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import DaterangePicker from "@/components/daterangePicker";
+import { Event } from "@/models/Event";
 import React from "react";
 import TimezoneSelect from "@/components/TimezoneSelect";
 import { useState } from "react";
@@ -18,9 +19,11 @@ const NewEventPage = () => {
 
   const handleSubmit = (event: React.MouseEvent) => {
     event.preventDefault();
+    const [start, end] = dates
+    const newEvent = Event.fromJsDates(eventName, start!, end!)
 
-    const message = `New event created: ${eventName}, between dates ${dates[0]} and ${dates[1]} originating from ${selectedTimezone}`;
-    alert(message);
+    const message = newEvent.toString();
+    alert(message)
   };
 
   return (
@@ -69,14 +72,14 @@ const NewEventPage = () => {
             </p>
           </TypographyStylesProvider>
 
-          <Space h="md" /> 
+          <Space h="md" />
 
           <section className="">
             <DaterangePicker dates={dates} setDates={setDates} />
           </section>
 
           <Space h="xl" />
-          
+
           <Button className="p-10" fullWidth onClick={handleSubmit}>
             Submit
           </Button>
