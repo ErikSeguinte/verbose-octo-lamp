@@ -27,8 +27,7 @@ const NewEventPage = () => {
   };
 
   return (
-    <div className="flex w-auto justify-center">
-      <div className="flex justify-center w-2/3">
+
         <div className="m-10">
           <TypographyStylesProvider>
             <h2> Select your timezone. </h2>
@@ -84,8 +83,7 @@ const NewEventPage = () => {
             Submit
           </Button>
         </div>
-      </div>
-    </div>
+
   );
 };
 
