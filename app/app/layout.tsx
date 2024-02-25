@@ -32,7 +32,7 @@ export default function RootLayout({
             <Navbar />{" "}
           </nav>
           <div className="flex w-auto justify-center">
-            <div className="flex justify-center w-2/3">{children}</div>{" "}
+            <div className="flex justify-center max-w-prose">{children}</div>{" "}
           </div>
         </MantineProvider>
       </body>
