@@ -1,6 +1,6 @@
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-import "./globals.css";
+import "../globals.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
@@ -32,7 +32,7 @@ export default function RootLayout({
             <Navbar />{" "}
           </nav>
           <div className="flex w-auto justify-center">
-            <div className="flex justify-center max-w-prose">{children}</div>{" "}
+            <div className="flex justify-center">{children}</div>{" "}
           </div>
         </MantineProvider>
       </body>
