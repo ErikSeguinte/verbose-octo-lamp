@@ -7,7 +7,7 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import DaterangePicker from "@/components/daterangePicker";
-import { Event } from "@/models/Event";
+import { EventType } from "@/models/Event";
 import React from "react";
 import TimezoneSelect from "@/components/TimezoneSelect";
 import { useState } from "react";
@@ -20,7 +20,7 @@ const NewEventPage = () => {
   const handleSubmit = (event: React.MouseEvent) => {
     event.preventDefault();
     const [start, end] = dates;
-    const newEvent = Event.fromJsDates(eventName, start!, end!);
+    const newEvent = EventType.fromJsDates(eventName, start!, end!);
 
     const message = newEvent.toString();
     alert(message);

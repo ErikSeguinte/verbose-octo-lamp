@@ -4,36 +4,19 @@ import {
   Group,
   Paper,
   Space,
-  TextInput,
   TypographyStylesProvider,
 } from "@mantine/core";
-import { Event } from "@/models/Event";
+import CopyButton_ from "./copyButton";
+import { EventType } from "@/models/Event";
 import { getData as getEventData } from "@/app/api/events/[eventId]/route";
-import { notFound } from "next/navigation";
 import React from "react";
 
-const events: Set<string> = new Set([
-  "dummyevent",
-  "anotherdummy",
-  "ukdummyevent"
-])
-
-const isValid = (eventId: string): boolean => {
-  return events.has(eventId)
-}
-
-const page = async ({ params }: { params: { eventId: string } }) => {
-
-  if (!isValid(params.eventId)) {
-    notFound()
-  }
-
-
-  const newEvent: Event = await getEventData(params.eventId)
+const Page = async ({ params }: { params: { eventId: string } }) => {
+  const newEvent: EventType = await getEventData(params.eventId)
     .then((response) => response.json())
-    .then((json) => Event.fromJson({ json }));
+    .then((json) => EventType.fromJson({ json }));
 
-  const inviteLink: string = `http://localhost:3000/events/dummyevent/invite`
+  const inviteLink: string = `http://localhost:3000/events/${params.eventId}/invite`;
 
   return (
     <section>
@@ -51,14 +34,18 @@ const page = async ({ params }: { params: { eventId: string } }) => {
           augue sed odio dapibus pulvinar. Mauris venenatis leo ut sem fringilla
           interdum.
         </p>
-        <Paper bg="var(--mantine-color-blue-light)" shadow="lg">
-          <h2 className="text-center pt-2">Invite Link</h2>
-          <TextInput value={inviteLink} pb="2rem" px="1rem"/>
+        <Paper bg="var(--mantine-color-blue-light)" p="1rem" shadow="lg">
+          <h2 className="text-center">Invite Link</h2>
+          <Paper bg="white" className="b-2" p="0.5rem" ta="center">
+            {" "}
+            {inviteLink}{" "}
+          </Paper>
+          <CopyButton_ value={inviteLink} />
         </Paper>
       </TypographyStylesProvider>
 
       <Space h="md" />
-      <Box maw={500} p="md" mx="auto" bg="var(--mantine-color-blue-light)">
+      <Box bg="var(--mantine-color-blue-light)" maw={500} mx="auto" p="md">
         <Group>
           <Button mx="auto">Button 1</Button>
           <Button mx="auto">Button 2</Button>
@@ -68,4 +55,4 @@ const page = async ({ params }: { params: { eventId: string } }) => {
   );
 };
 
-export default page;
+export default Page;

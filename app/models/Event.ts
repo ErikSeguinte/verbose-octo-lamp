@@ -1,17 +1,48 @@
 import { DateTime as LuxDateTime } from "luxon";
+import { ObjectId } from "mongodb";
 
-export class Event {
+export class EventType {
+  eventId?: ObjectId;
   eventName: string;
   startDate: LuxDateTime;
   endDate: LuxDateTime;
 
-  constructor(eventName: string, startDate: LuxDateTime, endDate: LuxDateTime) {
+  constructor({
+    eventName,
+    startDate,
+    endDate,
+    eventId,
+  }: {
+    eventName: string;
+    startDate: LuxDateTime;
+    endDate: LuxDateTime;
+    eventId?: ObjectId;
+  }) {
     this.eventName = eventName;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.eventId = eventId;
   }
 
-  static fromJsDates(eventName: string, startDate: Date, endDate: Date): Event {
+  get timeSlots(): LuxDateTime[] {
+    const extended_start = this.startDate.plus({ days: -1 });
+    const extended_end = this.endDate.plus({ days: 1 });
+    const timeslots: LuxDateTime[] = [];
+
+    let dt: LuxDateTime = extended_start.plus({ days: 0 });
+    while (dt.toMillis < extended_end.toMillis) {
+      timeslots.push(dt);
+      dt = dt.plus({ minutes: 30 });
+    }
+
+    return timeslots;
+  }
+
+  static fromJsDates(
+    eventName: string,
+    startDate: Date,
+    endDate: Date
+  ): EventType {
     const startLocal: LuxDateTime =
       LuxDateTime.fromJSDate(startDate).setZone("utc");
     const endLocal: LuxDateTime =
@@ -19,7 +50,7 @@ export class Event {
 
     const start = startLocal.plus({ minutes: startLocal.offset });
     const end = endLocal.plus({ minutes: startLocal.offset });
-    return new Event(eventName, start, end);
+    return new EventType({ eventName, startDate: start, endDate: end });
   }
 
   static fromJson({
@@ -31,10 +62,23 @@ export class Event {
       endDate: LuxDateTime;
     };
   }) {
-    return new Event(json.eventName, json.startDate, json.endDate);
+    return new EventType({
+      eventName: json.eventName,
+      startDate: json.startDate,
+      endDate: json.endDate,
+    });
   }
 
   toString() {
     return `event: ${this.eventName}\nstart:${this.startDate}\nend: ${this.endDate}`;
   }
+
+  // toJSON() {
+  //   return {
+  //     eventName: this.eventName,
+  //     startDate: this.startDate,
+  //     endDate: this.endDate,
+  //     eventId: this.eventId?.toHexString()
+  //   }
+  // }
 }

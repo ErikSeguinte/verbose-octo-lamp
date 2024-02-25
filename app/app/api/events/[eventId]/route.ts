@@ -1,24 +1,12 @@
-import { DateTime } from "luxon";
-import { Event as EventModel } from "@/models/Event";
+import { EventType } from "@/models/Event";
+import { getEventData } from "@/utils/database";
 
-export async function getData(
- eventId: string 
-): Promise<Response> {
-  const now = DateTime.now();
-  const today = DateTime.fromObject({
-    year: now.year,
-    month: now.month,
-    day: now.day,
-  });
-  const start = today.plus({ minutes: today.offset }).plus({ days: 1 });
-  const end = start.plus({ days: 7 });
-  const newEvent = new EventModel(eventId, start, end);
-  console.log(eventId)
-  const res = Response.json(newEvent);
+export async function getData(eventId: string): Promise<Response> {
+  const eventItem: EventType = getEventData(eventId);
+  const res = Response.json(eventItem);
+  console.log(`getting event ${eventId}`);
   return res;
 }
-
-
 
 export async function GET(
   request: Request,
