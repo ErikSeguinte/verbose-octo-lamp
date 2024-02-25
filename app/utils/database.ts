@@ -1,3 +1,4 @@
+"use server"
 import { EventType } from "@/models/Event";
 import { DateTime as Luxdt } from "luxon";
 import { notFound } from "next/navigation";
@@ -12,19 +13,19 @@ const eventData: EventType[] = [
         keepLocalTime: true,
       }
     ),
-    endDate: Luxdt.fromObject({ year: 2024, month: 5, day: 7 }).setZone("utc", {
+    endDate: Luxdt.fromObject({ year: 2024, month: 5, day: 2 }).setZone("utc", {
       keepLocalTime: true,
     }),
     eventId: new ObjectId("65db61ae5d4b9ff749d35562"),
   }),
 ];
 
-export const fakeMap = new Map();
+const fakeMap = new Map();
 eventData.forEach((eventItem: EventType) => {
   fakeMap.set(eventItem.eventId?.toHexString, eventItem);
 });
 
-export function getEventData(eventId: string) {
+export async function getEventData(eventId: string) {
   const oid = new ObjectId(eventId);
   const eventItem: EventType = fakeMap.get(oid.toHexString);
   if (!eventItem) {

@@ -1,6 +1,7 @@
 "use client"
 import {Code, Space, TypographyStylesProvider } from "@mantine/core";
 import React from "react";
+import TimeSlotTable from "@/components/TimeSlotTable/TimeSlotTable";
 import TimezoneSelect from "@/components/TimezoneSelect";
 import { useState } from "react";
 
@@ -28,6 +29,8 @@ const Page = ({ params }: { params: { eventId: string } }) => {
           selectedTimezone={selectedTimezone}
           setSelectedTimezone={setSelectedTimezone}
         />
+
+        <TimeSlotTable eventId={params.eventId}/>
       </div>
     </div>
   );
