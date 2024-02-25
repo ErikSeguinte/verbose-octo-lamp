@@ -19,16 +19,20 @@ const Timezone = ({
 
   const saveTimezone = (checked: boolean, tz: string | null) => {
     if (checked) {
-      tz &&
-        window.localStorage.setItem("localTimezone", tz);
+      tz && window.localStorage.setItem("localTimezone", tz);
     } else {
       window.localStorage.removeItem("localTimezone");
     }
   };
 
   useEffect(() => {
-    const localTime = DateTime.local();
-    setLocalTimezone(localTime.zoneName);
+    if (!localStorage.getItem("localTimezone")) {
+      const localTime = DateTime.local();
+      setLocalTimezone(localTime.zoneName);
+    } else {
+      setLocalTimezone(localStorage.getItem("localTimezone")!);
+      setSaveTimezoneChecked(true);
+    }
     setSelectedTimezone(localTimezone);
     setSearchValue(localTimezone);
   }, [localTimezone, setSelectedTimezone]);
