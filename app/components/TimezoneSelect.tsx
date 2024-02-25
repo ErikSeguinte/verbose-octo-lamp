@@ -17,10 +17,10 @@ const Timezone = ({
   const [saveTimezoneChecked, setSaveTimezoneChecked] =
     useState<boolean>(false);
 
-  const saveTimezone = (checked: boolean) => {
+  const saveTimezone = (checked: boolean, tz: string | null) => {
     if (checked) {
-      selectedTimezone &&
-        window.localStorage.setItem("localTimezone", selectedTimezone!);
+      tz &&
+        window.localStorage.setItem("localTimezone", tz);
     } else {
       window.localStorage.removeItem("localTimezone");
     }
@@ -38,7 +38,7 @@ const Timezone = ({
     setSaveTimezoneChecked((state: boolean) => {
       return !state;
     });
-    saveTimezone(newState);
+    saveTimezone(newState, selectedTimezone);
   };
   return (
     <div className="flex flex-col justify-center items-center">
@@ -58,14 +58,13 @@ const Timezone = ({
             onSearchChange={setSearchValue}
             onChange={(_value) => {
               setSelectedTimezone(_value);
-              saveTimezone(saveTimezoneChecked);
+              saveTimezone(saveTimezoneChecked, _value);
             }}
           />
 
           <Checkbox
             className="pl-5 "
             label="I acknowledge that the above selection is correct."
-            defaultChecked
           />
           <Checkbox
             checked={saveTimezoneChecked}
