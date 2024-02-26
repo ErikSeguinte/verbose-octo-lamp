@@ -1,6 +1,5 @@
 import { DateTime as LuxDateTime } from "luxon";
 
-
 export class EventType {
   eventId?: string;
   eventName: string;
@@ -30,7 +29,7 @@ export class EventType {
     const timeslots: LuxDateTime[] = [];
 
     let dt: LuxDateTime = extended_start.plus({ days: 0 });
-    while (dt.toMillis < extended_end.toMillis) {
+    while (dt.toMillis() < extended_end.toMillis()) {
       timeslots.push(dt);
       dt = dt.plus({ minutes: 30 });
     }
@@ -76,9 +75,24 @@ export class EventType {
   toJSON() {
     return {
       eventName: this.eventName,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      eventId: this.eventId
-    }
+      startDt: JSON.stringify(this.startDate.toObject()),
+      endDt: JSON.stringify(this.endDate.toObject()),
+      eventId: this.eventId,
+    } satisfies Record<string, string | expandedDtInterface | undefined>;
   }
+}
+
+export interface EventInterface {
+  eventName: string;
+  startDt: Object;
+  endDt: Object;
+}
+
+export interface expandedDtInterface {
+  year: number;
+  month: number;
+  hour: number;
+  minute: number;
+  second: number;
+  millisecond: number;
 }

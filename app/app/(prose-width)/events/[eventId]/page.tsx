@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import {
   Box,
   Button,
@@ -8,12 +8,11 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import CopyButton_ from "./copyButton";
-import { EventType } from "@/models/Event";
 import { getEventData } from "@/utils/database";
 import React from "react";
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  const eventItem = await getEventData(params.eventId)
+  const eventItem = await getEventData(params.eventId);
 
   const inviteLink: string = `http://localhost:3000/events/${params.eventId}/invite`;
 

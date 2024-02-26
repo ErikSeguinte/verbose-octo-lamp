@@ -17,7 +17,6 @@ const error = () => {
       </Group>
     </Container>
   );
-}
+};
 
-export default error
-
+export default error;

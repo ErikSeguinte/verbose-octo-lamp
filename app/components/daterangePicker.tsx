@@ -1,6 +1,6 @@
 "use client";
 import { DatePickerInput } from "@mantine/dates";
-import { Dispatch} from "react";
+import { Dispatch } from "react";
 import { IconCalendar } from "@tabler/icons-react";
 import React from "react";
 import { rem } from "@mantine/core";
