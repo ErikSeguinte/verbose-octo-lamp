@@ -75,23 +75,24 @@ export class EventType {
   toJSON() {
     return {
       eventName: this.eventName,
-      startDt: JSON.stringify(this.startDate.toObject()),
-      endDt: JSON.stringify(this.endDate.toObject()),
+      startDt: this.startDate.toISO(),
+      endDt: this.endDate.toISO(), 
       eventId: this.eventId,
-    } satisfies Record<string, string | expandedDtInterface | undefined>;
+    }
   }
 }
 
 export interface EventInterface {
   eventName: string;
-  startDt: Object;
-  endDt: Object;
+  startDt: string;
+  endDt: string;
 }
 
 export interface expandedDtInterface {
   year: number;
   month: number;
   hour: number;
+  day: number;
   minute: number;
   second: number;
   millisecond: number;

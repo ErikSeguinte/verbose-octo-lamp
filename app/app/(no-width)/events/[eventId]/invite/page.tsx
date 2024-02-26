@@ -1,13 +1,13 @@
 import ClientComponent from "./clientComponent";
-import { expandedDtInterface } from "@/models/Event";
 import { getEventData } from "@/utils/database";
 import React from "react";
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
   const eventItem = await getEventData(params.eventId);
-  const timeSlots: expandedDtInterface[] = eventItem.timeSlots?.map(
-    (slot) => slot.toObject() as expandedDtInterface,
-  );
+  const timeSlots: string[] = eventItem.timeSlots.map((slot) => {
+    const s = slot.toISO();
+    return s as string;
+  });
   return (
     <>
       <ClientComponent timeSlots={timeSlots} />
