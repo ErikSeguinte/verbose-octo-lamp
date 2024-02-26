@@ -16,18 +16,17 @@ const eventData: EventType[] = [
     endDate: Luxdt.fromObject({ year: 2024, month: 5, day: 2 }).setZone("utc", {
       keepLocalTime: true,
     }),
-    eventId: new ObjectId("65db61ae5d4b9ff749d35562"),
+    eventId:  "65db61ae5d4b9ff749d35562",
   }),
 ];
 
 const fakeMap = new Map();
 eventData.forEach((eventItem: EventType) => {
-  fakeMap.set(eventItem.eventId?.toHexString, eventItem);
+  fakeMap.set(eventItem.eventId, eventItem);
 });
 
 export async function getEventData(eventId: string) {
-  const oid = new ObjectId(eventId);
-  const eventItem: EventType = fakeMap.get(oid.toHexString);
+  const eventItem: EventType = fakeMap.get(eventId);
   if (!eventItem) {
     notFound();
   }

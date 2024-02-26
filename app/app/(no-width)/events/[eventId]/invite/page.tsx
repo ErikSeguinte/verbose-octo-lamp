@@ -9,7 +9,6 @@ const Page = ({ params }: { params: { eventId: string } }) => {
     const [selectedTimezone, setSelectedTimezone] = useState<string | null>("");
   return (
     <div>
-      {" "}
       <TypographyStylesProvider>
         <h2> Select your timezone. </h2>
         <p>
@@ -30,7 +29,7 @@ const Page = ({ params }: { params: { eventId: string } }) => {
           setSelectedTimezone={setSelectedTimezone}
         />
 
-        <TimeSlotTable eventId={params.eventId}/>
+        {/* <TimeSlotTable eventId={params.eventId}/> */}
       </div>
     </div>
   );

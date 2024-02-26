@@ -1,3 +1,4 @@
+"use server"
 import {
   Box,
   Button,
@@ -8,20 +9,18 @@ import {
 } from "@mantine/core";
 import CopyButton_ from "./copyButton";
 import { EventType } from "@/models/Event";
-import { getData as getEventData } from "@/app/api/events/[eventId]/route";
+import { getEventData } from "@/utils/database";
 import React from "react";
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  const newEvent: EventType = await getEventData(params.eventId)
-    .then((response) => response.json())
-    .then((json) => EventType.fromJson({ json }));
+  const eventItem = await getEventData(params.eventId)
 
   const inviteLink: string = `http://localhost:3000/events/${params.eventId}/invite`;
 
   return (
     <section>
       <TypographyStylesProvider>
-        <h1 className="text-center ">{newEvent.eventName}</h1>
+        <h1 className="text-center ">Event name: {eventItem.eventName}</h1>
 
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque

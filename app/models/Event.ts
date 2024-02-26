@@ -1,8 +1,8 @@
 import { DateTime as LuxDateTime } from "luxon";
-import { ObjectId } from "mongodb";
+
 
 export class EventType {
-  eventId?: ObjectId;
+  eventId?: string;
   eventName: string;
   startDate: LuxDateTime;
   endDate: LuxDateTime;
@@ -16,7 +16,7 @@ export class EventType {
     eventName: string;
     startDate: LuxDateTime;
     endDate: LuxDateTime;
-    eventId?: ObjectId;
+    eventId?: string;
   }) {
     this.eventName = eventName;
     this.startDate = startDate;
@@ -73,12 +73,12 @@ export class EventType {
     return `event: ${this.eventName}\nstart:${this.startDate}\nend: ${this.endDate}`;
   }
 
-  // toJSON() {
-  //   return {
-  //     eventName: this.eventName,
-  //     startDate: this.startDate,
-  //     endDate: this.endDate,
-  //     eventId: this.eventId?.toHexString()
-  //   }
-  // }
+  toJSON() {
+    return {
+      eventName: this.eventName,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      eventId: this.eventId
+    }
+  }
 }
