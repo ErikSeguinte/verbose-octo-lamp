@@ -1,8 +1,9 @@
 "use server"
-import { EventType } from "@/models/Event";
 import { DateTime as Luxdt } from "luxon";
-import { notFound } from "next/navigation";
 import { ObjectId } from "mongodb";
+import { notFound } from "next/navigation";
+
+import { EventType } from "@/models/Event";
 
 const eventData: EventType[] = [
   new EventType({
