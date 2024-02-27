@@ -33,9 +33,7 @@ export default function RootLayout({
             {" "}
             <Navbar />{" "}
           </nav>
-          <div className="flex w-auto justify-center">
-            <div className="flex justify-center max-w-prose">{children}</div>{" "}
-          </div>
+          {children}
         </MantineProvider>
       </body>
     </html>
