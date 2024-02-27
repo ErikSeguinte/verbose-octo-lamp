@@ -1,9 +1,7 @@
 "use client";
-
-import { Dispatch, useEffect, useState } from "react";
-import { Paper, Select, Stack } from "@mantine/core";
-import { Checkbox } from "@mantine/core";
+import { Checkbox, Paper, Select, Stack } from "@mantine/core";
 import { DateTime } from "luxon";
+import { Dispatch, useEffect, useState } from "react";
 
 const Timezone = ({
   selectedTimezone,

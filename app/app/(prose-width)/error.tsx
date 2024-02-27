@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 "use client";
 import { Button, Container, Group, Text, Title } from "@mantine/core";
-import classes from "./error.module.css";
 import { useEffect } from "react";
+
+import classes from "./error.module.css";
 
 export default function Error({
   error,

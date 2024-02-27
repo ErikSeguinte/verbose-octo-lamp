@@ -1,19 +1,21 @@
 "use client";
 import { Burger, Container, Group } from "@mantine/core";
-import classes from "./styles.module.css";
-import favicon from "@/assets/tomaketinylon_logo.jpg";
+import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+
+import favicon from "@/assets/tomaketinylon_logo.jpg";
+
+import classes from "./styles.module.css";
 
 const userId = 1;
 
 const links = [
-  { link: "/events", label: "Events" },
-  { link: "/events/new", label: "New Event" },
-  { link: `/users/${userId}`, label: "User" },
-  { link: "/community", label: "Community" },
+  { label: "Events", link: "/events" },
+  { label: "New Event", link: "/events/new" },
+  { label: "User", link: `/users/${userId}` },
+  { label: "Community", link: "/community" },
 ];
 
 export default function Navbar() {

@@ -1,17 +1,19 @@
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "../globals.css";
+
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import { Inter } from "next/font/google";
 import type { Metadata } from "next";
-import Navbar from "@/components/navbar/component";
+import { Inter } from "next/font/google";
 import React from "react";
+
+import Navbar from "@/components/navbar/component";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Verbose Octo Lamp",
   description: "Yet Another Group Scheduling App",
+  title: "Verbose Octo Lamp",
 };
 
 export default function RootLayout({

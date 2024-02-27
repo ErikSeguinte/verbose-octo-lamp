@@ -1,9 +1,14 @@
 "use client";
-import { Code, Space, TypographyStylesProvider } from "@mantine/core";
-import { Table, TableData } from "@mantine/core";
-import { useEffect, useMemo, useState } from "react";
+import {
+  Code,
+  Space,
+  Table,
+  TableData,
+  TypographyStylesProvider,
+} from "@mantine/core";
 import { DateTime } from "luxon";
-import React from "react";
+import { useEffect, useMemo, useState } from "react";
+
 import TimezoneSelect from "@/components/TimezoneSelect";
 
 function rowify(localSlots: DateTime[]) {
@@ -11,7 +16,9 @@ function rowify(localSlots: DateTime[]) {
 
   for (let i = 0; i < 24; i++) {
     for (let j = 0; j <= 30; j + 30) {
-      const row = localSlots.filter((slot) => {return slot.hour == i && slot.minute == 30});
+      const row = localSlots.filter((slot) => {
+        return slot.hour == i && slot.minute == 30;
+      });
       const tableRow: string[] = row.map((item) => {
         return `${item.hour}:${item.minute}`;
       });

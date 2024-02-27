@@ -5,11 +5,11 @@ import {
   TextInput,
   TypographyStylesProvider,
 } from "@mantine/core";
+import React, { useState } from "react";
+
 import DaterangePicker from "@/components/daterangePicker";
-import { EventType } from "@/models/Event";
-import React from "react";
 import TimezoneSelect from "@/components/TimezoneSelect";
-import { useState } from "react";
+import { EventType } from "@/models/Event";
 
 const NewEventPage = ({ children }: { children: React.ReactNode }) => {
   const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);

@@ -1,5 +1,6 @@
-import NewEventPage from "./clientSide";
 import React from "react";
+
+import NewEventPage from "./clientSide";
 import Section1 from "./section1";
 
 const Page = () => {
