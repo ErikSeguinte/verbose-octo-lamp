@@ -28,7 +28,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body className={className}>
-        <MantineProvider>
+        <MantineProvider withGlobalStyles withNormalizeCSS>
           <nav>
             {" "}
             <Navbar />{" "}

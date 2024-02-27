@@ -49,7 +49,11 @@ export class EventType {
 
     const start = startLocal.plus({ minutes: startLocal.offset });
     const end = endLocal.plus({ minutes: startLocal.offset });
-    return new EventType({ eventName, startDate: start, endDate: end });
+    return new EventType({
+      endDate: end,
+      eventName,
+      startDate: start,
+    });
   }
 
   static fromJson({
@@ -62,9 +66,9 @@ export class EventType {
     };
   }) {
     return new EventType({
+      endDate: json.endDate,
       eventName: json.eventName,
       startDate: json.startDate,
-      endDate: json.endDate,
     });
   }
 
@@ -74,11 +78,11 @@ export class EventType {
 
   toJSON() {
     return {
+      endDt: this.endDate.toISO(),
+      eventId: this.eventId,
       eventName: this.eventName,
       startDt: this.startDate.toISO(),
-      endDt: this.endDate.toISO(), 
-      eventId: this.eventId,
-    }
+    };
   }
 }
 

@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { DateTime } from "luxon";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const getTimezoneFromStorage = (): string => {
   const key = "localTimezone";
@@ -31,6 +31,7 @@ const Timezone = () => {
     useState<boolean>(false);
   const [selectedTimezone, setSelectedTimezone] = useState<string | null>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isAcknowledged, setIsAcknowledged] = useState<boolean>(false);
 
   const handleSaveTimezone = (checked: boolean, tz: string | null) => {
     const key = "localTimezone";
@@ -50,6 +51,7 @@ const Timezone = () => {
     } else {
       setLocalTimezone(getTimezoneFromStorage());
       setSaveTimezoneChecked(true);
+      setIsAcknowledged(true);
     }
     setSelectedTimezone(localTimezone);
     setSearchValue(localTimezone);
@@ -59,9 +61,9 @@ const Timezone = () => {
   const handleCheck = () => {
     const newState = !saveTimezoneChecked;
     setSaveTimezoneChecked((state: boolean) => {
-      const new_state = !state
+      const new_state = !state;
       if (new_state == false) {
-        localStorage.removeItem("localTimezone")
+        localStorage.removeItem("localTimezone");
       }
       return !state;
     });
@@ -69,8 +71,8 @@ const Timezone = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <Paper p="2rem" radius="md" shadow="md" withBorder>
-        <LoadingOverlay overlayBlur={2} visible={isLoading} />
         <Stack>
+          <LoadingOverlay overlayBlur={2} visible={isLoading} />
           <Select
             className=""
             data={Intl.supportedValuesOf("timeZone")}
@@ -88,7 +90,14 @@ const Timezone = () => {
             }}
           />
 
-          <Checkbox label="I acknowledge that the above selection is correct." />
+          <Checkbox
+            label="I acknowledge that the above selection is correct."
+            onChange={() =>
+              setIsAcknowledged((state) => {
+                return !state;
+              })
+            }
+          />
           <Checkbox
             checked={saveTimezoneChecked}
             label="Remember my timezone."
@@ -96,6 +105,7 @@ const Timezone = () => {
           />
 
           <Button
+            disabled={!isAcknowledged}
             fullWidth
             onClick={() =>
               handleSaveTimezone(saveTimezoneChecked, selectedTimezone)
