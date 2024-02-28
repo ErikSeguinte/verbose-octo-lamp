@@ -11,11 +11,8 @@ import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 
 import {
-  fetchAction,
-  setAction,
   timezoneActionTypes,
-  TimezoneDispatchTypes,
-  toggleAction,
+  timezoneDispatchTypes,
   useTimezone,
   useTimezoneDispatch,
 } from "./TimezoneProvider";
@@ -44,7 +41,7 @@ const Timezone = () => {
 
   // Initial Setup
   useEffect(() => {
-    let dispatch: TimezoneDispatchTypes = { type: timezoneActionTypes.FETCH };
+    let dispatch: timezoneDispatchTypes = { type: timezoneActionTypes.FETCH };
 
     timezoneDispatch(dispatch);
     if (timezoneInfo.timezone) {
@@ -52,6 +49,7 @@ const Timezone = () => {
     }
     setSearchValue(timezoneInfo.timezone);
     setIsLoading(false);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timezoneDispatch]);
 
   return (
@@ -71,7 +69,7 @@ const Timezone = () => {
             withAsterisk
             onSearchChange={setSearchValue}
             onChange={(_value) => {
-              const dispatch: TimezoneDispatchTypes = {
+              const dispatch: timezoneDispatchTypes = {
                 newTimezone: _value ? _value : "",
                 type: timezoneActionTypes.SET,
               };
@@ -91,7 +89,7 @@ const Timezone = () => {
             checked={timezoneInfo.checked}
             label="Remember my timezone."
             onChange={(value) => {
-              const dispatch: TimezoneDispatchTypes = {
+              const dispatch: timezoneDispatchTypes = {
                 type: timezoneActionTypes.TOGGLE,
               };
               timezoneDispatch(dispatch);

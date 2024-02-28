@@ -1,3 +1,5 @@
+/* tslint:disable */
+/* eslint-disable */
 module.exports = {
   plugins: {
     autoprefixer: {},
@@ -11,8 +13,8 @@ module.exports = {
         "mantine-breakpoint-xs": "36em",
       },
     },
-    tailwindcss: {},
     'tailwindcss/nesting': {},
+    tailwindcss: {},
 
   },
 };

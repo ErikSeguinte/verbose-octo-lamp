@@ -1,4 +1,3 @@
-import { defultOptionsFilter } from "@mantine/core";
 import { DateTime } from "luxon";
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 
@@ -6,8 +5,9 @@ export const TimezoneContext = createContext<timezoneState>({
   checked: false,
   timezone: "",
 });
-export const TimezoneDispatchContext =
-  createContext<Dispatch<TimezoneDispatchTypes>>(null);
+export const TimezoneDispatchContext = createContext<
+  Dispatch<timezoneDispatchTypes> | undefined
+>(undefined);
 
 const TimezoneProvider = ({
   children,
@@ -53,11 +53,11 @@ interface timezoneState {
   checked: boolean;
 }
 
-export type TimezoneDispatchTypes = setAction | toggleAction | fetchAction;
+export type timezoneDispatchTypes = setAction | toggleAction | fetchAction;
 
 const reducer = (
   state: timezoneState,
-  action: TimezoneDispatchTypes,
+  action: timezoneDispatchTypes,
 ): timezoneState => {
   switch (action.type) {
     case timezoneActionTypes.SET: {
@@ -107,5 +107,8 @@ export function useTimezone() {
 }
 
 export function useTimezoneDispatch() {
-  return useContext(TimezoneDispatchContext);
+  const context = useContext(TimezoneDispatchContext);
+  if (context === undefined) {
+    throw new Error("Context must be provided by provider");
+  } else return context;
 }
