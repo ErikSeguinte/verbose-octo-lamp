@@ -7,17 +7,17 @@ import { EventType } from "@/models/Event";
 
 const eventData: EventType[] = [
   new EventType({
+    endDate: Luxdt.fromObject({ day: 2, month: 5, year: 2024 }).setZone("utc", {
+      keepLocalTime: true,
+    }),
+    eventId:  "65db61ae5d4b9ff749d35562",
     eventName: "Fake BSFF recording",
-    startDate: Luxdt.fromObject({ year: 2024, month: 5, day: 1 }).setZone(
+    startDate: Luxdt.fromObject({ day: 1, month: 5, year: 2024 }).setZone(
       "utc",
       {
         keepLocalTime: true,
       }
     ),
-    endDate: Luxdt.fromObject({ year: 2024, month: 5, day: 2 }).setZone("utc", {
-      keepLocalTime: true,
-    }),
-    eventId:  "65db61ae5d4b9ff749d35562",
   }),
 ];
 

@@ -5,16 +5,16 @@ import {
   TextInput,
   TypographyStylesProvider,
 } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import DaterangePicker from "@/components/daterangePicker";
 import TimezoneSelect from "@/components/TimezoneSelect";
 import { EventType } from "@/models/Event";
 
-const NewEventPage = ({ children }: { children: React.ReactNode }) => {
+const NewEventCard = () => {
   const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
-  const [selectedTimezone, setSelectedTimezone] = useState<string | null>("");
   const [eventName, setEventName] = useState<string>("");
+  const [timeZone, setTimezone] = useState("");
 
   const handleSubmit = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -24,23 +24,19 @@ const NewEventPage = ({ children }: { children: React.ReactNode }) => {
     const message = newEvent.toString();
     alert(message);
   };
+  useEffect(() => {
+    setTimezone(localStorage.getItem("localTimezone") as string);
+  }, []);
+
+  // Debounce
+  useEffect(() => {
+    const delayFn = setTimeout(() => {
+      return;
+    }, 1000);
+  }, [eventName]);
 
   return (
-    <div className="m-10">
-      {children}
-
-      <Space h="md" />
-      <div className="">
-        <TimezoneSelect
-          selectedTimezone={selectedTimezone}
-          setSelectedTimezone={setSelectedTimezone}
-        />
-      </div>
-      <Space h="xl" />
-      <TypographyStylesProvider>
-        <h2>Create a new event</h2>
-      </TypographyStylesProvider>
-      <Space h="sm" />
+    <div className="mb-10">
       <TextInput
         label="New Event Name"
         value={eventName}
@@ -72,4 +68,4 @@ const NewEventPage = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default NewEventPage;
+export default NewEventCard;

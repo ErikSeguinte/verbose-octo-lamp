@@ -10,6 +10,16 @@ import {
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 
+import {
+  fetchAction,
+  setAction,
+  timezoneActionTypes,
+  TimezoneDispatchTypes,
+  toggleAction,
+  useTimezone,
+  useTimezoneDispatch,
+} from "./TimezoneProvider";
+
 const getTimezoneFromStorage = (): string => {
   const key = "localTimezone";
   let timezone: string;
@@ -27,52 +37,27 @@ const getTimezoneFromStorage = (): string => {
 const Timezone = () => {
   const [localTimezone, setLocalTimezone] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
-  const [saveTimezoneChecked, setSaveTimezoneChecked] =
-    useState<boolean>(false);
-  const [selectedTimezone, setSelectedTimezone] = useState<string | null>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAcknowledged, setIsAcknowledged] = useState<boolean>(false);
+  const timezoneInfo = useTimezone();
+  const timezoneDispatch = useTimezoneDispatch();
 
-  const handleSaveTimezone = (checked: boolean, tz: string | null) => {
-    const key = "localTimezone";
-    if (checked) {
-      tz && window.localStorage.setItem(key, tz);
-      sessionStorage.removeItem(key);
-    } else {
-      tz && sessionStorage.setItem(key, tz);
-      localStorage.removeItem(key);
-    }
-  };
-
+  // Initial Setup
   useEffect(() => {
-    if (!getTimezoneFromStorage()) {
-      const localTime = DateTime.local();
-      setLocalTimezone(localTime.zoneName);
-    } else {
-      setLocalTimezone(getTimezoneFromStorage());
-      setSaveTimezoneChecked(true);
+    let dispatch: TimezoneDispatchTypes = { type: timezoneActionTypes.FETCH };
+
+    timezoneDispatch(dispatch);
+    if (timezoneInfo.timezone) {
       setIsAcknowledged(true);
     }
-    setSelectedTimezone(localTimezone);
-    setSearchValue(localTimezone);
+    setSearchValue(timezoneInfo.timezone);
     setIsLoading(false);
-  }, [localTimezone, setSelectedTimezone]);
+  }, [timezoneDispatch]);
 
-  const handleCheck = () => {
-    const newState = !saveTimezoneChecked;
-    setSaveTimezoneChecked((state: boolean) => {
-      const new_state = !state;
-      if (new_state == false) {
-        localStorage.removeItem("localTimezone");
-      }
-      return !state;
-    });
-  };
   return (
     <div className="flex flex-col justify-center items-center">
-      <Paper p="2rem" radius="md" shadow="md" withBorder>
+      <Paper p="1rem" radius="md" shadow="md" withBorder>
         <Stack>
-          <LoadingOverlay overlayBlur={2} visible={isLoading} />
           <Select
             className=""
             data={Intl.supportedValuesOf("timeZone")}
@@ -80,13 +65,17 @@ const Timezone = () => {
             limit={100}
             searchValue={searchValue}
             styles={{ wrapper: { width: 600 } }}
-            value={selectedTimezone}
+            value={timezoneInfo.timezone}
             clearable
             searchable
             withAsterisk
             onSearchChange={setSearchValue}
             onChange={(_value) => {
-              setSelectedTimezone(_value);
+              const dispatch: TimezoneDispatchTypes = {
+                newTimezone: _value ? _value : "",
+                type: timezoneActionTypes.SET,
+              };
+              timezoneDispatch(dispatch);
             }}
           />
 
@@ -99,20 +88,15 @@ const Timezone = () => {
             }
           />
           <Checkbox
-            checked={saveTimezoneChecked}
+            checked={timezoneInfo.checked}
             label="Remember my timezone."
-            onChange={handleCheck}
+            onChange={(value) => {
+              const dispatch: TimezoneDispatchTypes = {
+                type: timezoneActionTypes.TOGGLE,
+              };
+              timezoneDispatch(dispatch);
+            }}
           />
-
-          <Button
-            disabled={!isAcknowledged}
-            fullWidth
-            onClick={() =>
-              handleSaveTimezone(saveTimezoneChecked, selectedTimezone)
-            }
-          >
-            Submit
-          </Button>
         </Stack>
         <div></div>
         <br />
