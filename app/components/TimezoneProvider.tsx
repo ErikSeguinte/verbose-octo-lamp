@@ -93,7 +93,7 @@ const reducer = (
           timezone: timezone,
         };
         return newState;
-      } else return { checked: false, timezone: DateTime.local().zoneName };
+      } else return { ...state };
     }
 
     default: {

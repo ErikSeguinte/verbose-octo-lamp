@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   timezoneActionTypes,
@@ -38,43 +38,58 @@ const Timezone = () => {
   const [isAcknowledged, setIsAcknowledged] = useState<boolean>(false);
   const timezoneInfo = useTimezone();
   const timezoneDispatch = useTimezoneDispatch();
+  const selectBoxDispatch = (value: string | null) => {
+    const newVal = value ? value : "";
+    const dispatch: timezoneDispatchTypes = {
+      newTimezone: newVal,
+      type: timezoneActionTypes.SET,
+    };
+    timezoneDispatch(dispatch);
+    setSearchValue(newVal);
+  };
 
   // Initial Setup
-  useEffect(() => {
+
+  const loadDataOnlyOnce = useCallback(() => {
     let dispatch: timezoneDispatchTypes = { type: timezoneActionTypes.FETCH };
 
     timezoneDispatch(dispatch);
-    if (timezoneInfo.timezone) {
+    if (!timezoneInfo.timezone) {
+      const local = DateTime.now().zoneName;
+      setSearchValue(local);
+    }
+    if (timezoneInfo.checked) {
       setIsAcknowledged(true);
     }
-    setSearchValue(timezoneInfo.timezone);
     setIsLoading(false);
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timezoneDispatch]);
+  }, [timezoneDispatch, timezoneInfo.checked, timezoneInfo.timezone]);
+
+  useEffect(() => {
+    loadDataOnlyOnce();
+  }, [loadDataOnlyOnce]);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <Paper p="1rem" radius="md" shadow="md" withBorder>
-        <Stack>
+        <Stack pos="relative">
+          <LoadingOverlay
+            overlayProps={{ blur: 2, radius: "sm" }}
+            visible={isLoading}
+            zIndex={1000}
+          />
           <Select
             className=""
             data={Intl.supportedValuesOf("timeZone")}
             label="Please select your timezone"
             limit={100}
             searchValue={searchValue}
-            styles={{ wrapper: { width: 600 } }}
-            value={timezoneInfo.timezone}
+            styles={{ wrapper: { width: 400 } }}
+            value={searchValue}
             clearable
             searchable
             withAsterisk
+            onChange={selectBoxDispatch}
             onSearchChange={setSearchValue}
-            onChange={(_value) => {
-              const dispatch: timezoneDispatchTypes = {
-                newTimezone: _value ? _value : "",
-                type: timezoneActionTypes.SET,
-              };
-              timezoneDispatch(dispatch);
-            }}
           />
 
           <Checkbox

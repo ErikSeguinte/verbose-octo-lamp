@@ -1,30 +1,13 @@
 "use client";
-import {
-  Button,
-  Code,
-  Space,
-  TextInput,
-  TypographyStylesProvider,
-} from "@mantine/core";
+import { Code, Space, TypographyStylesProvider } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 
 import TimezoneProvider from "@/components/TimezoneProvider";
 import TimezoneSelect from "@/components/TimezoneSelect";
-import { EventType } from "@/models/Event";
 
 const TimezoneSelectionCard = () => {
-  const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
-  const [eventName, setEventName] = useState<string>("");
   const [timeZone, setTimezone] = useState("");
 
-  const handleSubmit = (event: React.MouseEvent) => {
-    event.preventDefault();
-    const [start, end] = dates;
-    const newEvent = EventType.fromJsDates(eventName, start!, end!);
-
-    const message = newEvent.toString();
-    alert(message);
-  };
   useEffect(() => {
     setTimezone(localStorage.getItem("localTimezone") as string);
   }, []);
