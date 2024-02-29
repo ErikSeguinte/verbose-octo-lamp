@@ -84,12 +84,20 @@ const Table = async ({
 
 const TableRow = async ({ rowData }: { rowData: Promise<DateTime[]> }) => {
   const r = await rowData;
+  const f = (dt:DateTime) => {
+    if (dt.minute == 0) {
+      return dt.toFormat("ha")
+    }else {
+      return dt.toFormat("h':'mm")
+    }
+  }
+  
   return (
     <tr>
       {r.map((slot) => {
         return (
-          <td key={slot.toISO()}>
-            {slot.toLocaleString(DateTime.TIME_SIMPLE)}
+          <td className="font-mono" key={slot.toISO()}>
+            {f(slot)}
           </td>
         );
       })}
