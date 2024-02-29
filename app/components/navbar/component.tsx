@@ -43,13 +43,16 @@ export default function Navbar() {
         <Group>
           <Image alt="" className="pr-1" height={48} src={favicon} />
           <Link
+            className="no-underline"
             href="/"
             // eslint-disable-next-line no-unused-vars
             onClick={(_) => {
               setActive("");
             }}
           >
-            <h1 className="text-xl font-bold">Verbose Octo Lamp</h1>
+            <h1 className="text-xxl font-bold text-slate-800 no-underline">
+              Verbose Octo Lamp
+            </h1>
           </Link>
         </Group>
         <Group gap={5} visibleFrom="xs">

@@ -14,8 +14,8 @@ import { getAllEvents, getEventData } from "@/utils/database";
 import CopyButton_ from "./copyButton";
 
 export async function generateStaticParams() {
-  const eventIds = await getAllEvents()
-  return eventIds
+  const eventIds = await getAllEvents();
+  return eventIds;
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {

@@ -1,6 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer base, mantine, tailwind;
+
+@layer base {
+  @tailwind base;
+}
+
+@layer tailwind {
+  @tailwind components;
+  @tailwind utilities;
+}
 
 /* :root {
   --foreground-rgb: 0, 0, 0;

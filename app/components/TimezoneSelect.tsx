@@ -18,14 +18,13 @@ import {
   useTimezoneDispatch,
 } from "./TimezoneProvider";
 
-
 const Timezone = () => {
   const [localTimezone, setLocalTimezone] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAcknowledged, setIsAcknowledged] = useState<boolean>(false);
-  const timezoneInfo = useTimezone()
-  const timezoneDispatch = useTimezoneDispatch()
+  const timezoneInfo = useTimezone();
+  const timezoneDispatch = useTimezoneDispatch();
   const selectBoxDispatch = (value: string | null) => {
     const newVal = value ? value : "";
     const dispatch: timezoneDispatchTypes = {

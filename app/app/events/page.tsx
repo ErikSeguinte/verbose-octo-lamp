@@ -7,9 +7,9 @@ const page = () => {
 
   const nodes = eventids.map((eventid) => {
     return (
-        <li key={eventid}>
-          <Link href={`/events/${eventid}`}>Event id: {eventid}</Link>
-        </li>
+      <li key={eventid}>
+        <Link href={`/events/${eventid}`}>Event id: {eventid}</Link>
+      </li>
     );
   });
   return (

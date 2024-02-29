@@ -61,7 +61,7 @@ const NewEventCard = () => {
 
       <Space h="xl" />
 
-      <Button className="p-10" fullWidth onClick={handleSubmit}>
+      <Button className="mb-10" fullWidth onClick={handleSubmit}>
         Submit
       </Button>
     </div>
