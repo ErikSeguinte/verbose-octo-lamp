@@ -14,30 +14,18 @@ import {
   timezoneActionTypes,
   timezoneDispatchTypes,
   useTimezone,
+  useTimezoneContext,
   useTimezoneDispatch,
 } from "./TimezoneProvider";
 
-const getTimezoneFromStorage = (): string => {
-  const key = "localTimezone";
-  let timezone: string;
-
-  const tz = localStorage.getItem(key)
-    ? localStorage.getItem(key)
-    : sessionStorage.getItem(key);
-
-  if (tz) {
-    return tz;
-  }
-  return "";
-};
 
 const Timezone = () => {
   const [localTimezone, setLocalTimezone] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAcknowledged, setIsAcknowledged] = useState<boolean>(false);
-  const timezoneInfo = useTimezone();
-  const timezoneDispatch = useTimezoneDispatch();
+  const timezoneInfo = useTimezone()
+  const timezoneDispatch = useTimezoneDispatch()
   const selectBoxDispatch = (value: string | null) => {
     const newVal = value ? value : "";
     const dispatch: timezoneDispatchTypes = {

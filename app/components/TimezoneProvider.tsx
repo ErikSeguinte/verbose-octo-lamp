@@ -112,3 +112,7 @@ export function useTimezoneDispatch() {
     throw new Error("Context must be provided by provider");
   } else return context;
 }
+
+export function useTimezoneContext() {
+  return [useTimezone(), useTimezoneDispatch()] as const;
+}
