@@ -1,7 +1,7 @@
 "use server";
-import { Title } from "@mantine/core";
+import { Stack, Title } from "@mantine/core";
 import { DateTime } from "luxon";
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { getAllEventIds, getEventData } from "@/utils/database";
 
@@ -42,10 +42,14 @@ const Page = async ({ params }: Props) => {
     return eventItem.asyncGetAsyncTimeslots(t);
   });
 
+  const heads = eventItem.asyncGetAsyncTimeslots({ hour: 0, min: 0 });
+
   return (
     <>
       <Title>{eventItem.eventName}</Title>
-      <Table tableData={rows} />
+      <Table tableData={rows}>
+        <TableHead rowData={heads} />
+      </Table>
     </>
   );
 };
@@ -53,8 +57,10 @@ const Page = async ({ params }: Props) => {
 export default Page;
 
 const Table = async ({
+  children,
   tableData,
 }: {
+  children: ReactNode;
   tableData: Array<Promise<DateTime[]>>;
 }) => {
   function* keygen() {
@@ -69,6 +75,7 @@ const Table = async ({
   return (
     <>
       <table>
+        <thead>{children}</thead>
         <tbody>{rows}</tbody>
       </table>
     </>
@@ -81,10 +88,33 @@ const TableRow = async ({ rowData }: { rowData: Promise<DateTime[]> }) => {
     <tr>
       {r.map((slot) => {
         return (
-          <th key={slot.toISO()}>
+          <td key={slot.toISO()}>
             {slot.toLocaleString(DateTime.TIME_SIMPLE)}
-          </th>
+          </td>
         );
+      })}
+    </tr>
+  );
+};
+
+const TableHead = async ({ rowData }: { rowData: Promise<DateTime[]> }) => {
+  const r = await rowData;
+
+  const format = (dt: DateTime) => {
+    return (
+      <>
+        <Stack gap={2}>
+          <span> {dt.monthShort} </span>
+          <span className="text-3xl"> {dt.day} </span>
+          <span className="text-xs"> {dt.year}</span>
+        </Stack>
+      </>
+    );
+  };
+  return (
+    <tr>
+      {r.map((slot) => {
+        return <th key={slot.toISO()}>{format(slot)}</th>;
       })}
     </tr>
   );
