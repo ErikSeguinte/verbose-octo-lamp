@@ -9,12 +9,12 @@ import {
 } from "@mantine/core";
 import React from "react";
 
-import { getAllEvents, getEventData } from "@/utils/database";
+import { getAllEventIds, getEventData } from "@/utils/database";
 
 import CopyButton_ from "./copyButton";
 
 export async function generateStaticParams() {
-  const eventIds = await getAllEvents();
+  const eventIds = await getAllEventIds();
   return eventIds;
 }
 

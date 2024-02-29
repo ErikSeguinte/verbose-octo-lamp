@@ -41,7 +41,16 @@ export default function Navbar() {
     <header className={classes.header}>
       <Container className={classes.inner} size="md">
         <Group>
-          <Image alt="" className="pr-1" height={48} src={favicon} />
+          <Link
+            className="no-underline"
+            href="/"
+            // eslint-disable-next-line no-unused-vars
+            onClick={(_) => {
+              setActive("");
+            }}
+          >
+            <Image alt="" className="pr-1 w-auto" height={48} src={favicon} />
+          </Link>
           <Link
             className="no-underline"
             href="/"

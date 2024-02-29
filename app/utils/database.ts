@@ -20,12 +20,12 @@ const eventData: EventType[] = [
     ),
   }),
   new EventType({
-    endDate: Luxdt.fromObject({ day: 2, month: 6, year: 2024 }).setZone("utc", {
+    endDate: Luxdt.fromObject({ day: 30, month: 7, year: 2024 }).setZone("utc", {
       keepLocalTime: true,
     }),
     eventId:  "65dfae8e8e8d5a55271b4e32",
     eventName: "Fake Arcadia recording 2",
-    startDate: Luxdt.fromObject({ day: 1, month: 7, year: 2024 }).setZone(
+    startDate: Luxdt.fromObject({ day: 1, month: 6, year: 2024 }).setZone(
       "utc",
       {
         keepLocalTime: true,
@@ -48,6 +48,11 @@ export async function getEventData(eventId: string) {
   return eventItem;
 }
 
-export async function getAllEvents() {
+export async function getAllEventIds() {
   return eventData.map((i) => i.eventId)
 }
+
+export async function getAllEvents() {
+  return eventData
+}
+

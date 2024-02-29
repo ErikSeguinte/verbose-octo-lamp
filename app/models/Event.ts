@@ -1,4 +1,4 @@
-import { DateTime as LuxDateTime } from "luxon";
+import { DateTime, DateTime as LuxDateTime,Interval } from "luxon";
 
 export class EventType {
   eventId?: string;
@@ -36,6 +36,22 @@ export class EventType {
 
     return timeslots;
   }
+
+  async asyncGetAsyncTimeslots({hour, min}:{hour:number, min:number}): Promise<DateTime[]> {
+    const interval = Interval.fromDateTimes(this.startDate, this.endDate.plus({ day:1 }))
+
+    let dt = this.startDate.plus({days:0, hour:hour, minutes:min})
+
+    const row:DateTime[] = []
+    while (interval.contains(dt)) {
+      row.push(dt)
+      dt = dt.plus({day:1})
+    }
+    return new Promise<DateTime[]>((resolve) => resolve(row))
+
+  }
+
+
 
   static fromJsDates(
     eventName: string,
