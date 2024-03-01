@@ -23,12 +23,12 @@ const Table = ({
     return <TableRow key={key.next().value as string} rowData={r} />;
   });
   return (
-    <>
+    <MouseEventProvider>
       <table className="select-none">
         <thead>{children}</thead>
         <tbody>{rows}</tbody>
       </table>
-    </>
+    </MouseEventProvider>
   );
 };
 
@@ -41,11 +41,7 @@ const TableRow = ({ rowData }: { rowData: string[] }) => {
   return (
     <tr key={dtr[0][0].toFormat("hhmm")}>
       {dtr.map(([dt, string]) => {
-        return (
-          <>
-            <Cell dateString={string} key={string} />
-          </>
-        );
+        return <Cell dateString={string} key={string} />;
       })}
     </tr>
   );
@@ -59,15 +55,13 @@ export const TableHead = ({ rowData }: { rowData: string[] }) => {
 
   const format = (dt: DateTime) => {
     return (
-      <>
-        <div className="flex">
-          <Stack className="justify-center" gap={2}>
-            <span className="text-center"> {dt.monthShort} </span>
-            <span className="text-3xl text-center m-auto"> {dt.day} </span>
-            <span className="text-xs"> {dt.year}</span>
-          </Stack>
-        </div>
-      </>
+      <div className="flex">
+        <Stack className="justify-center" gap={2}>
+          <span className="text-center"> {dt.monthShort} </span>
+          <span className="text-3xl text-center m-auto"> {dt.day} </span>
+          <span className="text-xs"> {dt.year}</span>
+        </Stack>
+      </div>
     );
   };
   return (

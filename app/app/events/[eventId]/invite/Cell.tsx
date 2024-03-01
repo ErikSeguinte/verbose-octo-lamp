@@ -1,62 +1,20 @@
 "use client";
-import { IconTarget } from "@tabler/icons-react";
 import classNames from "classnames";
 import { DateTime } from "luxon";
-import React, { useEffect, useReducer, useState } from "react";
+import React from "react";
 
 import { useTimezone } from "@/components/TimezoneProvider";
 
-interface mouseState {
-  down: boolean;
-  selecting: boolean;
-}
-
-const mouseEventActions = {
-  DOWN: "DOWN",
-  MOUSEOVER: "MOUSEOVER",
-  UP: "UP",
-} as const;
-
-type mouseEventActions = keyof typeof mouseEventActions;
-
-type mouseDispatch = {
-  action: mouseEventActions;
-  isSelected?: boolean;
-};
-
-function mouseReducer(state: mouseState, dispatch: mouseDispatch): mouseState {
-  const newState = { ...state };
-  console.log("dispatched!");
-
-  const { action, isSelected } = dispatch;
-  switch (action) {
-    case mouseEventActions.DOWN: {
-      newState.down = true;
-      newState.selecting = isSelected as boolean;
-      console.log("DOWN");
-      console.log(newState);
-      return newState;
-    }
-    case mouseEventActions.UP: {
-      newState.down = false;
-      newState.selecting = false;
-      console.log("UP");
-      return newState;
-    }
-    default: {
-      return newState;
-    }
-  }
-  return newState;
-}
+import {
+  mouseDispatch,
+  mouseEventActions,
+  mouseEventActionsTypes,
+  useMouseEventContext,
+} from "./MouseEventProvider";
 
 const Cell = ({ dateString }: { dateString: string }) => {
   const dt = DateTime.fromISO(dateString);
-  const [slotState, setSlotState] = useState(false);
-  const [mouseEventState, mouseEventDispatch] = useReducer(mouseReducer, {
-    down: false,
-    selecting: false,
-  });
+  const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
 
   const f = (dt: DateTime) => {
     if (dt.minute == 0) {
@@ -114,8 +72,7 @@ const Cell = ({ dateString }: { dateString: string }) => {
     "font-mono",
     "text-sm",
     "text-center",
-    { "bg-slate-200": !slotState },
-    { "bg-green-300": slotState },
+    "bg-slate-200",
   );
   return (
     <td

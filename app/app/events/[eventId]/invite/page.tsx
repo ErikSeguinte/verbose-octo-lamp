@@ -61,7 +61,7 @@ const Page = async ({ params }: Props) => {
   return (
     <>
       <Title>{eventItem.eventName}</Title>
-      <Table tableData={rows} key="table">
+      <Table key="table" tableData={rows}>
         <TableHead rowData={heads} />
       </Table>
     </>

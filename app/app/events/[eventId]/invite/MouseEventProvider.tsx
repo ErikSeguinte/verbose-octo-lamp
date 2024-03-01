@@ -28,41 +28,37 @@ const MouseEventProvider = ({
 
 export default MouseEventProvider;
 
-interface mouseState {
+export interface mouseState {
   down: boolean;
   selecting: boolean;
 }
 
-const mouseEventActions = {
+export const mouseEventActions = {
   DOWN: "DOWN",
   MOUSEOVER: "MOUSEOVER",
   UP: "UP",
 } as const;
 
-type mouseEventActions = keyof typeof mouseEventActions;
+export type mouseEventActionsTypes = keyof typeof mouseEventActions;
 
-type mouseDispatch = {
-  action: mouseEventActions;
+export type mouseDispatch = {
+  action: mouseEventActionsTypes;
   isSelected?: boolean;
 };
 
 function mouseReducer(state: mouseState, dispatch: mouseDispatch): mouseState {
   const newState = { ...state };
-  console.log("dispatched!");
 
   const { action, isSelected } = dispatch;
   switch (action) {
     case mouseEventActions.DOWN: {
       newState.down = true;
       newState.selecting = isSelected as boolean;
-      console.log("DOWN");
-      console.log(newState);
       return newState;
     }
     case mouseEventActions.UP: {
       newState.down = false;
       newState.selecting = false;
-      console.log("UP");
       return newState;
     }
     default: {
