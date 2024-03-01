@@ -12,6 +12,7 @@ import classes from "./styles.module.css";
 const links = [
   { label: "Events", link: "/events" },
   { label: "New Event", link: "/events/new" },
+  { label: "About", link: "/about" },
   // { label: "User", link: `/users/${userId}` },
   // { label: "Community", link: "/community" },
 ];

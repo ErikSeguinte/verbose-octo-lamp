@@ -20,11 +20,11 @@
         "noSortAlphabetically": false
       }
     ],
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
     "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/no-duplicates": "error",
+    "import/newline-after-import": "warn",
+    "import/no-duplicates": "warn",
     "import/no-unused-modules": "warn",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
