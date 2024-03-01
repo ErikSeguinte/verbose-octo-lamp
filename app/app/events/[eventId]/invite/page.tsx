@@ -1,6 +1,7 @@
 "use server";
 import { Title } from "@mantine/core";
-import React from "react";
+import { DateTime } from "luxon";
+import React, { use } from "react";
 
 import { getAllEventIds, getEventData } from "@/utils/database";
 
@@ -41,16 +42,26 @@ const Page = async ({ params }: Props) => {
   const eventItem = await getEventData(params.eventId);
 
   const times = listTimes();
-  const rows = times.map((t) => {
-    return eventItem.asyncGetAsyncTimeslots(t);
-  });
+  const rows: Array<string[]> = [];
 
-  const heads = eventItem.asyncGetAsyncTimeslots({ hour: 0, min: 0 });
+  for (const time of times) {
+    const dtrow = await eventItem.asyncGetAsyncTimeslots(time);
+    const row: string[] = [];
+    for (const dt of dtrow) {
+      row.push(dt.toISO({ includeOffset: false }) as string);
+    }
+    rows.push(row);
+  }
+
+  const dtheads = await eventItem.asyncGetAsyncTimeslots({ hour: 0, min: 0 });
+  const heads = dtheads.map((dt) => {
+    return dt.toISO({ includeOffset: false }) as string;
+  });
 
   return (
     <>
       <Title>{eventItem.eventName}</Title>
-      <Table tableData={rows}>
+      <Table tableData={rows} key="table">
         <TableHead rowData={heads} />
       </Table>
     </>

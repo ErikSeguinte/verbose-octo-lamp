@@ -1,16 +1,17 @@
-"use server";
+"use client";
 import { Stack } from "@mantine/core";
 import { DateTime } from "luxon";
-import { ReactNode } from "react";
+import { ReactNode, use } from "react";
 
 import Cell from "./Cell";
+import MouseEventProvider, { useMouseEventContext } from "./MouseEventProvider";
 
-const Table = async ({
+const Table = ({
   children,
   tableData,
 }: {
   children: ReactNode;
-  tableData: Array<Promise<DateTime[]>>;
+  tableData: Array<string[]>;
 }) => {
   function* keygen() {
     for (let k = 0; k >= 0; k = k + 1) {
@@ -31,16 +32,18 @@ const Table = async ({
   );
 };
 
-const TableRow = async ({ rowData }: { rowData: Promise<DateTime[]> }) => {
-  const r = await rowData;
+const TableRow = ({ rowData }: { rowData: string[] }) => {
+  const r = rowData;
+  const dtr = rowData.map((s) => {
+    return [DateTime.fromISO(s), s] as const;
+  });
 
   return (
-    <tr key={r[0].toFormat("hhmm")}>
-      {r.map((slot) => {
-        const dt = slot.toISO({ includeOffset: false }) as string;
+    <tr key={dtr[0][0].toFormat("hhmm")}>
+      {dtr.map(([dt, string]) => {
         return (
           <>
-            <Cell dateString={dt} key={slot.toISO()} />
+            <Cell dateString={string} key={string} />
           </>
         );
       })}
@@ -48,12 +51,11 @@ const TableRow = async ({ rowData }: { rowData: Promise<DateTime[]> }) => {
   );
 };
 
-export const TableHead = async ({
-  rowData,
-}: {
-  rowData: Promise<DateTime[]>;
-}) => {
-  const r = await rowData;
+export const TableHead = ({ rowData }: { rowData: string[] }) => {
+  const r = rowData;
+  const dtr = rowData.map((s) => {
+    return [DateTime.fromISO(s), s] as const;
+  });
 
   const format = (dt: DateTime) => {
     return (
@@ -69,9 +71,9 @@ export const TableHead = async ({
     );
   };
   return (
-    <tr key={r[0].toISODate()}>
-      {r.map((slot) => {
-        return <th key={slot.toISO()}>{format(slot)}</th>;
+    <tr key={r[0][1]}>
+      {dtr.map(([dt, s]) => {
+        return <th key={s}>{format(dt)}</th>;
       })}
     </tr>
   );
