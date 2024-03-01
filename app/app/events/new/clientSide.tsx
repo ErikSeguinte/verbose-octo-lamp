@@ -8,13 +8,12 @@ import {
 import React, { useEffect, useState } from "react";
 
 import DaterangePicker from "@/components/daterangePicker";
-import TimezoneSelect from "@/components/TimezoneSelect";
 import { EventType } from "@/models/Event";
 
 const NewEventCard = () => {
   const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
   const [eventName, setEventName] = useState<string>("");
-  const [timeZone, setTimezone] = useState("");
+  const [, setTimezone] = useState("");
 
   const handleSubmit = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -30,7 +29,7 @@ const NewEventCard = () => {
 
   // Debounce
   useEffect(() => {
-    const delayFn = setTimeout(() => {
+    const _delayFn = setTimeout(() => {
       return;
     }, 1000);
   }, [eventName]);

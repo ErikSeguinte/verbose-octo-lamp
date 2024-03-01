@@ -7,7 +7,6 @@ import MaxProse from "@/components/MaxProse";
 
 import NewEventCard from "./clientSide";
 import LocalClock from "./LocalClock";
-import Section1 from "./section1";
 import TimezoneSelectionCard from "./TimezoneCard";
 
 const Page = () => {

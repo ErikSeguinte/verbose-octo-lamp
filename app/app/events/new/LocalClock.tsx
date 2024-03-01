@@ -15,7 +15,7 @@ const LocalClock = () => {
   }, [tz]);
 
   useEffect(() => {
-    const delay = setTimeout(() => {
+    const _delay = setTimeout(() => {
       setDt(DateTime.local({ zone: tz }));
     }, 30000);
   }, [dt, tz]);

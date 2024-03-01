@@ -1,12 +1,9 @@
 "use server";
 import { Title } from "@mantine/core";
-import { DateTime } from "luxon";
-import React, { use } from "react";
+import React from "react";
 
-import Timezone from "@/components/TimezoneSelect";
 import { getAllEventIds, getEventData } from "@/utils/database";
 
-import Cell from "./Cell";
 import Table, { TableHead } from "./TimezoneTable";
 
 type Props = {
@@ -14,7 +11,6 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const eventId = params.eventId;
   const eventItem = await getEventData(params.eventId);
 
   return {

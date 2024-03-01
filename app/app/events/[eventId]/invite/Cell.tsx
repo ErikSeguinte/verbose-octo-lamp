@@ -3,12 +3,9 @@ import classNames from "classnames";
 import { DateTime } from "luxon";
 import React from "react";
 
-import { useTimezone } from "@/components/TimezoneProvider";
-
 import {
   mouseDispatch,
   mouseEventActions,
-  mouseEventActionsTypes,
   useMouseEventContext,
 } from "./MouseEventProvider";
 

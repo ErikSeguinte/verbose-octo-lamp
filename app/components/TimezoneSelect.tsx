@@ -1,12 +1,5 @@
 "use client";
-import {
-  Button,
-  Checkbox,
-  LoadingOverlay,
-  Paper,
-  Select,
-  Stack,
-} from "@mantine/core";
+import { Checkbox, LoadingOverlay, Paper, Select, Stack } from "@mantine/core";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useState } from "react";
 
@@ -14,15 +7,13 @@ import {
   timezoneActionTypes,
   timezoneDispatchTypes,
   useTimezone,
-  useTimezoneContext,
   useTimezoneDispatch,
 } from "./TimezoneProvider";
 
 const Timezone = () => {
-  const [localTimezone, setLocalTimezone] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isAcknowledged, setIsAcknowledged] = useState<boolean>(false);
+  const [, setIsAcknowledged] = useState<boolean>(false);
   const timezoneInfo = useTimezone();
   const timezoneDispatch = useTimezoneDispatch();
   const selectBoxDispatch = (value: string | null) => {
@@ -90,7 +81,7 @@ const Timezone = () => {
           <Checkbox
             checked={timezoneInfo.checked}
             label="Remember my timezone."
-            onChange={(value) => {
+            onChange={() => {
               const dispatch: timezoneDispatchTypes = {
                 type: timezoneActionTypes.TOGGLE,
               };

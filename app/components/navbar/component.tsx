@@ -9,8 +9,6 @@ import favicon from "@/assets/tomaketinylon_logo.jpg";
 
 import classes from "./styles.module.css";
 
-const userId = 1;
-
 const links = [
   { label: "Events", link: "/events" },
   { label: "New Event", link: "/events/new" },

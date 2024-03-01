@@ -1,13 +1,13 @@
 "use client";
 import { Stack } from "@mantine/core";
 import { DateTime } from "luxon";
-import { ReactNode, use } from "react";
+import { ReactNode } from "react";
 
 import TimezoneProvider from "@/components/TimezoneProvider";
 import Timezone from "@/components/TimezoneSelect";
 
 import Cell from "./Cell";
-import MouseEventProvider, { useMouseEventContext } from "./MouseEventProvider";
+import MouseEventProvider from "./MouseEventProvider";
 
 const Table = ({
   children,
@@ -39,14 +39,13 @@ const Table = ({
 };
 
 const TableRow = ({ rowData }: { rowData: string[] }) => {
-  const r = rowData;
   const dtr = rowData.map((s) => {
     return [DateTime.fromISO(s), s] as const;
   });
 
   return (
     <tr key={dtr[0][0].toFormat("hhmm")}>
-      {dtr.map(([dt, string]) => {
+      {dtr.map(([_, string]) => {
         return <Cell dateString={string} key={string} />;
       })}
     </tr>
