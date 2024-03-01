@@ -23,7 +23,7 @@ const Table = async ({
   });
   return (
     <>
-      <table>
+      <table className="select-none">
         <thead>{children}</thead>
         <tbody>{rows}</tbody>
       </table>
