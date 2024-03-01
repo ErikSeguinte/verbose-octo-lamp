@@ -3,6 +3,9 @@ import { Stack } from "@mantine/core";
 import { DateTime } from "luxon";
 import { ReactNode, use } from "react";
 
+import TimezoneProvider from "@/components/TimezoneProvider";
+import Timezone from "@/components/TimezoneSelect";
+
 import Cell from "./Cell";
 import MouseEventProvider, { useMouseEventContext } from "./MouseEventProvider";
 
@@ -23,12 +26,15 @@ const Table = ({
     return <TableRow key={key.next().value as string} rowData={r} />;
   });
   return (
-    <MouseEventProvider>
-      <table className="select-none">
-        <thead>{children}</thead>
-        <tbody>{rows}</tbody>
-      </table>
-    </MouseEventProvider>
+    <TimezoneProvider>
+      <MouseEventProvider>
+        <Timezone />
+        <table className="select-none">
+          <thead>{children}</thead>
+          <tbody>{rows}</tbody>
+        </table>
+      </MouseEventProvider>
+    </TimezoneProvider>
   );
 };
 

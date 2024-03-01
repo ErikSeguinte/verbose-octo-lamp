@@ -58,8 +58,6 @@ const Cell = ({ dateString }: { dateString: string }) => {
 
   const mouseOver = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log("MOUSEOVER");
-    console.log(mouseEventState);
     const target = e.target as HTMLElement;
     if (mouseEventState.down) {
       if (mouseEventState.selecting) {

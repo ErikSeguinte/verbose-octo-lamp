@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 
 export const TimezoneContext = createContext<timezoneState>({
@@ -14,6 +13,8 @@ const TimezoneProvider = ({
 }: Readonly<{ children: React.ReactNode }>) => {
   const [timezoneInfo, timezoneInfoDispatch] = useReducer(reducer, {
     checked: false,
+    isAcknowledged: false,
+    isLoading: true,
     timezone: "",
   });
   return (
@@ -51,6 +52,8 @@ export type fetchAction = {
 interface timezoneState {
   timezone: string;
   checked: boolean;
+  isAcknowledged?: boolean;
+  isLoading?: boolean;
 }
 
 export type timezoneDispatchTypes = setAction | toggleAction | fetchAction;
@@ -109,7 +112,7 @@ export function useTimezone() {
 export function useTimezoneDispatch() {
   const context = useContext(TimezoneDispatchContext);
   if (context === undefined) {
-    throw new Error("Context must be provided by provider");
+    throw new Error("Timezone context must be provided by provider");
   } else return context;
 }
 

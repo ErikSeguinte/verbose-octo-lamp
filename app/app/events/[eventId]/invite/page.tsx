@@ -3,6 +3,7 @@ import { Title } from "@mantine/core";
 import { DateTime } from "luxon";
 import React, { use } from "react";
 
+import Timezone from "@/components/TimezoneSelect";
 import { getAllEventIds, getEventData } from "@/utils/database";
 
 import Cell from "./Cell";
@@ -61,7 +62,7 @@ const Page = async ({ params }: Props) => {
   return (
     <>
       <Title>{eventItem.eventName}</Title>
-      <Table key="table" tableData={rows}>
+      <Table tableData={rows}>
         <TableHead rowData={heads} />
       </Table>
     </>

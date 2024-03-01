@@ -3,11 +3,11 @@
     "next/core-web-vitals",
     "prettier"
   ],
-  "plugins": ["autofix", "simple-import-sort", "import", "sort-keys"],
+  "plugins": ["autofix", "simple-import-sort", "import", "sort-keys", "@typescript-eslint"],
 
   "rules": {
     "react/jsx-sort-props": [
-      "error",
+      "warn",
       {
         "callbacksLast": true,
         "shorthandFirst": false,
@@ -17,15 +17,18 @@
         "noSortAlphabetically": false
       }
     ],
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
+    "import/no-unused-modules": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
 
 
     "no-console": "warn",
-    "sort-keys/sort-keys-fix": "error",
-    "autofix/sort-vars": "error"
+    "sort-keys/sort-keys-fix": "warn",
+    "autofix/sort-vars": "warn"
 
 
   },
