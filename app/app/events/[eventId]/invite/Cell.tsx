@@ -74,8 +74,8 @@ const Cell = ({ dateString }: { dateString: string }) => {
       className={classes}
       data-dt={dateString}
       key={dt.toISO()}
-      onMouseDown={mousedown}
-      onMouseOver={mouseOver}
+      onPointerDown={mousedown}
+      onPointerOver={mouseOver}
       onMouseUp={() => {
         const dispatch: mouseDispatch = { action: mouseEventActions.UP };
         mouseEventDispatch(dispatch);
