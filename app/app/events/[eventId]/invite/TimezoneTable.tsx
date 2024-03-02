@@ -10,16 +10,16 @@ import Cell from "./Cell";
 import MouseEventProvider from "./MouseEventProvider";
 
 interface serializedTableData {
-  startDate: string,
-  endDate: string,
-  hour: number,
-  min: number
+  startDate: string;
+  endDate: string;
+  hour: number;
+  min: number;
 }
 
-function getInterval(startDate:string, endDate:string) {
-const start = DateTime.fromISO(startDate)
-const end = DateTime.fromISO(endDate)
-return Interval.fromDateTimes(start, end.plus({day:1}))
+function getInterval(startDate: string, endDate: string) {
+  const start = DateTime.fromISO(startDate);
+  const end = DateTime.fromISO(endDate);
+  return Interval.fromDateTimes(start, end.plus({ day: 1 }));
 }
 
 const Table = ({
@@ -53,23 +53,27 @@ const Table = ({
 };
 
 const TableRow = ({ rowData }: { rowData: serializedTableData }) => {
-  const interval = getInterval(rowData.startDate, rowData.endDate)
-  const cells = []
-  let date = DateTime.fromISO(rowData.startDate)
-  while (interval.contains(date)) {
-    <Cell date={date} key = 
-  }
-  const dtr = rowData.map((s) => {
-    return [DateTime.fromISO(s), s] as const;
+  const interval = getInterval(rowData.startDate, rowData.endDate);
+  const startDate = DateTime.fromISO(rowData.startDate).plus({
+    hour: rowData.hour,
+    minute: rowData.min,
   });
+  function* cells() {
+    let date = startDate;
+    let dateString = rowData.startDate;
+    const getNext = (date: DateTime) => {
+      const d = date.plus({ day: 1 });
+      const s = d.toISO() as string;
+      return [d, s] as const;
+    };
 
-  return (
-    <tr key={dtr[0][0].toFormat("hhmm")}>
-      {dtr.map(([_, string]) => {
-        return <Cell dateString={string} key={string} />;
-      })}
-    </tr>
-  );
+    while (interval.contains(date)) {
+      yield <Cell date={date} key={dateString}></Cell>;
+      [date, dateString] = getNext(date);
+    }
+  }
+
+  return <tr key={startDate.toFormat("hhmm")}>{Array.from(cells())}</tr>;
 };
 
 export const TableHead = ({ rowData }: { rowData: string[] }) => {

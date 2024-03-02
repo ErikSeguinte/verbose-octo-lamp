@@ -38,13 +38,17 @@ export async function generateStaticParams() {
 const Page = async ({ params }: Props) => {
   const eventItem = await getEventData(params.eventId);
 
-  const [startDate, endDate] = eventItem.dateStrings
+  const [startDate, endDate] = eventItem.dateStrings;
 
   const times = listTimes();
-  const rows: Array<{startDate:string, endDate:string, hour:number, min: number}> = times.map((time) => {
-    return {endDate, startDate, ...time}
-
-  })
+  const rows: Array<{
+    startDate: string;
+    endDate: string;
+    hour: number;
+    min: number;
+  }> = times.map((time) => {
+    return { endDate, startDate, ...time };
+  });
 
   const dtheads = await eventItem.asyncGetAsyncTimeslots({ hour: 0, min: 0 });
   const heads = dtheads.map((dt) => {
