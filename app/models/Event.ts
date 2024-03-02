@@ -51,6 +51,9 @@ export class EventType {
 
   }
 
+  get dateStrings(): [string, string] {
+    return [this.startDate.toISODate() as string, this.endDate.toISODate()as string] as const
+  }
 
 
   static fromJsDates(
@@ -117,3 +120,4 @@ export interface expandedDtInterface {
   second: number;
   millisecond: number;
 }
+

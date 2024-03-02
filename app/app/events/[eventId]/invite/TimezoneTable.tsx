@@ -1,6 +1,6 @@
 "use client";
 import { Stack } from "@mantine/core";
-import { DateTime } from "luxon";
+import { DateTime, Interval } from "luxon";
 import { ReactNode } from "react";
 
 import TimezoneProvider from "@/components/TimezoneProvider";
@@ -9,12 +9,25 @@ import Canvas from "./Canvas";
 import Cell from "./Cell";
 import MouseEventProvider from "./MouseEventProvider";
 
+interface serializedTableData {
+  startDate: string,
+  endDate: string,
+  hour: number,
+  min: number
+}
+
+function getInterval(startDate:string, endDate:string) {
+const start = DateTime.fromISO(startDate)
+const end = DateTime.fromISO(endDate)
+return Interval.fromDateTimes(start, end.plus({day:1}))
+}
+
 const Table = ({
   children,
   tableData,
 }: {
   children: ReactNode;
-  tableData: Array<string[]>;
+  tableData: serializedTableData[];
 }) => {
   function* keygen() {
     for (let k = 0; k >= 0; k = k + 1) {
@@ -39,7 +52,13 @@ const Table = ({
   );
 };
 
-const TableRow = ({ rowData }: { rowData: string[] }) => {
+const TableRow = ({ rowData }: { rowData: serializedTableData }) => {
+  const interval = getInterval(rowData.startDate, rowData.endDate)
+  const cells = []
+  let date = DateTime.fromISO(rowData.startDate)
+  while (interval.contains(date)) {
+    <Cell date={date} key = 
+  }
   const dtr = rowData.map((s) => {
     return [DateTime.fromISO(s), s] as const;
   });
