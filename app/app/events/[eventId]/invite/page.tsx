@@ -56,12 +56,12 @@ const Page = async ({ params }: Props) => {
   });
 
   return (
-    <>
+    <div className="px-12">
       <Title>{eventItem.eventName}</Title>
       <Table tableData={rows}>
         <TableHead rowData={heads} />
       </Table>
-    </>
+    </div>
   );
 };
 

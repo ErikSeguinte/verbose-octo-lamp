@@ -1,16 +1,7 @@
-import {
-  Button,
-  Fieldset,
-  Group,
-  Paper,
-  rem,
-  Stack,
-  TextInput,
-} from "@mantine/core";
+import { Button, Paper, rem, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React from "react";
 
-import MaxProse from "@/components/MaxProse";
 import Timezone from "@/components/TimezoneSelect";
 
 const Form = () => {
@@ -43,6 +34,7 @@ const Form = () => {
               placeholder="your@email.com"
               withAsterisk
               {...form.getInputProps("email")}
+              data-autofocus
             />
           </Paper>
           <Paper p="1rem" radius="md" shadow="md" withBorder>

@@ -1,19 +1,30 @@
-import { Button, Drawer } from "@mantine/core";
+import { Affix, Button, Drawer } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { IconArrowBigDownFilled } from "@tabler/icons-react";
+import classNames from "classnames";
 import React from "react";
 
 import Form from "./Form";
 
 function InputDrawer() {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, { open, close }] = useDisclosure(true);
+  const classes = classNames({ invisible: opened });
 
   return (
     <>
       <Drawer opened={opened} title="Authentication" onClose={close}>
         <Form />
       </Drawer>
-
-      <Button onClick={open}>Open Drawer</Button>
+      <Affix position={{ bottom: "50%", left: -48 }}>
+        <Button
+          className={classes}
+          leftSection={<IconArrowBigDownFilled />}
+          style={{ transform: `rotate(-90deg)` }}
+          onClick={open}
+        >
+          {/* {IconArrowBigDownFilled}  */} Open Input Form
+        </Button>
+      </Affix>
     </>
   );
 }
