@@ -38,7 +38,7 @@ export const timezoneActionTypes = {
 
 export type setAction = {
   type: typeof timezoneActionTypes.SET;
-  newTimezone: string;
+  newString: string;
 };
 
 export type toggleAction = {
@@ -54,6 +54,8 @@ interface timezoneState {
   checked: boolean;
   isAcknowledged?: boolean;
   isLoading?: boolean;
+  email?: string;
+  name?: string;
 }
 
 export type timezoneDispatchTypes = setAction | toggleAction | fetchAction;
@@ -66,10 +68,10 @@ const reducer = (
     case timezoneActionTypes.SET: {
       const newState: timezoneState = {
         ...state,
-        timezone: action.newTimezone,
+        timezone: action.newString,
       };
       if (state.checked) {
-        localStorage.setItem("localTimezone", action.newTimezone);
+        localStorage.setItem("localTimezone", action.newString);
       } else {
         localStorage.removeItem("localTimezone");
       }

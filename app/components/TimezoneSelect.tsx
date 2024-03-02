@@ -20,7 +20,7 @@ const Timezone = ({ text }: { text?: string }) => {
   const selectBoxDispatch = (value: string | null) => {
     const newVal = value ? value : "";
     const dispatch: timezoneDispatchTypes = {
-      newTimezone: newVal,
+      newString: newVal,
       type: timezoneActionTypes.SET,
     };
     timezoneDispatch(dispatch);
