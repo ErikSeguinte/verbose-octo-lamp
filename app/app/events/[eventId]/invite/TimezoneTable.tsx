@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 import TimezoneProvider from "@/components/TimezoneProvider";
 import Timezone from "@/components/TimezoneSelect";
 
+import Form from "./(form)/Form";
 import Canvas from "./Canvas";
 import Cell from "./Cell";
 import MouseEventProvider from "./MouseEventProvider";
@@ -29,9 +30,8 @@ const Table = ({
   return (
     <TimezoneProvider>
       <MouseEventProvider>
-        <Timezone />
         <Canvas>
-          <table className="select-none">
+          <table className="select-none p-8">
             <thead>{children}</thead>
             <tbody>{rows}</tbody>
           </table>

@@ -1,5 +1,6 @@
 "use client";
 import { Checkbox, LoadingOverlay, Paper, Select, Stack } from "@mantine/core";
+import classNames from "classnames";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ import {
   useTimezoneDispatch,
 } from "./TimezoneProvider";
 
-const Timezone = () => {
+const Timezone = ({ text }: { text?: string }) => {
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [, setIsAcknowledged] = useState<boolean>(false);
@@ -47,7 +48,7 @@ const Timezone = () => {
   }, [loadDataOnlyOnce]);
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <>
       <Paper p="1rem" radius="md" shadow="md" withBorder>
         <Stack pos="relative">
           <LoadingOverlay
@@ -55,13 +56,14 @@ const Timezone = () => {
             visible={isLoading}
             zIndex={1000}
           />
+          <p className={classNames({ hidden: !text })}>{text}</p>
           <Select
             className=""
             data={Intl.supportedValuesOf("timeZone")}
             label="Please select your timezone"
             limit={100}
             searchValue={searchValue}
-            styles={{ wrapper: { width: 400 } }}
+            styles={{ wrapper: { width: "auto" } }}
             value={searchValue}
             clearable
             searchable
@@ -92,7 +94,7 @@ const Timezone = () => {
         <div></div>
         <br />
       </Paper>
-    </div>
+    </>
   );
 };
 

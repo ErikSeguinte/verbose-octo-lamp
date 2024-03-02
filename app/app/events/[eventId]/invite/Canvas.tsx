@@ -1,5 +1,6 @@
 import React from "react";
 
+import InputDrawer from "./(form)/Drawer";
 import {
   mouseDispatch,
   mouseEventActions,
@@ -14,13 +15,16 @@ const Canvas = ({ children }: { children: React.ReactNode }) => {
     mouseEventDispatch(dispatch);
   };
   return (
-    <div
-      onPointerCancel={mouseUp}
-      onPointerLeave={mouseUp}
-      onPointerUp={mouseUp}
-    >
-      {children}
-    </div>
+    <>
+      <InputDrawer />
+      <div
+        onPointerCancel={mouseUp}
+        onPointerLeave={mouseUp}
+        onPointerUp={mouseUp}
+      >
+        {children}
+      </div>{" "}
+    </>
   );
 };
 
