@@ -1,26 +1,40 @@
 import { DateTime, DateTime as LuxDateTime,Interval } from "luxon";
 
 export class EventType {
-  eventId?: string;
   eventName: string;
   startDate: LuxDateTime;
   endDate: LuxDateTime;
+  id: {$oid: string} = {$oid:""};
 
   constructor({
     eventName,
     startDate,
     endDate,
     eventId,
+    id
   }: {
     eventName: string;
     startDate: LuxDateTime;
     endDate: LuxDateTime;
     eventId?: string;
+    id?: {$oid: string}
   }) {
     this.eventName = eventName;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.eventId = eventId;
+    if (eventId) {this.id = {$oid: eventId? eventId : ""}}
+    else {this.id = id ? id : {$oid: ""}}
+    ;
+  }
+
+
+  set eventId(id: string) {
+    this.id = {$oid: id}
+  }
+
+  get eventId():string | undefined {
+    const id = this.id["$oid"]
+    return id ? id : undefined
   }
 
   get timeSlots(): LuxDateTime[] {
@@ -82,6 +96,7 @@ export class EventType {
       eventName: string;
       startDate: LuxDateTime;
       endDate: LuxDateTime;
+      id: {$oid: string}
     };
   }) {
     return new EventType({
