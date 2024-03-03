@@ -4,6 +4,8 @@ import React from "react";
 
 import Timezone from "@/components/TimezoneSelect";
 
+import { submitToServer } from "./serveractions";
+
 const Form = () => {
   const form = useForm({
     initialValues: {
@@ -15,12 +17,29 @@ const Form = () => {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
+
+  const submitAction = (v: any) => {
+    const selected = document.querySelectorAll("[data-is-selected]");
+
+    const selectedDates = [];
+
+    for (const e of selected) {
+      selectedDates.push(e.getAttribute("data-dt"));
+    }
+    console.log("submitting");
+    const data = {
+      ...v,
+      timeslots: selectedDates,
+    };
+    submitToServer(data);
+  };
+
   return (
     <>
       <Stack maw={rem(600)} px="1rem">
         <form
           onSubmit={form.onSubmit((v) => {
-            console.log(v);
+            submitAction(v);
           })}
         >
           <Paper p="1rem" radius="md" shadow="md" withBorder>
