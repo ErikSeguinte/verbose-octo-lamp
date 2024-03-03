@@ -1,40 +1,41 @@
-import { DateTime, DateTime as LuxDateTime,Interval } from "luxon";
+import { DateTime, DateTime as LuxDateTime, Interval } from "luxon";
 
 export class EventType {
   eventName: string;
   startDate: LuxDateTime;
   endDate: LuxDateTime;
-  id: {$oid: string} = {$oid:""};
+  id: { $oid: string } = { $oid: "" };
 
   constructor({
     eventName,
     startDate,
     endDate,
     eventId,
-    id
+    id,
   }: {
     eventName: string;
     startDate: LuxDateTime;
     endDate: LuxDateTime;
     eventId?: string;
-    id?: {$oid: string}
+    id?: { $oid: string };
   }) {
     this.eventName = eventName;
     this.startDate = startDate;
     this.endDate = endDate;
-    if (eventId) {this.id = {$oid: eventId? eventId : ""}}
-    else {this.id = id ? id : {$oid: ""}}
-    ;
+    if (eventId) {
+      this.id = { $oid: eventId ? eventId : "" };
+    } else {
+      this.id = id ? id : { $oid: "" };
+    }
   }
-
 
   set eventId(id: string) {
-    this.id = {$oid: id}
+    this.id = { $oid: id };
   }
 
-  get eventId():string | undefined {
-    const id = this.id["$oid"]
-    return id ? id : undefined
+  get eventId(): string | undefined {
+    const id = this.id["$oid"];
+    return id ? id : undefined;
   }
 
   get timeSlots(): LuxDateTime[] {
@@ -51,24 +52,34 @@ export class EventType {
     return timeslots;
   }
 
-  async asyncGetAsyncTimeslots({hour, min}:{hour:number, min:number}): Promise<DateTime[]> {
-    const interval = Interval.fromDateTimes(this.startDate, this.endDate.plus({ day:1 }))
+  async asyncGetAsyncTimeslots({
+    hour,
+    min,
+  }: {
+    hour: number;
+    min: number;
+  }): Promise<DateTime[]> {
+    const interval = Interval.fromDateTimes(
+      this.startDate,
+      this.endDate.plus({ day: 1 })
+    );
 
-    let dt = this.startDate.plus({days:0, hour:hour, minutes:min})
+    let dt = this.startDate.plus({ days: 0, hour: hour, minutes: min });
 
-    const row:DateTime[] = []
+    const row: DateTime[] = [];
     while (interval.contains(dt)) {
-      row.push(dt)
-      dt = dt.plus({day:1})
+      row.push(dt);
+      dt = dt.plus({ day: 1 });
     }
-    return new Promise<DateTime[]>((resolve) => resolve(row))
-
+    return new Promise<DateTime[]>((resolve) => resolve(row));
   }
 
   get dateStrings(): [string, string] {
-    return [this.startDate.toISODate() as string, this.endDate.toISODate()as string] as const
+    return [
+      this.startDate.toISODate() as string,
+      this.endDate.toISODate() as string,
+    ] as const;
   }
-
 
   static fromJsDates(
     eventName: string,
@@ -90,20 +101,27 @@ export class EventType {
   }
 
   static fromJson({
-    json,
+    eventName,
+    id,
+    startDate,
+    endDate,
   }: {
-    json: {
-      eventName: string;
-      startDate: LuxDateTime;
-      endDate: LuxDateTime;
-      id: {$oid: string}
-    };
+    eventName: string;
+    startDate: string;
+    endDate: string;
+    id: { $oid: string };
   }) {
     return new EventType({
-      endDate: json.endDate,
-      eventName: json.eventName,
-      startDate: json.startDate,
+      endDate: this.stringToLuxDate(endDate),
+      eventName: eventName,
+      id: id,
+      startDate: this.stringToLuxDate(startDate)
     });
+  }
+
+  static stringToLuxDate(s:string) {
+    const dt = LuxDateTime.fromISO(s, {zone:"utc"}).toISODate() as string
+    return LuxDateTime.fromISO(dt, {zone:"utc" })
   }
 
   toString() {
@@ -112,7 +130,7 @@ export class EventType {
 
   toJSON() {
     return {
-      endDt: this.endDate.toISO(),
+      endDt: this.endDate.toISO({}),
       eventId: this.eventId,
       eventName: this.eventName,
       startDt: this.startDate.toISO(),
@@ -135,4 +153,3 @@ export interface expandedDtInterface {
   second: number;
   millisecond: number;
 }
-

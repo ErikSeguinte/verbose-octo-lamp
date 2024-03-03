@@ -2,15 +2,18 @@ import { TypographyStylesProvider } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
 
-import { getAllEventIds } from "@/utils/database";
+import { Events } from "@/utils/database";
 
 const page = async () => {
-  const eventids = await getAllEventIds();
+  const events = await Events.getAllEvents();
 
-  const nodes = eventids.map((eventid: string) => {
+  const nodes = events.map((e) => {
+    // console.log(eventid)
     return (
-      <li key={eventid}>
-        <Link href={`/events/${eventid}`}>Event id: {eventid}</Link>
+      <li key={e.eventId}>
+        <Link href={`/events/${e.eventId}`}>Event: {e.eventName}</Link>
+        <br />
+        {e.startDate.toLocaleString()} - {e.endDate.toLocaleString()}
       </li>
     );
   });
