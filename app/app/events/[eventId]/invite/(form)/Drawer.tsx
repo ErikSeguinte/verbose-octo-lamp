@@ -20,14 +20,22 @@ function InputDrawer() {
       >
         <Form />
       </Drawer>
-      <Affix position={{ bottom: "50%", left: -48 }}>
+      <Affix
+        position={{ bottom: "50%", left: "-5%" }}
+        style={{ transform: `rotate(-90deg)` }}
+      >
         <Button
           className={classes}
           leftSection={<IconArrowBigDownFilled />}
-          style={{ transform: `rotate(-90deg)` }}
+          size="compact-md"
           onClick={open}
         >
-          {/* {IconArrowBigDownFilled}  */} Open Input Form
+          Open Input Form
+        </Button>
+      </Affix>
+      <Affix pb="1rem" position={{ bottom: "0%", left: "50%" }}>
+        <Button className={classes} color="dark" size="lg" onClick={() => {}}>
+          Submit Availability
         </Button>
       </Affix>
     </>

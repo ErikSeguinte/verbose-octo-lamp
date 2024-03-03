@@ -42,7 +42,7 @@ const Table = ({
     <TimezoneProvider>
       <MouseEventProvider>
         <Canvas>
-          <table className="select-none p-8">
+          <table className="select-none p-8 mb-20">
             <thead>{children}</thead>
             <tbody>{rows}</tbody>
           </table>
