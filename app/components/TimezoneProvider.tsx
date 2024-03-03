@@ -1,8 +1,8 @@
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 
 export const TimezoneContext = createContext<timezoneState>({
-  checked: false,
   timezone: "",
+  toSave: false,
 });
 export const TimezoneDispatchContext = createContext<
   Dispatch<timezoneDispatchTypes> | undefined
@@ -12,10 +12,13 @@ const TimezoneProvider = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   const [timezoneInfo, timezoneInfoDispatch] = useReducer(reducer, {
-    checked: false,
+    discord: "",
+    email: "",
     isAcknowledged: false,
     isLoading: true,
+    name: "",
     timezone: "",
+    toSave: false,
   });
   return (
     <>
@@ -38,7 +41,7 @@ export const timezoneActionTypes = {
 
 export type setAction = {
   type: typeof timezoneActionTypes.SET;
-  newString: string;
+  newString: timezoneState;
 };
 
 export type toggleAction = {
@@ -49,13 +52,14 @@ export type fetchAction = {
   type: typeof timezoneActionTypes.FETCH;
 };
 
-interface timezoneState {
-  timezone: string;
-  checked: boolean;
+export interface timezoneState {
+  timezone?: string;
+  toSave?: boolean;
   isAcknowledged?: boolean;
   isLoading?: boolean;
   email?: string;
   name?: string;
+  discord?: string;
 }
 
 export type timezoneDispatchTypes = setAction | toggleAction | fetchAction;
@@ -64,29 +68,33 @@ const reducer = (
   state: timezoneState,
   action: timezoneDispatchTypes,
 ): timezoneState => {
+  let newState = { ...state };
   switch (action.type) {
     case timezoneActionTypes.SET: {
-      const newState: timezoneState = {
-        ...state,
-        timezone: action.newString,
-      };
-      if (state.checked) {
-        localStorage.setItem("localTimezone", action.newString);
+      newState = { ...newState, ...action.newString };
+      if (state.toSave) {
+        localStorage.setItem(
+          "localTimezone",
+          action.newString.timezone ? action.newString.timezone : "",
+        );
       } else {
         localStorage.removeItem("localTimezone");
       }
       return newState;
     }
     case timezoneActionTypes.TOGGLE: {
-      const checked = !state.checked;
+      const checked = !state.toSave;
       const newState: timezoneState = {
-        checked: checked,
-        timezone: state.timezone,
+        timezone: state.timezone ? state.timezone : "",
+        toSave: checked,
       };
       if (!checked) {
         localStorage.removeItem("localTimezone");
       } else {
-        localStorage.setItem("localTimezone", state.timezone);
+        localStorage.setItem(
+          "localTimezone",
+          state.timezone ? state.timezone : "",
+        );
       }
       return newState;
     }
@@ -94,15 +102,15 @@ const reducer = (
       const timezone = localStorage.getItem("localTimezone");
       if (timezone) {
         const newState: timezoneState = {
-          checked: true,
           timezone: timezone,
+          toSave: true,
         };
         return newState;
       } else return { ...state };
     }
 
     default: {
-      return { checked: false, timezone: "" };
+      return { timezone: "", toSave: false };
     }
   }
 };

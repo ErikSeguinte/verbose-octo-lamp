@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   timezoneActionTypes,
   timezoneDispatchTypes,
+  timezoneState,
   useTimezone,
   useTimezoneDispatch,
 } from "./TimezoneProvider";
@@ -17,14 +18,13 @@ const Timezone = ({ text }: { text?: string }) => {
   const [, setIsAcknowledged] = useState<boolean>(false);
   const timezoneInfo = useTimezone();
   const timezoneDispatch = useTimezoneDispatch();
-  const selectBoxDispatch = (value: string | null) => {
-    const newVal = value ? value : "";
+  const selectBoxDispatch = (value: timezoneState) => {
     const dispatch: timezoneDispatchTypes = {
-      newString: newVal,
+      newString: value,
       type: timezoneActionTypes.SET,
     };
     timezoneDispatch(dispatch);
-    setSearchValue(newVal);
+    setSearchValue(value.timezone as string);
   };
 
   // Initial Setup
@@ -37,11 +37,11 @@ const Timezone = ({ text }: { text?: string }) => {
       const local = DateTime.now().zoneName;
       setSearchValue(local);
     }
-    if (timezoneInfo.checked) {
+    if (timezoneInfo.isAcknowledged) {
       setIsAcknowledged(true);
     }
     setIsLoading(false);
-  }, [timezoneDispatch, timezoneInfo.checked, timezoneInfo.timezone]);
+  }, [timezoneDispatch, timezoneInfo.isAcknowledged, timezoneInfo.timezone]);
 
   useEffect(() => {
     loadDataOnlyOnce();
@@ -68,20 +68,24 @@ const Timezone = ({ text }: { text?: string }) => {
             clearable
             searchable
             withAsterisk
-            onChange={selectBoxDispatch}
             onSearchChange={setSearchValue}
+            onChange={(v) => {
+              selectBoxDispatch({ timezone: v as string });
+            }}
           />
 
           <Checkbox
             label="I acknowledge that the above selection is correct."
-            onChange={() =>
-              setIsAcknowledged((state) => {
-                return !state;
-              })
-            }
+            onChange={(s) => {
+              const dispatch: timezoneDispatchTypes = {
+                newString: { isAcknowledged: s.target.checked },
+                type: timezoneActionTypes.SET,
+              };
+              timezoneDispatch(dispatch);
+            }}
           />
           <Checkbox
-            checked={timezoneInfo.checked}
+            checked={timezoneInfo.toSave}
             label="Remember my timezone."
             onChange={() => {
               const dispatch: timezoneDispatchTypes = {

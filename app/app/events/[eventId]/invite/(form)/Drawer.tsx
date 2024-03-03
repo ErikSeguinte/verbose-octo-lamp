@@ -12,7 +12,12 @@ function InputDrawer() {
 
   return (
     <>
-      <Drawer opened={opened} title="Authentication" onClose={close}>
+      <Drawer
+        keepMounted={true}
+        opened={opened}
+        title="Authentication"
+        onClose={close}
+      >
         <Form />
       </Drawer>
       <Affix position={{ bottom: "50%", left: -48 }}>
