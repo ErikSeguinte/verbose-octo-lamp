@@ -1,8 +1,8 @@
 [
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c5f" },
-    "startDate": "2023-06-28T12:47:12Z",
-    "endDate": "2023-07-23T12:47:12Z",
+    "startDate": "2023-06-28T00:00:00+00:00",
+    "endDate": "2023-07-23T00:00:00+00:00",
     "eventName": "Front-line systemic ability",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e6f" },
     "participants": [
@@ -24,8 +24,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c60" },
-    "startDate": "2024-05-01T05:27:30Z",
-    "endDate": "2024-06-09T05:27:30Z",
+    "startDate": "2024-05-01T00:00:00+00:00",
+    "endDate": "2024-06-09T00:00:00+00:00",
     "eventName": "Progressive analyzing productivity",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef7" },
     "participants": [
@@ -35,8 +35,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c61" },
-    "startDate": "2023-10-09T23:30:50Z",
-    "endDate": "2023-11-30T23:30:50Z",
+    "startDate": "2023-10-09T00:00:00+00:00",
+    "endDate": "2023-11-30T00:00:00+00:00",
     "eventName": "Profit-focused tangible installation",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed3" },
     "participants": [
@@ -57,8 +57,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c62" },
-    "startDate": "2023-10-28T18:54:55Z",
-    "endDate": "2023-12-19T18:54:55Z",
+    "startDate": "2023-10-28T00:00:00+00:00",
+    "endDate": "2023-12-19T00:00:00+00:00",
     "eventName": "Monitored modular local area network",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef0" },
     "participants": [
@@ -72,16 +72,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c63" },
-    "startDate": "2023-04-14T19:00:09Z",
-    "endDate": "2023-06-06T19:00:09Z",
+    "startDate": "2023-04-14T00:00:00+00:00",
+    "endDate": "2023-06-06T00:00:00+00:00",
     "eventName": "Expanded next generation hardware",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb8" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e65" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c64" },
-    "startDate": "2024-05-19T20:03:30Z",
-    "endDate": "2024-07-16T20:03:30Z",
+    "startDate": "2024-05-19T00:00:00+00:00",
+    "endDate": "2024-07-16T00:00:00+00:00",
     "eventName": "Robust attitude-oriented open architecture",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e71" },
     "participants": [
@@ -100,24 +100,24 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c65" },
-    "startDate": "2023-09-16T23:49:03Z",
-    "endDate": "2023-10-17T23:49:03Z",
+    "startDate": "2023-09-16T00:00:00+00:00",
+    "endDate": "2023-10-17T00:00:00+00:00",
     "eventName": "User-friendly zero administration parallelism",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eaf" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e7b" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c66" },
-    "startDate": "2023-09-02T18:33:01Z",
-    "endDate": "2023-10-03T18:33:01Z",
+    "startDate": "2023-09-02T00:00:00+00:00",
+    "endDate": "2023-10-03T00:00:00+00:00",
     "eventName": "Programmable tangible application",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e77" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c67" },
-    "startDate": "2023-07-15T18:02:03Z",
-    "endDate": "2023-08-20T18:02:03Z",
+    "startDate": "2023-07-15T00:00:00+00:00",
+    "endDate": "2023-08-20T00:00:00+00:00",
     "eventName": "Seamless stable model",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e71" },
     "participants": [
@@ -144,8 +144,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c68" },
-    "startDate": "2024-06-26T02:24:07Z",
-    "endDate": "2024-07-31T02:24:07Z",
+    "startDate": "2024-06-26T00:00:00+00:00",
+    "endDate": "2024-07-31T00:00:00+00:00",
     "eventName": "Extended client-server initiative",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e97" },
     "participants": [
@@ -165,8 +165,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c69" },
-    "startDate": "2024-04-03T11:49:23Z",
-    "endDate": "2024-06-01T11:49:23Z",
+    "startDate": "2024-04-03T00:00:00+00:00",
+    "endDate": "2024-06-01T00:00:00+00:00",
     "eventName": "Innovative human-resource parallelism",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e53" },
     "participants": [
@@ -184,16 +184,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c6a" },
-    "startDate": "2023-03-16T17:05:00Z",
-    "endDate": "2023-04-21T17:05:00Z",
+    "startDate": "2023-03-16T00:00:00+00:00",
+    "endDate": "2023-04-21T00:00:00+00:00",
     "eventName": "Reduced web-enabled internet solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f00" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c6b" },
-    "startDate": "2023-05-17T03:13:58Z",
-    "endDate": "2023-06-24T03:13:58Z",
+    "startDate": "2023-05-17T00:00:00+00:00",
+    "endDate": "2023-06-24T00:00:00+00:00",
     "eventName": "Ergonomic analyzing encoding",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e5e" },
     "participants": [
@@ -211,8 +211,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c6c" },
-    "startDate": "2024-04-25T04:05:33Z",
-    "endDate": "2024-06-19T04:05:33Z",
+    "startDate": "2024-04-25T00:00:00+00:00",
+    "endDate": "2024-06-19T00:00:00+00:00",
     "eventName": "Polarised even-keeled portal",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3edc" },
     "participants": [
@@ -235,8 +235,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c6d" },
-    "startDate": "2024-02-29T10:59:10Z",
-    "endDate": "2024-03-09T10:59:10Z",
+    "startDate": "2024-02-29T00:00:00+00:00",
+    "endDate": "2024-03-09T00:00:00+00:00",
     "eventName": "Fully-configurable transitional hub",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f0e" },
     "participants": [
@@ -255,8 +255,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c6e" },
-    "startDate": "2024-06-10T12:42:22Z",
-    "endDate": "2024-07-28T12:42:22Z",
+    "startDate": "2024-06-10T00:00:00+00:00",
+    "endDate": "2024-07-28T00:00:00+00:00",
     "eventName": "Centralized encompassing productivity",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef9" },
     "participants": [
@@ -275,8 +275,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c6f" },
-    "startDate": "2023-04-03T12:37:08Z",
-    "endDate": "2023-04-26T12:37:08Z",
+    "startDate": "2023-04-03T00:00:00+00:00",
+    "endDate": "2023-04-26T00:00:00+00:00",
     "eventName": "Cross-platform 4th generation middleware",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ebf" },
     "participants": [
@@ -299,8 +299,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c70" },
-    "startDate": "2023-11-22T14:50:24Z",
-    "endDate": "2023-12-16T14:50:24Z",
+    "startDate": "2023-11-22T00:00:00+00:00",
+    "endDate": "2023-12-16T00:00:00+00:00",
     "eventName": "Phased systemic website",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f0c" },
     "participants": [
@@ -324,8 +324,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c71" },
-    "startDate": "2024-03-22T12:29:52Z",
-    "endDate": "2024-05-15T12:29:52Z",
+    "startDate": "2024-03-22T00:00:00+00:00",
+    "endDate": "2024-05-15T00:00:00+00:00",
     "eventName": "Digitized upward-trending archive",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef3" },
     "participants": [
@@ -343,8 +343,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c72" },
-    "startDate": "2023-10-25T11:51:19Z",
-    "endDate": "2023-11-18T11:51:19Z",
+    "startDate": "2023-10-25T00:00:00+00:00",
+    "endDate": "2023-11-18T00:00:00+00:00",
     "eventName": "Universal web-enabled core",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eec" },
     "participants": [
@@ -366,8 +366,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c73" },
-    "startDate": "2023-07-12T01:31:30Z",
-    "endDate": "2023-08-04T01:31:30Z",
+    "startDate": "2023-07-12T00:00:00+00:00",
+    "endDate": "2023-08-04T00:00:00+00:00",
     "eventName": "Adaptive dynamic circuit",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eaa" },
     "participants": [
@@ -382,8 +382,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c74" },
-    "startDate": "2023-12-08T23:53:03Z",
-    "endDate": "2024-02-02T23:53:03Z",
+    "startDate": "2023-12-08T00:00:00+00:00",
+    "endDate": "2024-02-02T00:00:00+00:00",
     "eventName": "Exclusive motivating process improvement",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e98" },
     "participants": [
@@ -407,16 +407,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c75" },
-    "startDate": "2023-10-31T23:32:19Z",
-    "endDate": "2023-12-30T23:32:19Z",
+    "startDate": "2023-10-31T00:00:00+00:00",
+    "endDate": "2023-12-30T00:00:00+00:00",
     "eventName": "Ameliorated attitude-oriented local area network",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e74" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e68" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c76" },
-    "startDate": "2023-07-17T01:40:45Z",
-    "endDate": "2023-08-29T01:40:45Z",
+    "startDate": "2023-07-17T00:00:00+00:00",
+    "endDate": "2023-08-29T00:00:00+00:00",
     "eventName": "Synergistic full-range hub",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f13" },
     "participants": [
@@ -441,8 +441,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c77" },
-    "startDate": "2023-05-29T01:04:54Z",
-    "endDate": "2023-06-26T01:04:54Z",
+    "startDate": "2023-05-29T00:00:00+00:00",
+    "endDate": "2023-06-26T00:00:00+00:00",
     "eventName": "Up-sized client-server methodology",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed0" },
     "participants": [
@@ -456,8 +456,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c78" },
-    "startDate": "2024-02-02T23:32:38Z",
-    "endDate": "2024-03-25T23:32:38Z",
+    "startDate": "2024-02-02T00:00:00+00:00",
+    "endDate": "2024-03-25T00:00:00+00:00",
     "eventName": "Adaptive bi-directional access",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee3" },
     "participants": [
@@ -472,16 +472,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c79" },
-    "startDate": "2024-06-07T06:29:57Z",
-    "endDate": "2024-06-29T06:29:57Z",
+    "startDate": "2024-06-07T00:00:00+00:00",
+    "endDate": "2024-06-29T00:00:00+00:00",
     "eventName": "Programmable system-worthy intranet",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e91" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3f04" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c7a" },
-    "startDate": "2023-11-09T23:04:47Z",
-    "endDate": "2023-12-26T23:04:47Z",
+    "startDate": "2023-11-09T00:00:00+00:00",
+    "endDate": "2023-12-26T00:00:00+00:00",
     "eventName": "Balanced global policy",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eed" },
     "participants": [
@@ -500,8 +500,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c7b" },
-    "startDate": "2024-02-02T22:15:48Z",
-    "endDate": "2024-02-22T22:15:48Z",
+    "startDate": "2024-02-02T00:00:00+00:00",
+    "endDate": "2024-02-22T00:00:00+00:00",
     "eventName": "Exclusive high-level task-force",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eaf" },
     "participants": [
@@ -514,8 +514,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c7c" },
-    "startDate": "2023-09-11T20:24:45Z",
-    "endDate": "2023-10-02T20:24:45Z",
+    "startDate": "2023-09-11T00:00:00+00:00",
+    "endDate": "2023-10-02T00:00:00+00:00",
     "eventName": "Public-key 3rd generation encryption",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e6b" },
     "participants": [
@@ -525,8 +525,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c7d" },
-    "startDate": "2024-01-14T04:34:06Z",
-    "endDate": "2024-02-21T04:34:06Z",
+    "startDate": "2024-01-14T00:00:00+00:00",
+    "endDate": "2024-02-21T00:00:00+00:00",
     "eventName": "Visionary fresh-thinking support",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed3" },
     "participants": [
@@ -551,8 +551,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c7e" },
-    "startDate": "2023-06-07T13:06:52Z",
-    "endDate": "2023-07-23T13:06:52Z",
+    "startDate": "2023-06-07T00:00:00+00:00",
+    "endDate": "2023-07-23T00:00:00+00:00",
     "eventName": "Fully-configurable tertiary conglomeration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f03" },
     "participants": [
@@ -575,8 +575,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c7f" },
-    "startDate": "2023-10-17T16:22:14Z",
-    "endDate": "2023-11-16T16:22:14Z",
+    "startDate": "2023-10-17T00:00:00+00:00",
+    "endDate": "2023-11-16T00:00:00+00:00",
     "eventName": "Devolved encompassing intranet",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e59" },
     "participants": [
@@ -589,8 +589,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c80" },
-    "startDate": "2023-03-25T01:31:01Z",
-    "endDate": "2023-04-08T01:31:01Z",
+    "startDate": "2023-03-25T00:00:00+00:00",
+    "endDate": "2023-04-08T00:00:00+00:00",
     "eventName": "Reduced static model",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e8c" },
     "participants": [
@@ -606,8 +606,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c81" },
-    "startDate": "2023-05-25T12:45:02Z",
-    "endDate": "2023-07-21T12:45:02Z",
+    "startDate": "2023-05-25T00:00:00+00:00",
+    "endDate": "2023-07-21T00:00:00+00:00",
     "eventName": "Quality-focused transitional paradigm",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb4" },
     "participants": [
@@ -632,8 +632,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c82" },
-    "startDate": "2023-05-31T04:03:45Z",
-    "endDate": "2023-07-16T04:03:45Z",
+    "startDate": "2023-05-31T00:00:00+00:00",
+    "endDate": "2023-07-16T00:00:00+00:00",
     "eventName": "Quality-focused actuating open architecture",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ecc" },
     "participants": [
@@ -649,8 +649,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c83" },
-    "startDate": "2023-09-12T00:42:31Z",
-    "endDate": "2023-10-08T00:42:31Z",
+    "startDate": "2023-09-12T00:00:00+00:00",
+    "endDate": "2023-10-08T00:00:00+00:00",
     "eventName": "Advanced 4th generation project",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed6" },
     "participants": [
@@ -671,8 +671,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c84" },
-    "startDate": "2023-12-12T07:42:53Z",
-    "endDate": "2023-12-30T07:42:53Z",
+    "startDate": "2023-12-12T00:00:00+00:00",
+    "endDate": "2023-12-30T00:00:00+00:00",
     "eventName": "Multi-channelled directional concept",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e71" },
     "participants": [
@@ -682,16 +682,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c85" },
-    "startDate": "2024-05-17T09:40:15Z",
-    "endDate": "2024-06-20T09:40:15Z",
+    "startDate": "2024-05-17T00:00:00+00:00",
+    "endDate": "2024-06-20T00:00:00+00:00",
     "eventName": "Innovative next generation internet solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e6c" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c86" },
-    "startDate": "2024-04-19T10:42:46Z",
-    "endDate": "2024-04-25T10:42:46Z",
+    "startDate": "2024-04-19T00:00:00+00:00",
+    "endDate": "2024-04-25T00:00:00+00:00",
     "eventName": "Enhanced scalable functionalities",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec9" },
     "participants": [
@@ -707,8 +707,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c87" },
-    "startDate": "2023-04-03T08:34:04Z",
-    "endDate": "2023-04-30T08:34:04Z",
+    "startDate": "2023-04-03T00:00:00+00:00",
+    "endDate": "2023-04-30T00:00:00+00:00",
     "eventName": "Networked grid-enabled knowledge user",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e66" },
     "participants": [
@@ -726,8 +726,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c88" },
-    "startDate": "2023-04-13T09:57:17Z",
-    "endDate": "2023-04-27T09:57:17Z",
+    "startDate": "2023-04-13T00:00:00+00:00",
+    "endDate": "2023-04-27T00:00:00+00:00",
     "eventName": "Fully-configurable value-added task-force",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e71" },
     "participants": [
@@ -738,8 +738,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c89" },
-    "startDate": "2024-05-17T20:06:11Z",
-    "endDate": "2024-06-29T20:06:11Z",
+    "startDate": "2024-05-17T00:00:00+00:00",
+    "endDate": "2024-06-29T00:00:00+00:00",
     "eventName": "Integrated holistic algorithm",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb5" },
     "participants": [
@@ -750,8 +750,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c8a" },
-    "startDate": "2023-10-31T21:10:15Z",
-    "endDate": "2023-11-07T21:10:15Z",
+    "startDate": "2023-10-31T00:00:00+00:00",
+    "endDate": "2023-11-07T00:00:00+00:00",
     "eventName": "Triple-buffered modular flexibility",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e65" },
     "participants": [
@@ -771,8 +771,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c8b" },
-    "startDate": "2024-05-27T23:34:39Z",
-    "endDate": "2024-07-19T23:34:39Z",
+    "startDate": "2024-05-27T00:00:00+00:00",
+    "endDate": "2024-07-19T00:00:00+00:00",
     "eventName": "Switchable non-volatile migration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f03" },
     "participants": [
@@ -788,8 +788,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c8c" },
-    "startDate": "2024-02-24T10:28:58Z",
-    "endDate": "2024-03-15T10:28:58Z",
+    "startDate": "2024-02-24T00:00:00+00:00",
+    "endDate": "2024-03-15T00:00:00+00:00",
     "eventName": "Multi-layered multi-tasking customer loyalty",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e70" },
     "participants": [
@@ -808,8 +808,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c8d" },
-    "startDate": "2023-08-17T21:49:49Z",
-    "endDate": "2023-09-24T21:49:49Z",
+    "startDate": "2023-08-17T00:00:00+00:00",
+    "endDate": "2023-09-24T00:00:00+00:00",
     "eventName": "Ergonomic real-time support",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e84" },
     "participants": [
@@ -824,8 +824,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c8e" },
-    "startDate": "2024-01-13T09:04:45Z",
-    "endDate": "2024-02-04T09:04:45Z",
+    "startDate": "2024-01-13T00:00:00+00:00",
+    "endDate": "2024-02-04T00:00:00+00:00",
     "eventName": "Pre-emptive systemic portal",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ebd" },
     "participants": [
@@ -839,8 +839,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c8f" },
-    "startDate": "2023-09-22T08:54:07Z",
-    "endDate": "2023-10-10T08:54:07Z",
+    "startDate": "2023-09-22T00:00:00+00:00",
+    "endDate": "2023-10-10T00:00:00+00:00",
     "eventName": "Synergistic asynchronous portal",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee2" },
     "participants": [
@@ -850,8 +850,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c90" },
-    "startDate": "2024-06-09T00:25:46Z",
-    "endDate": "2024-07-22T00:25:46Z",
+    "startDate": "2024-06-09T00:00:00+00:00",
+    "endDate": "2024-07-22T00:00:00+00:00",
     "eventName": "Organic clear-thinking local area network",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec2" },
     "participants": [
@@ -875,8 +875,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c91" },
-    "startDate": "2023-11-20T11:45:45Z",
-    "endDate": "2024-01-10T11:45:45Z",
+    "startDate": "2023-11-20T00:00:00+00:00",
+    "endDate": "2024-01-10T00:00:00+00:00",
     "eventName": "Organized intermediate artificial intelligence",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec3" },
     "participants": [
@@ -900,8 +900,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c92" },
-    "startDate": "2024-06-21T02:26:40Z",
-    "endDate": "2024-08-06T02:26:40Z",
+    "startDate": "2024-06-21T00:00:00+00:00",
+    "endDate": "2024-08-06T00:00:00+00:00",
     "eventName": "Face to face real-time matrices",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eaa" },
     "participants": [
@@ -914,16 +914,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c93" },
-    "startDate": "2024-04-06T14:33:53Z",
-    "endDate": "2024-04-25T14:33:53Z",
+    "startDate": "2024-04-06T00:00:00+00:00",
+    "endDate": "2024-04-25T00:00:00+00:00",
     "eventName": "Front-line homogeneous collaboration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f01" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c94" },
-    "startDate": "2023-09-01T21:55:42Z",
-    "endDate": "2023-10-01T21:55:42Z",
+    "startDate": "2023-09-01T00:00:00+00:00",
+    "endDate": "2023-10-01T00:00:00+00:00",
     "eventName": "Adaptive regional access",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef0" },
     "participants": [
@@ -941,8 +941,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c95" },
-    "startDate": "2023-12-07T21:01:19Z",
-    "endDate": "2024-01-23T21:01:19Z",
+    "startDate": "2023-12-07T00:00:00+00:00",
+    "endDate": "2024-01-23T00:00:00+00:00",
     "eventName": "Business-focused fresh-thinking capacity",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eea" },
     "participants": [
@@ -967,16 +967,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c96" },
-    "startDate": "2023-07-09T00:32:47Z",
-    "endDate": "2023-07-27T00:32:47Z",
+    "startDate": "2023-07-09T00:00:00+00:00",
+    "endDate": "2023-07-27T00:00:00+00:00",
     "eventName": "Universal fresh-thinking ability",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ebe" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c97" },
-    "startDate": "2024-06-16T07:12:46Z",
-    "endDate": "2024-07-21T07:12:46Z",
+    "startDate": "2024-06-16T00:00:00+00:00",
+    "endDate": "2024-07-21T00:00:00+00:00",
     "eventName": "Seamless responsive moratorium",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e5e" },
     "participants": [
@@ -995,8 +995,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c98" },
-    "startDate": "2023-11-26T06:39:59Z",
-    "endDate": "2024-01-25T06:39:59Z",
+    "startDate": "2023-11-26T00:00:00+00:00",
+    "endDate": "2024-01-25T00:00:00+00:00",
     "eventName": "Universal high-level portal",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec8" },
     "participants": [
@@ -1010,24 +1010,24 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c99" },
-    "startDate": "2024-05-12T09:24:33Z",
-    "endDate": "2024-06-09T09:24:33Z",
+    "startDate": "2024-05-12T00:00:00+00:00",
+    "endDate": "2024-06-09T00:00:00+00:00",
     "eventName": "Fundamental exuding protocol",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec8" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c9a" },
-    "startDate": "2023-04-29T07:36:19Z",
-    "endDate": "2023-05-05T07:36:19Z",
+    "startDate": "2023-04-29T00:00:00+00:00",
+    "endDate": "2023-05-05T00:00:00+00:00",
     "eventName": "Monitored fresh-thinking leverage",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f01" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e6d" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c9b" },
-    "startDate": "2024-04-01T14:37:43Z",
-    "endDate": "2024-05-25T14:37:43Z",
+    "startDate": "2024-04-01T00:00:00+00:00",
+    "endDate": "2024-05-25T00:00:00+00:00",
     "eventName": "Multi-channelled methodical migration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e8e" },
     "participants": [
@@ -1047,8 +1047,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c9c" },
-    "startDate": "2024-03-30T02:45:27Z",
-    "endDate": "2024-05-08T02:45:27Z",
+    "startDate": "2024-03-30T00:00:00+00:00",
+    "endDate": "2024-05-08T00:00:00+00:00",
     "eventName": "Focused well-modulated extranet",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f13" },
     "participants": [
@@ -1072,16 +1072,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c9d" },
-    "startDate": "2023-05-11T06:47:37Z",
-    "endDate": "2023-06-19T06:47:37Z",
+    "startDate": "2023-05-11T00:00:00+00:00",
+    "endDate": "2023-06-19T00:00:00+00:00",
     "eventName": "Focused fresh-thinking functionalities",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eeb" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e72" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c9e" },
-    "startDate": "2024-06-23T07:35:19Z",
-    "endDate": "2024-08-12T07:35:19Z",
+    "startDate": "2024-06-23T00:00:00+00:00",
+    "endDate": "2024-08-12T00:00:00+00:00",
     "eventName": "Switchable disintermediate local area network",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e78" },
     "participants": [
@@ -1099,8 +1099,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3c9f" },
-    "startDate": "2024-04-07T07:01:23Z",
-    "endDate": "2024-04-16T07:01:23Z",
+    "startDate": "2024-04-07T00:00:00+00:00",
+    "endDate": "2024-04-16T00:00:00+00:00",
     "eventName": "Multi-tiered human-resource instruction set",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec4" },
     "participants": [
@@ -1120,8 +1120,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca0" },
-    "startDate": "2023-06-14T09:36:12Z",
-    "endDate": "2023-07-23T09:36:12Z",
+    "startDate": "2023-06-14T00:00:00+00:00",
+    "endDate": "2023-07-23T00:00:00+00:00",
     "eventName": "Secured homogeneous info-mediaries",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eda" },
     "participants": [
@@ -1133,8 +1133,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca1" },
-    "startDate": "2023-05-08T06:57:35Z",
-    "endDate": "2023-06-29T06:57:35Z",
+    "startDate": "2023-05-08T00:00:00+00:00",
+    "endDate": "2023-06-29T00:00:00+00:00",
     "eventName": "Universal system-worthy forecast",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f02" },
     "participants": [
@@ -1155,8 +1155,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca2" },
-    "startDate": "2023-07-31T12:54:51Z",
-    "endDate": "2023-08-29T12:54:51Z",
+    "startDate": "2023-07-31T00:00:00+00:00",
+    "endDate": "2023-08-29T00:00:00+00:00",
     "eventName": "Extended client-driven access",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ecd" },
     "participants": [
@@ -1181,8 +1181,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca3" },
-    "startDate": "2023-12-25T03:11:40Z",
-    "endDate": "2024-02-09T03:11:40Z",
+    "startDate": "2023-12-25T00:00:00+00:00",
+    "endDate": "2024-02-09T00:00:00+00:00",
     "eventName": "Centralized client-driven toolset",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e93" },
     "participants": [
@@ -1193,8 +1193,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca4" },
-    "startDate": "2023-04-22T03:48:07Z",
-    "endDate": "2023-05-05T03:48:07Z",
+    "startDate": "2023-04-22T00:00:00+00:00",
+    "endDate": "2023-05-05T00:00:00+00:00",
     "eventName": "Virtual web-enabled info-mediaries",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e51" },
     "participants": [
@@ -1206,8 +1206,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca5" },
-    "startDate": "2023-04-27T13:36:23Z",
-    "endDate": "2023-06-08T13:36:23Z",
+    "startDate": "2023-04-27T00:00:00+00:00",
+    "endDate": "2023-06-08T00:00:00+00:00",
     "eventName": "Configurable impactful pricing structure",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee5" },
     "participants": [
@@ -1219,24 +1219,24 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca6" },
-    "startDate": "2023-12-25T06:03:31Z",
-    "endDate": "2024-02-03T06:03:31Z",
+    "startDate": "2023-12-25T00:00:00+00:00",
+    "endDate": "2024-02-03T00:00:00+00:00",
     "eventName": "Reactive responsive open system",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed1" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3f0a" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca7" },
-    "startDate": "2023-03-05T06:50:30Z",
-    "endDate": "2023-04-23T06:50:30Z",
+    "startDate": "2023-03-05T00:00:00+00:00",
+    "endDate": "2023-04-23T00:00:00+00:00",
     "eventName": "Profit-focused fault-tolerant matrix",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f01" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca8" },
-    "startDate": "2023-07-21T11:23:15Z",
-    "endDate": "2023-08-12T11:23:15Z",
+    "startDate": "2023-07-21T00:00:00+00:00",
+    "endDate": "2023-08-12T00:00:00+00:00",
     "eventName": "Face to face grid-enabled function",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec8" },
     "participants": [
@@ -1248,8 +1248,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ca9" },
-    "startDate": "2023-08-17T01:39:35Z",
-    "endDate": "2023-08-22T01:39:35Z",
+    "startDate": "2023-08-17T00:00:00+00:00",
+    "endDate": "2023-08-22T00:00:00+00:00",
     "eventName": "Team-oriented analyzing extranet",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb9" },
     "participants": [
@@ -1271,8 +1271,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3caa" },
-    "startDate": "2023-08-17T22:47:15Z",
-    "endDate": "2023-09-25T22:47:15Z",
+    "startDate": "2023-08-17T00:00:00+00:00",
+    "endDate": "2023-09-25T00:00:00+00:00",
     "eventName": "Open-architected object-oriented website",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e8f" },
     "participants": [
@@ -1293,8 +1293,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cab" },
-    "startDate": "2023-11-13T22:44:12Z",
-    "endDate": "2023-12-01T22:44:12Z",
+    "startDate": "2023-11-13T00:00:00+00:00",
+    "endDate": "2023-12-01T00:00:00+00:00",
     "eventName": "Horizontal bi-directional success",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e84" },
     "participants": [
@@ -1312,8 +1312,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cac" },
-    "startDate": "2024-03-26T08:28:56Z",
-    "endDate": "2024-04-04T08:28:56Z",
+    "startDate": "2024-03-26T00:00:00+00:00",
+    "endDate": "2024-04-04T00:00:00+00:00",
     "eventName": "Multi-channelled 24 hour encryption",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e82" },
     "participants": [
@@ -1338,8 +1338,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cad" },
-    "startDate": "2023-05-11T21:17:36Z",
-    "endDate": "2023-06-25T21:17:36Z",
+    "startDate": "2023-05-11T00:00:00+00:00",
+    "endDate": "2023-06-25T00:00:00+00:00",
     "eventName": "Profound regional internet solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ebf" },
     "participants": [
@@ -1349,8 +1349,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cae" },
-    "startDate": "2023-07-24T01:00:17Z",
-    "endDate": "2023-08-05T01:00:17Z",
+    "startDate": "2023-07-24T00:00:00+00:00",
+    "endDate": "2023-08-05T00:00:00+00:00",
     "eventName": "Diverse zero defect orchestration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e8d" },
     "participants": [
@@ -1362,8 +1362,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3caf" },
-    "startDate": "2023-11-28T07:21:52Z",
-    "endDate": "2023-12-25T07:21:52Z",
+    "startDate": "2023-11-28T00:00:00+00:00",
+    "endDate": "2023-12-25T00:00:00+00:00",
     "eventName": "Robust attitude-oriented website",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f06" },
     "participants": [
@@ -1383,8 +1383,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb0" },
-    "startDate": "2024-05-18T16:29:18Z",
-    "endDate": "2024-05-28T16:29:18Z",
+    "startDate": "2024-05-18T00:00:00+00:00",
+    "endDate": "2024-05-28T00:00:00+00:00",
     "eventName": "Profit-focused multi-state forecast",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e5f" },
     "participants": [
@@ -1406,8 +1406,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb1" },
-    "startDate": "2023-10-06T04:24:57Z",
-    "endDate": "2023-11-07T04:24:57Z",
+    "startDate": "2023-10-06T00:00:00+00:00",
+    "endDate": "2023-11-07T00:00:00+00:00",
     "eventName": "Devolved cohesive local area network",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f0c" },
     "participants": [
@@ -1417,8 +1417,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb2" },
-    "startDate": "2023-05-19T23:03:06Z",
-    "endDate": "2023-05-25T23:03:06Z",
+    "startDate": "2023-05-19T00:00:00+00:00",
+    "endDate": "2023-05-25T00:00:00+00:00",
     "eventName": "Reduced zero defect flexibility",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e89" },
     "participants": [
@@ -1437,8 +1437,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb3" },
-    "startDate": "2023-10-22T16:24:51Z",
-    "endDate": "2023-11-02T16:24:51Z",
+    "startDate": "2023-10-22T00:00:00+00:00",
+    "endDate": "2023-11-02T00:00:00+00:00",
     "eventName": "Seamless discrete access",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e7c" },
     "participants": [
@@ -1461,8 +1461,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb4" },
-    "startDate": "2024-02-26T03:13:09Z",
-    "endDate": "2024-03-14T03:13:09Z",
+    "startDate": "2024-02-26T00:00:00+00:00",
+    "endDate": "2024-03-14T00:00:00+00:00",
     "eventName": "Reactive 6th generation collaboration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef6" },
     "participants": [
@@ -1482,8 +1482,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb5" },
-    "startDate": "2024-04-16T22:35:14Z",
-    "endDate": "2024-04-26T22:35:14Z",
+    "startDate": "2024-04-16T00:00:00+00:00",
+    "endDate": "2024-04-26T00:00:00+00:00",
     "eventName": "Versatile discrete success",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e79" },
     "participants": [
@@ -1500,8 +1500,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb6" },
-    "startDate": "2023-11-10T10:06:20Z",
-    "endDate": "2023-12-28T10:06:20Z",
+    "startDate": "2023-11-10T00:00:00+00:00",
+    "endDate": "2023-12-28T00:00:00+00:00",
     "eventName": "Front-line 5th generation data-warehouse",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee1" },
     "participants": [
@@ -1523,8 +1523,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb7" },
-    "startDate": "2024-01-16T02:29:35Z",
-    "endDate": "2024-02-04T02:29:35Z",
+    "startDate": "2024-01-16T00:00:00+00:00",
+    "endDate": "2024-02-04T00:00:00+00:00",
     "eventName": "Grass-roots multimedia software",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed9" },
     "participants": [
@@ -1540,8 +1540,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb8" },
-    "startDate": "2023-12-12T05:28:31Z",
-    "endDate": "2024-01-27T05:28:31Z",
+    "startDate": "2023-12-12T00:00:00+00:00",
+    "endDate": "2024-01-27T00:00:00+00:00",
     "eventName": "Team-oriented 24/7 service-desk",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed9" },
     "participants": [
@@ -1552,8 +1552,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cb9" },
-    "startDate": "2023-11-19T02:46:11Z",
-    "endDate": "2024-01-10T02:46:11Z",
+    "startDate": "2023-11-19T00:00:00+00:00",
+    "endDate": "2024-01-10T00:00:00+00:00",
     "eventName": "Reduced analyzing ability",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e8a" },
     "participants": [
@@ -1576,8 +1576,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cba" },
-    "startDate": "2023-03-16T02:36:41Z",
-    "endDate": "2023-04-28T02:36:41Z",
+    "startDate": "2023-03-16T00:00:00+00:00",
+    "endDate": "2023-04-28T00:00:00+00:00",
     "eventName": "Versatile intangible instruction set",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee0" },
     "participants": [
@@ -1594,8 +1594,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cbb" },
-    "startDate": "2024-03-05T09:57:49Z",
-    "endDate": "2024-04-20T09:57:49Z",
+    "startDate": "2024-03-05T00:00:00+00:00",
+    "endDate": "2024-04-20T00:00:00+00:00",
     "eventName": "Triple-buffered uniform strategy",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f0c" },
     "participants": [
@@ -1617,8 +1617,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cbc" },
-    "startDate": "2023-07-21T16:31:40Z",
-    "endDate": "2023-09-19T16:31:40Z",
+    "startDate": "2023-07-21T00:00:00+00:00",
+    "endDate": "2023-09-19T00:00:00+00:00",
     "eventName": "Phased regional hub",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e84" },
     "participants": [
@@ -1642,8 +1642,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cbd" },
-    "startDate": "2024-04-04T08:16:17Z",
-    "endDate": "2024-04-29T08:16:17Z",
+    "startDate": "2024-04-04T00:00:00+00:00",
+    "endDate": "2024-04-29T00:00:00+00:00",
     "eventName": "Diverse scalable utilisation",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee4" },
     "participants": [
@@ -1661,8 +1661,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cbe" },
-    "startDate": "2023-05-12T01:52:32Z",
-    "endDate": "2023-07-03T01:52:32Z",
+    "startDate": "2023-05-12T00:00:00+00:00",
+    "endDate": "2023-07-03T00:00:00+00:00",
     "eventName": "User-friendly hybrid archive",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f06" },
     "participants": [
@@ -1685,8 +1685,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cbf" },
-    "startDate": "2023-09-24T04:37:11Z",
-    "endDate": "2023-11-22T04:37:11Z",
+    "startDate": "2023-09-24T00:00:00+00:00",
+    "endDate": "2023-11-22T00:00:00+00:00",
     "eventName": "Organized user-facing frame",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f11" },
     "participants": [
@@ -1705,32 +1705,32 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc0" },
-    "startDate": "2023-07-17T12:17:02Z",
-    "endDate": "2023-08-03T12:17:02Z",
+    "startDate": "2023-07-17T00:00:00+00:00",
+    "endDate": "2023-08-03T00:00:00+00:00",
     "eventName": "Operative dynamic collaboration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eab" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3ea7" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc1" },
-    "startDate": "2024-01-25T13:45:30Z",
-    "endDate": "2024-02-28T13:45:30Z",
+    "startDate": "2024-01-25T00:00:00+00:00",
+    "endDate": "2024-02-28T00:00:00+00:00",
     "eventName": "Centralized didactic portal",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e6f" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3ea3" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc2" },
-    "startDate": "2024-05-19T02:26:17Z",
-    "endDate": "2024-06-12T02:26:17Z",
+    "startDate": "2024-05-19T00:00:00+00:00",
+    "endDate": "2024-06-12T00:00:00+00:00",
     "eventName": "Implemented responsive service-desk",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eca" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e9f" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc3" },
-    "startDate": "2024-01-18T22:45:38Z",
-    "endDate": "2024-03-07T22:45:38Z",
+    "startDate": "2024-01-18T00:00:00+00:00",
+    "endDate": "2024-03-07T00:00:00+00:00",
     "eventName": "Organic mission-critical ability",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee5" },
     "participants": [
@@ -1744,8 +1744,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc4" },
-    "startDate": "2023-03-03T06:33:18Z",
-    "endDate": "2023-04-17T06:33:18Z",
+    "startDate": "2023-03-03T00:00:00+00:00",
+    "endDate": "2023-04-17T00:00:00+00:00",
     "eventName": "Open-source cohesive productivity",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f0b" },
     "participants": [
@@ -1768,8 +1768,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc5" },
-    "startDate": "2023-12-09T02:23:23Z",
-    "endDate": "2024-01-31T02:23:23Z",
+    "startDate": "2023-12-09T00:00:00+00:00",
+    "endDate": "2024-01-31T00:00:00+00:00",
     "eventName": "Implemented neutral parallelism",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e9c" },
     "participants": [
@@ -1790,8 +1790,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc6" },
-    "startDate": "2024-06-22T13:16:07Z",
-    "endDate": "2024-07-19T13:16:07Z",
+    "startDate": "2024-06-22T00:00:00+00:00",
+    "endDate": "2024-07-19T00:00:00+00:00",
     "eventName": "Mandatory impactful system engine",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e9c" },
     "participants": [
@@ -1814,8 +1814,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc7" },
-    "startDate": "2024-02-08T20:06:16Z",
-    "endDate": "2024-04-02T20:06:16Z",
+    "startDate": "2024-02-08T00:00:00+00:00",
+    "endDate": "2024-04-02T00:00:00+00:00",
     "eventName": "Proactive directional process improvement",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f00" },
     "participants": [
@@ -1831,8 +1831,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc8" },
-    "startDate": "2024-01-17T16:20:43Z",
-    "endDate": "2024-01-28T16:20:43Z",
+    "startDate": "2024-01-17T00:00:00+00:00",
+    "endDate": "2024-01-28T00:00:00+00:00",
     "eventName": "Diverse intangible groupware",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e6b" },
     "participants": [
@@ -1853,16 +1853,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cc9" },
-    "startDate": "2023-09-22T16:56:20Z",
-    "endDate": "2023-10-16T16:56:20Z",
+    "startDate": "2023-09-22T00:00:00+00:00",
+    "endDate": "2023-10-16T00:00:00+00:00",
     "eventName": "Re-contextualized dynamic budgetary management",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e7a" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cca" },
-    "startDate": "2024-03-07T12:46:53Z",
-    "endDate": "2024-04-12T12:46:53Z",
+    "startDate": "2024-03-07T00:00:00+00:00",
+    "endDate": "2024-04-12T00:00:00+00:00",
     "eventName": "Monitored neutral project",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e5c" },
     "participants": [
@@ -1876,8 +1876,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ccb" },
-    "startDate": "2024-01-28T04:03:35Z",
-    "endDate": "2024-02-07T04:03:35Z",
+    "startDate": "2024-01-28T00:00:00+00:00",
+    "endDate": "2024-02-07T00:00:00+00:00",
     "eventName": "Configurable composite utilisation",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e58" },
     "participants": [
@@ -1902,8 +1902,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ccc" },
-    "startDate": "2024-05-18T22:20:31Z",
-    "endDate": "2024-06-02T22:20:31Z",
+    "startDate": "2024-05-18T00:00:00+00:00",
+    "endDate": "2024-06-02T00:00:00+00:00",
     "eventName": "Open-architected foreground toolset",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e54" },
     "participants": [
@@ -1922,8 +1922,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ccd" },
-    "startDate": "2024-06-11T00:48:15Z",
-    "endDate": "2024-08-08T00:48:15Z",
+    "startDate": "2024-06-11T00:00:00+00:00",
+    "endDate": "2024-08-08T00:00:00+00:00",
     "eventName": "Expanded background hub",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec6" },
     "participants": [
@@ -1939,8 +1939,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cce" },
-    "startDate": "2024-01-10T23:09:28Z",
-    "endDate": "2024-02-25T23:09:28Z",
+    "startDate": "2024-01-10T00:00:00+00:00",
+    "endDate": "2024-02-25T00:00:00+00:00",
     "eventName": "Function-based zero administration portal",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ea6" },
     "participants": [
@@ -1962,8 +1962,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ccf" },
-    "startDate": "2023-10-28T10:36:11Z",
-    "endDate": "2023-12-07T10:36:11Z",
+    "startDate": "2023-10-28T00:00:00+00:00",
+    "endDate": "2023-12-07T00:00:00+00:00",
     "eventName": "Decentralized mobile solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e5e" },
     "participants": [
@@ -1975,8 +1975,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd0" },
-    "startDate": "2023-12-14T01:11:56Z",
-    "endDate": "2024-02-06T01:11:56Z",
+    "startDate": "2023-12-14T00:00:00+00:00",
+    "endDate": "2024-02-06T00:00:00+00:00",
     "eventName": "User-centric multi-state matrix",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e7a" },
     "participants": [
@@ -1986,8 +1986,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd1" },
-    "startDate": "2024-01-19T00:22:09Z",
-    "endDate": "2024-03-02T00:22:09Z",
+    "startDate": "2024-01-19T00:00:00+00:00",
+    "endDate": "2024-03-02T00:00:00+00:00",
     "eventName": "Function-based bi-directional alliance",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e76" },
     "participants": [
@@ -2013,8 +2013,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd2" },
-    "startDate": "2024-06-22T14:05:07Z",
-    "endDate": "2024-07-17T14:05:07Z",
+    "startDate": "2024-06-22T00:00:00+00:00",
+    "endDate": "2024-07-17T00:00:00+00:00",
     "eventName": "Multi-lateral national benchmark",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f0e" },
     "participants": [
@@ -2027,8 +2027,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd3" },
-    "startDate": "2023-12-15T04:43:48Z",
-    "endDate": "2024-01-20T04:43:48Z",
+    "startDate": "2023-12-15T00:00:00+00:00",
+    "endDate": "2024-01-20T00:00:00+00:00",
     "eventName": "Pre-emptive solution-oriented concept",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e8b" },
     "participants": [
@@ -2046,8 +2046,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd4" },
-    "startDate": "2024-01-18T08:15:03Z",
-    "endDate": "2024-01-27T08:15:03Z",
+    "startDate": "2024-01-18T00:00:00+00:00",
+    "endDate": "2024-01-27T00:00:00+00:00",
     "eventName": "Future-proofed zero tolerance array",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e96" },
     "participants": [
@@ -2068,16 +2068,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd5" },
-    "startDate": "2023-12-02T10:23:38Z",
-    "endDate": "2023-12-30T10:23:38Z",
+    "startDate": "2023-12-02T00:00:00+00:00",
+    "endDate": "2023-12-30T00:00:00+00:00",
     "eventName": "Multi-tiered background parallelism",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ecb" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd6" },
-    "startDate": "2023-08-02T10:17:48Z",
-    "endDate": "2023-08-09T10:17:48Z",
+    "startDate": "2023-08-02T00:00:00+00:00",
+    "endDate": "2023-08-09T00:00:00+00:00",
     "eventName": "De-engineered scalable protocol",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb5" },
     "participants": [
@@ -2097,16 +2097,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd7" },
-    "startDate": "2023-11-29T16:19:59Z",
-    "endDate": "2023-12-06T16:19:59Z",
+    "startDate": "2023-11-29T00:00:00+00:00",
+    "endDate": "2023-12-06T00:00:00+00:00",
     "eventName": "Managed global orchestration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eff" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd8" },
-    "startDate": "2023-12-02T06:37:03Z",
-    "endDate": "2024-01-21T06:37:03Z",
+    "startDate": "2023-12-02T00:00:00+00:00",
+    "endDate": "2024-01-21T00:00:00+00:00",
     "eventName": "Operative high-level hub",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ecf" },
     "participants": [
@@ -2124,8 +2124,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cd9" },
-    "startDate": "2023-07-19T14:32:52Z",
-    "endDate": "2023-08-14T14:32:52Z",
+    "startDate": "2023-07-19T00:00:00+00:00",
+    "endDate": "2023-08-14T00:00:00+00:00",
     "eventName": "Distributed analyzing strategy",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee7" },
     "participants": [
@@ -2143,8 +2143,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cda" },
-    "startDate": "2024-06-16T01:02:05Z",
-    "endDate": "2024-06-26T01:02:05Z",
+    "startDate": "2024-06-16T00:00:00+00:00",
+    "endDate": "2024-06-26T00:00:00+00:00",
     "eventName": "Advanced mission-critical initiative",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e9d" },
     "participants": [
@@ -2156,8 +2156,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cdb" },
-    "startDate": "2023-08-17T00:45:11Z",
-    "endDate": "2023-09-07T00:45:11Z",
+    "startDate": "2023-08-17T00:00:00+00:00",
+    "endDate": "2023-09-07T00:00:00+00:00",
     "eventName": "Monitored homogeneous customer loyalty",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e70" },
     "participants": [
@@ -2168,8 +2168,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cdc" },
-    "startDate": "2024-06-11T00:45:59Z",
-    "endDate": "2024-07-16T00:45:59Z",
+    "startDate": "2024-06-11T00:00:00+00:00",
+    "endDate": "2024-07-16T00:00:00+00:00",
     "eventName": "Automated motivating open system",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e78" },
     "participants": [
@@ -2189,8 +2189,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cdd" },
-    "startDate": "2024-01-09T22:38:11Z",
-    "endDate": "2024-02-11T22:38:11Z",
+    "startDate": "2024-01-09T00:00:00+00:00",
+    "endDate": "2024-02-11T00:00:00+00:00",
     "eventName": "Balanced secondary open system",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee9" },
     "participants": [
@@ -2210,8 +2210,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cde" },
-    "startDate": "2023-07-19T08:59:34Z",
-    "endDate": "2023-08-26T08:59:34Z",
+    "startDate": "2023-07-19T00:00:00+00:00",
+    "endDate": "2023-08-26T00:00:00+00:00",
     "eventName": "Multi-lateral upward-trending array",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed1" },
     "participants": [
@@ -2228,8 +2228,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cdf" },
-    "startDate": "2023-10-29T19:55:40Z",
-    "endDate": "2023-12-27T19:55:40Z",
+    "startDate": "2023-10-29T00:00:00+00:00",
+    "endDate": "2023-12-27T00:00:00+00:00",
     "eventName": "Inverse content-based internet solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e7c" },
     "participants": [
@@ -2252,8 +2252,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce0" },
-    "startDate": "2023-12-27T03:32:52Z",
-    "endDate": "2024-02-21T03:32:52Z",
+    "startDate": "2023-12-27T00:00:00+00:00",
+    "endDate": "2024-02-21T00:00:00+00:00",
     "eventName": "Customer-focused scalable architecture",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e76" },
     "participants": [
@@ -2263,8 +2263,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce1" },
-    "startDate": "2023-08-14T12:08:31Z",
-    "endDate": "2023-08-20T12:08:31Z",
+    "startDate": "2023-08-14T00:00:00+00:00",
+    "endDate": "2023-08-20T00:00:00+00:00",
     "eventName": "Compatible fault-tolerant matrices",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e97" },
     "participants": [
@@ -2281,8 +2281,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce2" },
-    "startDate": "2023-10-04T20:28:19Z",
-    "endDate": "2023-11-21T20:28:19Z",
+    "startDate": "2023-10-04T00:00:00+00:00",
+    "endDate": "2023-11-21T00:00:00+00:00",
     "eventName": "User-friendly 4th generation initiative",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb7" },
     "participants": [
@@ -2293,8 +2293,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce3" },
-    "startDate": "2024-01-21T04:18:59Z",
-    "endDate": "2024-02-07T04:18:59Z",
+    "startDate": "2024-01-21T00:00:00+00:00",
+    "endDate": "2024-02-07T00:00:00+00:00",
     "eventName": "Persistent content-based leverage",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ee8" },
     "participants": [
@@ -2311,8 +2311,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce4" },
-    "startDate": "2024-01-25T17:01:50Z",
-    "endDate": "2024-03-21T17:01:50Z",
+    "startDate": "2024-01-25T00:00:00+00:00",
+    "endDate": "2024-03-21T00:00:00+00:00",
     "eventName": "Seamless needs-based Graphical User Interface",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ecb" },
     "participants": [
@@ -2333,8 +2333,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce5" },
-    "startDate": "2023-08-07T15:17:50Z",
-    "endDate": "2023-09-24T15:17:50Z",
+    "startDate": "2023-08-07T00:00:00+00:00",
+    "endDate": "2023-09-24T00:00:00+00:00",
     "eventName": "Open-architected tangible solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eda" },
     "participants": [
@@ -2348,8 +2348,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce6" },
-    "startDate": "2023-10-16T13:50:12Z",
-    "endDate": "2023-12-02T13:50:12Z",
+    "startDate": "2023-10-16T00:00:00+00:00",
+    "endDate": "2023-12-02T00:00:00+00:00",
     "eventName": "Streamlined multi-state initiative",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed5" },
     "participants": [
@@ -2359,16 +2359,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce7" },
-    "startDate": "2023-12-27T02:25:56Z",
-    "endDate": "2024-01-11T02:25:56Z",
+    "startDate": "2023-12-27T00:00:00+00:00",
+    "endDate": "2024-01-11T00:00:00+00:00",
     "eventName": "Diverse 4th generation middleware",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed2" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce8" },
-    "startDate": "2023-09-27T16:20:20Z",
-    "endDate": "2023-11-07T16:20:20Z",
+    "startDate": "2023-09-27T00:00:00+00:00",
+    "endDate": "2023-11-07T00:00:00+00:00",
     "eventName": "Front-line regional process improvement",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f15" },
     "participants": [
@@ -2391,8 +2391,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ce9" },
-    "startDate": "2023-07-08T20:25:57Z",
-    "endDate": "2023-08-24T20:25:57Z",
+    "startDate": "2023-07-08T00:00:00+00:00",
+    "endDate": "2023-08-24T00:00:00+00:00",
     "eventName": "Front-line regional concept",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ebf" },
     "participants": [
@@ -2415,8 +2415,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cea" },
-    "startDate": "2024-04-30T00:21:58Z",
-    "endDate": "2024-06-13T00:21:58Z",
+    "startDate": "2024-04-30T00:00:00+00:00",
+    "endDate": "2024-06-13T00:00:00+00:00",
     "eventName": "Versatile client-server portal",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f08" },
     "participants": [
@@ -2441,8 +2441,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ceb" },
-    "startDate": "2023-12-01T01:39:32Z",
-    "endDate": "2024-01-11T01:39:32Z",
+    "startDate": "2023-12-01T00:00:00+00:00",
+    "endDate": "2024-01-11T00:00:00+00:00",
     "eventName": "Centralized upward-trending process improvement",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e81" },
     "participants": [
@@ -2460,8 +2460,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cec" },
-    "startDate": "2024-04-26T01:23:33Z",
-    "endDate": "2024-05-03T01:23:33Z",
+    "startDate": "2024-04-26T00:00:00+00:00",
+    "endDate": "2024-05-03T00:00:00+00:00",
     "eventName": "Monitored global approach",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec4" },
     "participants": [
@@ -2477,8 +2477,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3ced" },
-    "startDate": "2024-02-09T01:10:10Z",
-    "endDate": "2024-02-18T01:10:10Z",
+    "startDate": "2024-02-09T00:00:00+00:00",
+    "endDate": "2024-02-18T00:00:00+00:00",
     "eventName": "Universal hybrid project",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3efc" },
     "participants": [
@@ -2492,8 +2492,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cee" },
-    "startDate": "2023-11-03T14:43:50Z",
-    "endDate": "2023-12-16T14:43:50Z",
+    "startDate": "2023-11-03T00:00:00+00:00",
+    "endDate": "2023-12-16T00:00:00+00:00",
     "eventName": "Compatible tertiary productivity",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e92" },
     "participants": [
@@ -2507,8 +2507,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cef" },
-    "startDate": "2023-08-10T10:37:49Z",
-    "endDate": "2023-09-17T10:37:49Z",
+    "startDate": "2023-08-10T00:00:00+00:00",
+    "endDate": "2023-09-17T00:00:00+00:00",
     "eventName": "Virtual optimizing solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e76" },
     "participants": [
@@ -2519,8 +2519,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf0" },
-    "startDate": "2023-11-19T01:56:34Z",
-    "endDate": "2023-12-23T01:56:34Z",
+    "startDate": "2023-11-19T00:00:00+00:00",
+    "endDate": "2023-12-23T00:00:00+00:00",
     "eventName": "Pre-emptive eco-centric leverage",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ecc" },
     "participants": [
@@ -2535,8 +2535,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf1" },
-    "startDate": "2024-03-06T09:15:31Z",
-    "endDate": "2024-04-19T09:15:31Z",
+    "startDate": "2024-03-06T00:00:00+00:00",
+    "endDate": "2024-04-19T00:00:00+00:00",
     "eventName": "Open-architected methodical installation",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ece" },
     "participants": [
@@ -2554,8 +2554,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf2" },
-    "startDate": "2023-08-08T16:09:41Z",
-    "endDate": "2023-08-13T16:09:41Z",
+    "startDate": "2023-08-08T00:00:00+00:00",
+    "endDate": "2023-08-13T00:00:00+00:00",
     "eventName": "Managed upward-trending instruction set",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed5" },
     "participants": [
@@ -2574,8 +2574,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf3" },
-    "startDate": "2024-06-10T14:07:56Z",
-    "endDate": "2024-07-31T14:07:56Z",
+    "startDate": "2024-06-10T00:00:00+00:00",
+    "endDate": "2024-07-31T00:00:00+00:00",
     "eventName": "De-engineered tangible migration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ecb" },
     "participants": [
@@ -2600,8 +2600,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf4" },
-    "startDate": "2024-06-11T10:40:27Z",
-    "endDate": "2024-08-02T10:40:27Z",
+    "startDate": "2024-06-11T00:00:00+00:00",
+    "endDate": "2024-08-02T00:00:00+00:00",
     "eventName": "Multi-channelled mission-critical approach",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e78" },
     "participants": [
@@ -2627,8 +2627,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf5" },
-    "startDate": "2024-03-20T22:18:20Z",
-    "endDate": "2024-03-29T22:18:20Z",
+    "startDate": "2024-03-20T00:00:00+00:00",
+    "endDate": "2024-03-29T00:00:00+00:00",
     "eventName": "Robust real-time local area network",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e61" },
     "participants": [
@@ -2646,8 +2646,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf6" },
-    "startDate": "2023-07-01T00:45:45Z",
-    "endDate": "2023-07-21T00:45:45Z",
+    "startDate": "2023-07-01T00:00:00+00:00",
+    "endDate": "2023-07-21T00:00:00+00:00",
     "eventName": "Fundamental full-range moratorium",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed2" },
     "participants": [
@@ -2663,8 +2663,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf7" },
-    "startDate": "2023-08-01T19:19:38Z",
-    "endDate": "2023-09-29T19:19:38Z",
+    "startDate": "2023-08-01T00:00:00+00:00",
+    "endDate": "2023-09-29T00:00:00+00:00",
     "eventName": "Quality-focused neutral contingency",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed2" },
     "participants": [
@@ -2681,8 +2681,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf8" },
-    "startDate": "2023-04-07T03:01:07Z",
-    "endDate": "2023-05-02T03:01:07Z",
+    "startDate": "2023-04-07T00:00:00+00:00",
+    "endDate": "2023-05-02T00:00:00+00:00",
     "eventName": "Cloned real-time implementation",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e83" },
     "participants": [
@@ -2701,8 +2701,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cf9" },
-    "startDate": "2023-12-08T19:15:21Z",
-    "endDate": "2024-01-10T19:15:21Z",
+    "startDate": "2023-12-08T00:00:00+00:00",
+    "endDate": "2024-01-10T00:00:00+00:00",
     "eventName": "Robust full-range monitoring",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e89" },
     "participants": [
@@ -2728,8 +2728,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cfa" },
-    "startDate": "2024-01-17T15:54:06Z",
-    "endDate": "2024-03-13T15:54:06Z",
+    "startDate": "2024-01-17T00:00:00+00:00",
+    "endDate": "2024-03-13T00:00:00+00:00",
     "eventName": "Implemented multi-tasking artificial intelligence",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eeb" },
     "participants": [
@@ -2747,8 +2747,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cfb" },
-    "startDate": "2023-10-22T07:58:54Z",
-    "endDate": "2023-12-17T07:58:54Z",
+    "startDate": "2023-10-22T00:00:00+00:00",
+    "endDate": "2023-12-17T00:00:00+00:00",
     "eventName": "Compatible mobile policy",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f08" },
     "participants": [
@@ -2772,8 +2772,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cfc" },
-    "startDate": "2024-04-24T14:20:00Z",
-    "endDate": "2024-06-21T14:20:00Z",
+    "startDate": "2024-04-24T00:00:00+00:00",
+    "endDate": "2024-06-21T00:00:00+00:00",
     "eventName": "Organic 4th generation framework",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e83" },
     "participants": [
@@ -2784,8 +2784,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cfd" },
-    "startDate": "2023-09-17T11:05:35Z",
-    "endDate": "2023-10-16T11:05:35Z",
+    "startDate": "2023-09-17T00:00:00+00:00",
+    "endDate": "2023-10-16T00:00:00+00:00",
     "eventName": "Optimized multi-tasking task-force",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3efd" },
     "participants": [
@@ -2801,8 +2801,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cfe" },
-    "startDate": "2023-06-22T05:02:01Z",
-    "endDate": "2023-07-27T05:02:01Z",
+    "startDate": "2023-06-22T00:00:00+00:00",
+    "endDate": "2023-07-27T00:00:00+00:00",
     "eventName": "Phased logistical instruction set",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed2" },
     "participants": [
@@ -2820,8 +2820,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3cff" },
-    "startDate": "2024-01-21T03:40:20Z",
-    "endDate": "2024-03-18T03:40:20Z",
+    "startDate": "2024-01-21T00:00:00+00:00",
+    "endDate": "2024-03-18T00:00:00+00:00",
     "eventName": "Future-proofed needs-based synergy",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eaf" },
     "participants": [
@@ -2836,8 +2836,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d00" },
-    "startDate": "2024-03-21T11:12:08Z",
-    "endDate": "2024-05-18T11:12:08Z",
+    "startDate": "2024-03-21T00:00:00+00:00",
+    "endDate": "2024-05-18T00:00:00+00:00",
     "eventName": "Front-line client-server software",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e90" },
     "participants": [
@@ -2850,16 +2850,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d01" },
-    "startDate": "2024-06-06T11:19:09Z",
-    "endDate": "2024-07-01T11:19:09Z",
+    "startDate": "2024-06-06T00:00:00+00:00",
+    "endDate": "2024-07-01T00:00:00+00:00",
     "eventName": "Optional analyzing concept",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e53" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d02" },
-    "startDate": "2023-03-26T23:22:07Z",
-    "endDate": "2023-04-23T23:22:07Z",
+    "startDate": "2023-03-26T00:00:00+00:00",
+    "endDate": "2023-04-23T00:00:00+00:00",
     "eventName": "Progressive analyzing algorithm",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f0c" },
     "participants": [
@@ -2882,8 +2882,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d03" },
-    "startDate": "2023-08-30T10:31:28Z",
-    "endDate": "2023-09-24T10:31:28Z",
+    "startDate": "2023-08-30T00:00:00+00:00",
+    "endDate": "2023-09-24T00:00:00+00:00",
     "eventName": "Reverse-engineered radical application",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ea8" },
     "participants": [
@@ -2909,8 +2909,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d04" },
-    "startDate": "2024-05-20T14:31:09Z",
-    "endDate": "2024-07-01T14:31:09Z",
+    "startDate": "2024-05-20T00:00:00+00:00",
+    "endDate": "2024-07-01T00:00:00+00:00",
     "eventName": "Diverse high-level ability",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef8" },
     "participants": [
@@ -2928,8 +2928,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d05" },
-    "startDate": "2023-09-29T16:22:01Z",
-    "endDate": "2023-10-18T16:22:01Z",
+    "startDate": "2023-09-29T00:00:00+00:00",
+    "endDate": "2023-10-18T00:00:00+00:00",
     "eventName": "Team-oriented systemic frame",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e91" },
     "participants": [
@@ -2940,8 +2940,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d06" },
-    "startDate": "2023-03-05T01:35:51Z",
-    "endDate": "2023-03-19T01:35:51Z",
+    "startDate": "2023-03-05T00:00:00+00:00",
+    "endDate": "2023-03-19T00:00:00+00:00",
     "eventName": "Seamless uniform toolset",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e9d" },
     "participants": [
@@ -2952,8 +2952,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d07" },
-    "startDate": "2023-08-10T03:07:14Z",
-    "endDate": "2023-08-28T03:07:14Z",
+    "startDate": "2023-08-10T00:00:00+00:00",
+    "endDate": "2023-08-28T00:00:00+00:00",
     "eventName": "Grass-roots didactic migration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e9c" },
     "participants": [
@@ -2971,16 +2971,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d08" },
-    "startDate": "2023-04-20T12:02:29Z",
-    "endDate": "2023-05-02T12:02:29Z",
+    "startDate": "2023-04-20T00:00:00+00:00",
+    "endDate": "2023-05-02T00:00:00+00:00",
     "eventName": "Cross-group intermediate info-mediaries",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e7c" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3ea6" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d09" },
-    "startDate": "2024-02-04T18:58:06Z",
-    "endDate": "2024-02-19T18:58:06Z",
+    "startDate": "2024-02-04T00:00:00+00:00",
+    "endDate": "2024-02-19T00:00:00+00:00",
     "eventName": "Customizable asynchronous focus group",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e75" },
     "participants": [
@@ -3000,8 +3000,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d0a" },
-    "startDate": "2023-12-19T02:01:20Z",
-    "endDate": "2024-01-28T02:01:20Z",
+    "startDate": "2023-12-19T00:00:00+00:00",
+    "endDate": "2024-01-28T00:00:00+00:00",
     "eventName": "Configurable 5th generation capacity",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e59" },
     "participants": [
@@ -3011,8 +3011,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d0b" },
-    "startDate": "2023-04-10T00:07:52Z",
-    "endDate": "2023-05-14T00:07:52Z",
+    "startDate": "2023-04-10T00:00:00+00:00",
+    "endDate": "2023-05-14T00:00:00+00:00",
     "eventName": "Focused optimal intranet",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed5" },
     "participants": [
@@ -3026,8 +3026,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d0c" },
-    "startDate": "2023-10-26T05:53:21Z",
-    "endDate": "2023-12-20T05:53:21Z",
+    "startDate": "2023-10-26T00:00:00+00:00",
+    "endDate": "2023-12-20T00:00:00+00:00",
     "eventName": "Reverse-engineered grid-enabled concept",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef5" },
     "participants": [
@@ -3047,16 +3047,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d0d" },
-    "startDate": "2024-03-22T04:32:55Z",
-    "endDate": "2024-03-27T04:32:55Z",
+    "startDate": "2024-03-22T00:00:00+00:00",
+    "endDate": "2024-03-27T00:00:00+00:00",
     "eventName": "Cloned didactic alliance",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed6" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d0e" },
-    "startDate": "2023-06-24T21:35:57Z",
-    "endDate": "2023-08-02T21:35:57Z",
+    "startDate": "2023-06-24T00:00:00+00:00",
+    "endDate": "2023-08-02T00:00:00+00:00",
     "eventName": "Organized well-modulated website",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec8" },
     "participants": [
@@ -3076,8 +3076,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d0f" },
-    "startDate": "2023-11-29T12:32:31Z",
-    "endDate": "2023-12-16T12:32:31Z",
+    "startDate": "2023-11-29T00:00:00+00:00",
+    "endDate": "2023-12-16T00:00:00+00:00",
     "eventName": "Optional intangible parallelism",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef6" },
     "participants": [
@@ -3102,8 +3102,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d10" },
-    "startDate": "2023-08-06T09:49:11Z",
-    "endDate": "2023-09-08T09:49:11Z",
+    "startDate": "2023-08-06T00:00:00+00:00",
+    "endDate": "2023-09-08T00:00:00+00:00",
     "eventName": "Fundamental bandwidth-monitored Graphical User Interface",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e99" },
     "participants": [
@@ -3120,8 +3120,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d11" },
-    "startDate": "2024-06-18T10:03:38Z",
-    "endDate": "2024-08-13T10:03:38Z",
+    "startDate": "2024-06-18T00:00:00+00:00",
+    "endDate": "2024-08-13T00:00:00+00:00",
     "eventName": "Enhanced mobile forecast",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e9e" },
     "participants": [
@@ -3136,8 +3136,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d12" },
-    "startDate": "2023-06-07T14:05:09Z",
-    "endDate": "2023-07-12T14:05:09Z",
+    "startDate": "2023-06-07T00:00:00+00:00",
+    "endDate": "2023-07-12T00:00:00+00:00",
     "eventName": "Virtual analyzing access",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e71" },
     "participants": [
@@ -3147,8 +3147,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d13" },
-    "startDate": "2023-09-21T16:44:54Z",
-    "endDate": "2023-11-14T16:44:54Z",
+    "startDate": "2023-09-21T00:00:00+00:00",
+    "endDate": "2023-11-14T00:00:00+00:00",
     "eventName": "Face to face tangible internet solution",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eee" },
     "participants": [
@@ -3164,8 +3164,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d14" },
-    "startDate": "2023-08-06T22:04:12Z",
-    "endDate": "2023-08-13T22:04:12Z",
+    "startDate": "2023-08-06T00:00:00+00:00",
+    "endDate": "2023-08-13T00:00:00+00:00",
     "eventName": "Innovative empowering data-warehouse",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e6c" },
     "participants": [
@@ -3182,8 +3182,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d15" },
-    "startDate": "2023-07-07T04:49:37Z",
-    "endDate": "2023-07-24T04:49:37Z",
+    "startDate": "2023-07-07T00:00:00+00:00",
+    "endDate": "2023-07-24T00:00:00+00:00",
     "eventName": "Multi-channelled empowering info-mediaries",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3edf" },
     "participants": [
@@ -3208,16 +3208,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d16" },
-    "startDate": "2023-07-13T20:05:41Z",
-    "endDate": "2023-09-06T20:05:41Z",
+    "startDate": "2023-07-13T00:00:00+00:00",
+    "endDate": "2023-09-06T00:00:00+00:00",
     "eventName": "Distributed local superstructure",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e4e" },
     "participants": []
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d17" },
-    "startDate": "2023-03-14T22:26:52Z",
-    "endDate": "2023-04-20T22:26:52Z",
+    "startDate": "2023-03-14T00:00:00+00:00",
+    "endDate": "2023-04-20T00:00:00+00:00",
     "eventName": "Switchable dynamic database",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef6" },
     "participants": [
@@ -3229,8 +3229,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d18" },
-    "startDate": "2024-06-24T17:51:01Z",
-    "endDate": "2024-07-23T17:51:01Z",
+    "startDate": "2024-06-24T00:00:00+00:00",
+    "endDate": "2024-07-23T00:00:00+00:00",
     "eventName": "Balanced empowering installation",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ef3" },
     "participants": [
@@ -3249,8 +3249,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d19" },
-    "startDate": "2024-01-15T14:37:18Z",
-    "endDate": "2024-02-07T14:37:18Z",
+    "startDate": "2024-01-15T00:00:00+00:00",
+    "endDate": "2024-02-07T00:00:00+00:00",
     "eventName": "Horizontal maximized ability",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e77" },
     "participants": [
@@ -3269,8 +3269,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d1a" },
-    "startDate": "2024-04-22T23:36:54Z",
-    "endDate": "2024-05-10T23:36:54Z",
+    "startDate": "2024-04-22T00:00:00+00:00",
+    "endDate": "2024-05-10T00:00:00+00:00",
     "eventName": "Switchable dedicated matrix",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eab" },
     "participants": [
@@ -3293,8 +3293,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d1b" },
-    "startDate": "2023-08-28T21:35:05Z",
-    "endDate": "2023-09-17T21:35:05Z",
+    "startDate": "2023-08-28T00:00:00+00:00",
+    "endDate": "2023-09-17T00:00:00+00:00",
     "eventName": "Versatile foreground artificial intelligence",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb4" },
     "participants": [
@@ -3315,8 +3315,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d1c" },
-    "startDate": "2023-05-20T07:59:35Z",
-    "endDate": "2023-06-22T07:59:35Z",
+    "startDate": "2023-05-20T00:00:00+00:00",
+    "endDate": "2023-06-22T00:00:00+00:00",
     "eventName": "Streamlined intermediate knowledge user",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eeb" },
     "participants": [
@@ -3341,8 +3341,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d1d" },
-    "startDate": "2023-11-24T15:29:50Z",
-    "endDate": "2024-01-02T15:29:50Z",
+    "startDate": "2023-11-24T00:00:00+00:00",
+    "endDate": "2024-01-02T00:00:00+00:00",
     "eventName": "User-centric exuding algorithm",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb4" },
     "participants": [
@@ -3359,8 +3359,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d1e" },
-    "startDate": "2024-02-14T14:24:15Z",
-    "endDate": "2024-03-24T14:24:15Z",
+    "startDate": "2024-02-14T00:00:00+00:00",
+    "endDate": "2024-03-24T00:00:00+00:00",
     "eventName": "Automated bifurcated matrices",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3f02" },
     "participants": [
@@ -3386,16 +3386,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d1f" },
-    "startDate": "2024-05-28T14:08:47Z",
-    "endDate": "2024-06-21T14:08:47Z",
+    "startDate": "2024-05-28T00:00:00+00:00",
+    "endDate": "2024-06-21T00:00:00+00:00",
     "eventName": "Versatile exuding superstructure",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e76" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e8e" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d20" },
-    "startDate": "2024-02-13T02:18:12Z",
-    "endDate": "2024-03-28T02:18:12Z",
+    "startDate": "2024-02-13T00:00:00+00:00",
+    "endDate": "2024-03-28T00:00:00+00:00",
     "eventName": "Devolved bandwidth-monitored alliance",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e6b" },
     "participants": [
@@ -3413,8 +3413,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d21" },
-    "startDate": "2023-05-27T15:38:34Z",
-    "endDate": "2023-07-01T15:38:34Z",
+    "startDate": "2023-05-27T00:00:00+00:00",
+    "endDate": "2023-07-01T00:00:00+00:00",
     "eventName": "Front-line interactive function",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb1" },
     "participants": [
@@ -3431,8 +3431,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d22" },
-    "startDate": "2023-04-20T14:18:10Z",
-    "endDate": "2023-05-28T14:18:10Z",
+    "startDate": "2023-04-20T00:00:00+00:00",
+    "endDate": "2023-05-28T00:00:00+00:00",
     "eventName": "Quality-focused national collaboration",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ed3" },
     "participants": [
@@ -3454,8 +3454,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d23" },
-    "startDate": "2024-05-19T10:35:06Z",
-    "endDate": "2024-06-22T10:35:06Z",
+    "startDate": "2024-05-19T00:00:00+00:00",
+    "endDate": "2024-06-22T00:00:00+00:00",
     "eventName": "Diverse mobile model",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e50" },
     "participants": [
@@ -3471,16 +3471,16 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d24" },
-    "startDate": "2023-07-07T17:00:07Z",
-    "endDate": "2023-08-01T17:00:07Z",
+    "startDate": "2023-07-07T00:00:00+00:00",
+    "endDate": "2023-08-01T00:00:00+00:00",
     "eventName": "Cloned background process improvement",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3ec3" },
     "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3f09" }]
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d25" },
-    "startDate": "2024-03-27T20:21:04Z",
-    "endDate": "2024-04-12T20:21:04Z",
+    "startDate": "2024-03-27T00:00:00+00:00",
+    "endDate": "2024-04-12T00:00:00+00:00",
     "eventName": "Open-architected 5th generation intranet",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3e89" },
     "participants": [
@@ -3492,8 +3492,8 @@
   },
   {
     "id": { "$oid": "65e4d62efc13ae01a7cd3d26" },
-    "startDate": "2023-07-26T20:18:47Z",
-    "endDate": "2023-08-26T20:18:47Z",
+    "startDate": "2023-07-26T00:00:00+00:00",
+    "endDate": "2023-08-26T00:00:00+00:00",
     "eventName": "Diverse client-driven data-warehouse",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3efd" },
     "participants": [
