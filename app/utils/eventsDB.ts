@@ -15,9 +15,9 @@ export const getAllIds = async (): Promise<string[]> => {
 
 export const getAllMapped = async () => {
   const events = await readFile();
-  const map = new Map();
+  const map: Map<string, EventType> = new Map();
   events.forEach((e: EventType) => {
-    map.set(e.id["$oid"], e);
+    map.set(e.id["$oid"] as string, e as EventType);
   });
   return map;
 };
@@ -38,4 +38,9 @@ export const readFile = async () => {
   return events.map((e) => {
     return EventType.fromJson({ ...e });
   });
+};
+
+export const getEventfromId = async (id: string) => {
+  const events = await getAllMapped();
+  return events.get(id);
 };

@@ -3,17 +3,17 @@ import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
-import { getAllEventIds, getEventData } from "@/utils/database";
+import { getAllIds, getEventfromId } from "@/utils/eventsDB";
 
 import CopyButton_ from "./copyButton";
 
 export async function generateStaticParams() {
-  const eventIds = await getAllEventIds();
+  const eventIds = await getAllIds();
   return eventIds;
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  const eventItem = await getEventData(params.eventId);
+  const eventItem = await getEventfromId(params.eventId);
 
   const inviteLink: string = `http://localhost:3000/events/${params.eventId}/invite`;
 
@@ -21,7 +21,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
     <section>
       <MaxProse>
         <TypographyStylesProvider>
-          <h1 className="text-center ">Event name: {eventItem.eventName}</h1>
+          <h1 className="text-center ">Event name: {eventItem?.eventName}</h1>
 
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
