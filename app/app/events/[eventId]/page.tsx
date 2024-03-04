@@ -3,9 +3,11 @@ import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
+import { EventType } from "@/models/Event";
 import { getAllIds, getEventfromId } from "@/utils/eventsDB";
 
 import CopyButton_ from "./copyButton";
+import ParticipantList from "./ParticipantList";
 
 export async function generateStaticParams() {
   const eventIds = await getAllIds();
@@ -45,6 +47,9 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
         </TypographyStylesProvider>
 
         <Space h="md" />
+        <Paper>
+          <ParticipantList event={eventItem as EventType} />
+        </Paper>
       </MaxProse>
     </section>
   );

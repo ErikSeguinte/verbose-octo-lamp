@@ -1,6 +1,7 @@
 "use server";
 import { promises as fs } from "fs";
 
+import { oid } from "@/models/common";
 import { EventType } from "@/models/Event";
 
 export const getAllEvents = async () => {
@@ -27,6 +28,8 @@ export type eventsJson = {
   startDate: string;
   endDate: string;
   eventName: string;
+  organizer: oid;
+  participants: oid[];
 };
 
 export const readFile = async () => {
