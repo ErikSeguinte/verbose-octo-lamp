@@ -1,32 +1,41 @@
 import { DateTime, DateTime as LuxDateTime, Interval } from "luxon";
 
+import { toOid } from "@/utils/utils";
+
+import { oid } from "./common";
+
 export class EventType {
   eventName: string;
   startDate: LuxDateTime;
   endDate: LuxDateTime;
-  id: { $oid: string } = { $oid: "" };
+  id: oid = { $oid: "" };
+  organizer: oid = { $oid: "" };
+  participants: Array<oid> = [];
 
   constructor({
     eventName,
     startDate,
     endDate,
     eventId,
-    id,
+    id = {$oid:""},
+    organizer = {$oid:""},
+    participants = []
   }: {
     eventName: string;
     startDate: LuxDateTime;
     endDate: LuxDateTime;
     eventId?: string;
-    id?: { $oid: string };
+    id?: oid;
+    organizer?: oid;
+    participants?: Array<oid>;
   }) {
     this.eventName = eventName;
     this.startDate = startDate;
     this.endDate = endDate;
-    if (eventId) {
-      this.id = { $oid: eventId ? eventId : "" };
-    } else {
-      this.id = id ? id : { $oid: "" };
-    }
+    this.organizer = organizer;
+    this.participants = participants;
+    if (!id["$oid"]) {this.id = toOid(eventId)}
+    else {this.id = id}
   }
 
   set eventId(id: string) {
@@ -105,17 +114,23 @@ export class EventType {
     id,
     startDate,
     endDate,
+    organizer,
+    participants
   }: {
     eventName: string;
     startDate: string;
     endDate: string;
-    id: { $oid: string };
+    id: oid;
+    organizer: oid
+    participants: oid[]
   }) {
     return new EventType({
       endDate: this.stringToLuxDate(endDate),
       eventName: eventName,
       id: id,
-      startDate: this.stringToLuxDate(startDate)
+      organizer: organizer,
+      participants:participants,
+      startDate: this.stringToLuxDate(startDate),
     });
   }
 
