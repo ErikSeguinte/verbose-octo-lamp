@@ -1,7 +1,7 @@
 "use server";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import { Set } from "immutable";
-import { DateTime } from "luxon";
+import { DateTime, Duration, Interval } from "luxon";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
@@ -33,6 +33,12 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
   });
 
   const commonSet = Set.intersect(timeslots);
+
+  const commonArray = Interval.merge(
+    Array.from(commonSet).map((t) => {
+      return Interval.after(t, Duration.fromObject({ minutes: 30 }));
+    }),
+  );
 
   // console.log(JSON.stringify(commonSet))
 
@@ -70,7 +76,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
           <ParticipantList event={eventItem as EventType} />
         </Paper>
 
-        {JSON.stringify(commonSet)}
+        {JSON.stringify(commonArray)}
       </MaxProse>
     </section>
   );

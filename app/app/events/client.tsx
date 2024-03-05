@@ -2,7 +2,7 @@
 import { Select, TypographyStylesProvider } from "@mantine/core";
 import React, { useEffect, useRef, useState } from "react";
 
-import { sortMethod, sortMethodKeys } from "./page";
+import { sortMethod, sortMethodKeys } from "./utils";
 
 const ClientSide = ({
   events,

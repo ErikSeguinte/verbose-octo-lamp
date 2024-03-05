@@ -6,33 +6,7 @@ import { EventType } from "@/models/Event";
 import { getAllEvents } from "@/utils/eventsDB";
 
 import ClientSide from "./client";
-
-export const sortMethod = {
-  "Event Name": (a: EventType, b: EventType) => {
-    const aName = a.eventName.toLowerCase();
-    const bName = b.eventName.toLocaleLowerCase();
-    return aName < bName ? -1 : aName > bName ? 1 : 0;
-  },
-  "Start Date": (a: EventType, b: EventType) => {
-    const aDate = a.startDate;
-    const bDate = b.startDate;
-
-    if (aDate.toMillis() > bDate.toMillis()) {
-      return 1;
-    } else if (bDate.toMillis() > aDate.toMillis()) {
-      return -1;
-    } else {
-      const aName = a.eventName.toLowerCase();
-      const bName = b.eventName.toLocaleLowerCase();
-      return aName < bName ? -1 : aName > bName ? 1 : 0;
-    }
-  },
-} as const;
-
-export type sortMethodKeys = keyof typeof sortMethod;
-export type sortMethodValues =
-  | (typeof sortMethod)["Start Date"]
-  | (typeof sortMethod)["Event Name"];
+import { sortMethod, sortMethodValues } from "./utils";
 
 const sortEvents = function (e: EventType[], compareFn: sortMethodValues) {
   const events = [...e];
@@ -56,7 +30,7 @@ const nodify = (events: EventType[]) => {
   );
 };
 
-const page = async () => {
+const Page = async () => {
   const events = await getAllEvents();
 
   const daySorted = nodify(sortEvents(events, sortMethod["Start Date"]));
@@ -72,4 +46,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Page;
