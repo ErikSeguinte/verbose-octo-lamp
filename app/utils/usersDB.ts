@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 import { oid } from "@/models/common";
 import { UserType } from "@/models/Users";
 
-export const getAllEvents = async () => {
+export const getAllUsers = async () => {
   const events = await readFile();
   return events;
 };

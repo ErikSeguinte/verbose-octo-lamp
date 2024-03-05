@@ -1,10 +1,15 @@
 "use server";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
+import { Set } from "immutable";
+import { DateTime } from "luxon";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
+import { AvailabilityType } from "@/models/Availabilities";
 import { EventType } from "@/models/Event";
+import { query } from "@/utils/availabilitiesDB";
 import { getAllIds, getEventfromId } from "@/utils/eventsDB";
+import { toOid } from "@/utils/utils";
 
 import CopyButton_ from "./copyButton";
 import ParticipantList from "./ParticipantList";
@@ -15,7 +20,21 @@ export async function generateStaticParams() {
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  const eventItem = await getEventfromId(params.eventId);
+  const eventItem = (await getEventfromId(params.eventId)) as EventType;
+  const availabilities = await Promise.all(
+    await eventItem.participants.map(async (p) => {
+      const q = await query({ event: toOid(params.eventId), user: p });
+      return q;
+    }),
+  );
+
+  const timeslots = availabilities.map((a) => {
+    return Set(a[0].timeslots);
+  });
+
+  const commonSet = Set.intersect(timeslots);
+
+  // console.log(JSON.stringify(commonSet))
 
   const inviteLink: string = `http://localhost:3000/events/${params.eventId}/invite`;
 
@@ -50,6 +69,8 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
         <Paper>
           <ParticipantList event={eventItem as EventType} />
         </Paper>
+
+        {JSON.stringify(commonSet)}
       </MaxProse>
     </section>
   );

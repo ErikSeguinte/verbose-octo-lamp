@@ -4,8 +4,8 @@ from datetime import datetime, date, timezone, time, timedelta
 import random
 from bson import ObjectId
 
-events_file = "events.json"
-events2_file = "events2.json"
+events_file = "utils/dummydata/events.json"
+events2_file = "utils/dummydata/events2.json"
 
 events = json.load(Path(events_file).open())
 
@@ -25,7 +25,7 @@ octolamps = []
 
 for event in events:
     timeslots = create_all_timesslots(event["startDate"], event["endDate"])
-    num_slots = len(timeslots) // 6
+    num_slots = len(timeslots) // 3
     for participant in event["participants"]:
         octolamp = {}
         octolamp["user"] = participant
@@ -34,4 +34,4 @@ for event in events:
         octolamp["timeslots"] = random.choices(timeslots,k=num_slots)
         octolamps.append(octolamp)
 
-Path("availabilities.json").write_text(json.dumps(octolamps[:len(octolamps)//2]))
+Path("utils/dummydata/availabilities.json").write_text(json.dumps(octolamps))
