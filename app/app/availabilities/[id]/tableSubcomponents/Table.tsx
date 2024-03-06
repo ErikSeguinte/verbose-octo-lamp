@@ -26,10 +26,14 @@ const Table = ({
   children,
   tableData,
   slots,
+  usingForm = true,
+  readonly = true,
 }: {
   children: ReactNode;
   tableData: serializedTableData[];
-  slots: Set<string>
+  slots: Set<string>;
+  usingForm?: boolean;
+  readonly?: boolean;
 }) => {
   function* keygen() {
     for (let k = 0; k >= 0; k = k + 1) {
@@ -38,12 +42,19 @@ const Table = ({
   }
   const key = keygen();
   const rows = tableData.map((r) => {
-    return <TableRow key={key.next().value as string} rowData={r} slots={slots}/>;
+    return (
+      <TableRow
+        key={key.next().value as string}
+        readonly={readonly}
+        rowData={r}
+        slots={slots}
+      />
+    );
   });
   return (
     <TimezoneProvider>
       <MouseEventProvider>
-        <Canvas>
+        <Canvas readonly={readonly} usingForm={usingForm}>
           <table className="select-none p-8 mb-20">
             <thead>{children}</thead>
             <tbody>{rows}</tbody>
@@ -54,7 +65,15 @@ const Table = ({
   );
 };
 
-const TableRow = ({ rowData, slots }: { rowData: serializedTableData, slots:Set<string> }) => {
+const TableRow = ({
+  rowData,
+  slots,
+  readonly = false,
+}: {
+  rowData: serializedTableData;
+  slots: Set<string>;
+  readonly?: boolean;
+}) => {
   const interval = getInterval(rowData.startDate, rowData.endDate);
   const startDate = DateTime.fromISO(rowData.startDate).plus({
     hour: rowData.hour,
@@ -70,7 +89,14 @@ const TableRow = ({ rowData, slots }: { rowData: serializedTableData, slots:Set<
     };
 
     while (interval.contains(date)) {
-      yield <Cell date={date} key={dateString} slots={slots}></Cell>;
+      yield (
+        <Cell
+          date={date}
+          key={dateString}
+          readonly={readonly}
+          slots={slots}
+        ></Cell>
+      );
       [date, dateString] = getNext(date);
     }
   }

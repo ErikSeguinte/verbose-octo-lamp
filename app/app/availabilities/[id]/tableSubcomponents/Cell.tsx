@@ -11,13 +11,21 @@ import {
   useMouseEventContext,
 } from "./MouseEventProvider";
 
-const Cell = ({ date, slots }: { date: DateTime; slots: Set<string> }) => {
+const Cell = ({
+  date,
+  slots,
+  readonly,
+}: {
+  date: DateTime;
+  slots: Set<string>;
+  readonly?: boolean;
+}) => {
   const dt = date;
   const dateString = date.toISO();
   const ref = useRef<HTMLTableCellElement | null>(null);
   const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
   const [timezoneInfo] = useTimezoneContext();
-  const [isSelected, setSelected] = useState(slots.has(dateString as string))
+  const [isSelected, setSelected] = useState(slots.has(dateString as string));
   const f = (dt: DateTime) => {
     if (dt.minute == 0) {
       return dt.toFormat("hha");
@@ -50,7 +58,7 @@ const Cell = ({ date, slots }: { date: DateTime; slots: Set<string> }) => {
     "font-mono",
     "text-sm",
     "text-center",
-    "bg-slate-200"
+    "bg-slate-200",
   );
   const unselectedCell = (
     <td
@@ -58,12 +66,16 @@ const Cell = ({ date, slots }: { date: DateTime; slots: Set<string> }) => {
       data-dt={dateString}
       key={dt.toISO()}
       ref={ref}
-      onPointerDown={mousedown}
-      onPointerOver={mouseOver}
-      onMouseUp={() => {
-        const dispatch: mouseDispatch = { action: mouseEventActions.UP };
-        mouseEventDispatch(dispatch);
-      }}
+      onPointerDown={readonly ? undefined : mousedown}
+      onPointerOver={readonly ? undefined : mouseOver}
+      onMouseUp={
+        readonly
+          ? undefined
+          : () => {
+              const dispatch: mouseDispatch = { action: mouseEventActions.UP };
+              mouseEventDispatch(dispatch);
+            }
+      }
     >
       {f(dt)}
     </td>
@@ -72,25 +84,29 @@ const Cell = ({ date, slots }: { date: DateTime; slots: Set<string> }) => {
     "font-mono",
     "text-sm",
     "text-center",
-    "bg-green-300"
+    "bg-green-300",
   );
   const selectedCell = (
     <td
-    className={selectedClasses}
-    data-dt={dateString}
-    key={dt.toISO()}
-    ref={ref}
-    onPointerDown={mousedown}
-    onPointerOver={mouseOver}
-    onMouseUp={() => {
-      const dispatch: mouseDispatch = { action: mouseEventActions.UP };
-      mouseEventDispatch(dispatch);
-    }}
-    data-is-selected
-  >
-    {f(dt)}
-  </td>
-  )
+      className={selectedClasses}
+      data-dt={dateString}
+      key={dt.toISO()}
+      ref={ref}
+      data-is-selected
+      onPointerDown={readonly ? undefined : mousedown}
+      onPointerOver={readonly ? undefined : mouseOver}
+      onMouseUp={
+        readonly
+          ? undefined
+          : () => {
+              const dispatch: mouseDispatch = { action: mouseEventActions.UP };
+              mouseEventDispatch(dispatch);
+            }
+      }
+    >
+      {f(dt)}
+    </td>
+  );
 
   useEffect(() => {
     const element = ref.current as HTMLElement;
@@ -103,13 +119,10 @@ const Cell = ({ date, slots }: { date: DateTime; slots: Set<string> }) => {
     element.dataset.date = date.toISODate() as string;
     element.dataset.row = date.toFormat("hhmm");
 
-    setSelected( slots.has(utc))
+    setSelected(slots.has(utc));
   }, [date, timezoneInfo.timezone, isSelected, slots]);
 
-
-  return (
-<>{isSelected ? selectedCell : unselectedCell}</>
-  );
+  return <>{isSelected ? selectedCell : unselectedCell}</>;
 };
 
 export default Cell;

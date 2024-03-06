@@ -33,11 +33,6 @@ function InputDrawer() {
           Open Input Form
         </Button>
       </Affix>
-      <Affix pb="1rem" position={{ bottom: "0%", left: "50%" }}>
-        <Button className={classes} color="dark" size="lg" onClick={() => {}}>
-          Submit Availability
-        </Button>
-      </Affix>
     </>
   );
 }
