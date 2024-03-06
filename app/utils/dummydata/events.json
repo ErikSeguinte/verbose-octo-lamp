@@ -49,7 +49,7 @@
     "participants": [
       { "$oid": "65e4d32dfc13ae7de7cd3ec1" },
       { "$oid": "65e4d32dfc13ae7de7cd3e8e" },
-      { "$oid": "65e4d32dfc13ae7de7cd3ec7" },
+
       { "$oid": "65e4d32dfc13ae7de7cd3e86" },
       { "$oid": "65e4d32dfc13ae7de7cd3eef" },
       { "$oid": "65e4d32dfc13ae7de7cd3ee8" }
@@ -62,7 +62,7 @@
     "endDate": "2023-06-06T00:00:00+00:00",
     "eventName": "Expanded next generation hardware",
     "organizer": { "$oid": "65e4d32dfc13ae7de7cd3eb8" },
-    "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e65" }],
+    "participants": [{ "$oid": "65e4d32dfc13ae7de7cd3e65" },      { "$oid": "65e4d32dfc13ae7de7cd3ec7" }],
     "inviteCode": "01HR8Q6TVVHM49MXRBDCT3897Q"
   }
 ]

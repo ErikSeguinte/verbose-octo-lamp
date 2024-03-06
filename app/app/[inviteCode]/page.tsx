@@ -2,16 +2,17 @@
 import { Title } from "@mantine/core";
 import React from "react";
 
-import { getAllEventIds, getEventData } from "@/utils/database";
+import { getAllEvents } from "@/utils/eventsDB";
 
 import Table, { TableHead } from "./TimezoneTable";
 
 type Props = {
-  params: { eventId: string };
+  params: { inviteCode: string };
 };
 
 export async function generateMetadata({ params }: Props) {
-  const eventItem = await getEventData(params.eventId);
+  const events = await getAllEvents();
+  const eventItem = events.filter((e) => e.inviteCode == params.inviteCode)[0];
 
   return {
     title: `Verbose Octolamp - ${eventItem.eventName} invitation form`,
@@ -31,12 +32,13 @@ function listTimes() {
 }
 
 export async function generateStaticParams() {
-  const eventIds = await getAllEventIds();
-  return eventIds;
+  const event = await getAllEvents();
+  return event.map((e) => e.inviteCode);
 }
 
 const Page = async ({ params }: Props) => {
-  const eventItem = await getEventData(params.eventId);
+  const events = await getAllEvents();
+  const eventItem = events.filter((e) => (e.inviteCode = params.inviteCode))[0];
 
   const [startDate, endDate] = eventItem.dateStrings;
 

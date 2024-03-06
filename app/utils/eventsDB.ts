@@ -30,6 +30,7 @@ export type eventsJson = {
   eventName: string;
   organizer: oid;
   participants: oid[];
+  inviteCode: string
 };
 
 export const readFile = async () => {
@@ -38,6 +39,7 @@ export const readFile = async () => {
     "utf8"
   );
   const events: eventsJson[] = JSON.parse(eventsFile);
+  // console.log(events)
   return events.map((e) => {
     return EventType.fromJson({ ...e });
   });

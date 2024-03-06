@@ -11,15 +11,17 @@ export class EventType {
   id: oid = { $oid: "" };
   organizer: oid = { $oid: "" };
   participants: Array<oid> = [];
+  inviteCode: string;
 
   constructor({
     eventName,
     startDate,
     endDate,
     eventId,
-    id = {$oid:""},
-    organizer = {$oid:""},
-    participants = []
+    id = { $oid: "" },
+    organizer = { $oid: "" },
+    participants = [],
+    inviteCode = "",
   }: {
     eventName: string;
     startDate: LuxDateTime;
@@ -28,14 +30,19 @@ export class EventType {
     id?: oid;
     organizer?: oid;
     participants?: Array<oid>;
+    inviteCode?: string;
   }) {
     this.eventName = eventName;
     this.startDate = startDate;
     this.endDate = endDate;
     this.organizer = organizer;
     this.participants = participants;
-    if (!id["$oid"]) {this.id = toOid(eventId)}
-    else {this.id = id}
+    this.inviteCode = inviteCode;
+    if (!id["$oid"]) {
+      this.id = toOid(eventId);
+    } else {
+      this.id = id;
+    }
   }
 
   set eventId(id: string) {
@@ -115,28 +122,30 @@ export class EventType {
     startDate,
     endDate,
     organizer,
-    participants
+    participants,
+    inviteCode,
   }: {
     eventName: string;
     startDate: string;
     endDate: string;
     id: oid;
-    organizer: oid
-    participants: oid[]
+    organizer: oid;
+    participants: oid[];
+    inviteCode: string;
   }) {
     return new EventType({
       endDate: this.stringToLuxDate(endDate),
       eventName: eventName,
       id: id,
+      inviteCode: inviteCode,
       organizer: organizer,
-      participants:participants,
+      participants: participants,
       startDate: this.stringToLuxDate(startDate),
     });
   }
 
-  static stringToLuxDate(s:string) {
-    const dt = LuxDateTime.fromISO(s, {zone:"utc"}).toISODate() as string
-    return LuxDateTime.fromISO(dt, {zone:"utc" })
+  static stringToLuxDate(s: string) {
+    return LuxDateTime.fromISO(s, { zone: "utc" });
   }
 
   toString() {

@@ -1,11 +1,10 @@
 "use server";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import { Set } from "immutable";
-import { DateTime, Duration, Interval } from "luxon";
+import { Duration, Interval } from "luxon";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
-import { AvailabilityType } from "@/models/Availabilities";
 import { EventType } from "@/models/Event";
 import { query } from "@/utils/availabilitiesDB";
 import { getAllIds, getEventfromId } from "@/utils/eventsDB";
@@ -28,9 +27,13 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
     }),
   );
 
-  const timeslots = availabilities.map((a) => {
-    return Set(a[0].timeslots);
-  });
+  const timeslots = availabilities
+    .filter((a) => {
+      return a[0] ? true : false;
+    })
+    .map((a) => {
+      return Set(a[0].timeslots);
+    });
 
   const commonSet = Set.intersect(timeslots);
 
@@ -39,10 +42,8 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
       return Interval.after(t, Duration.fromObject({ minutes: 30 }));
     }),
   );
-
-  // console.log(JSON.stringify(commonSet))
-
-  const inviteLink: string = `http://localhost:3000/events/${params.eventId}/invite`;
+  const invitecode = eventItem.inviteCode;
+  const inviteLink: string = `http://localhost:3000/${invitecode}`;
 
   return (
     <section>

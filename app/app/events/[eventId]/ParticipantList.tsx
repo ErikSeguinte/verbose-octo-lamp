@@ -1,9 +1,6 @@
-import { Paper } from "@mantine/core";
-import { DateTime } from "luxon";
 import Link from "next/link";
 import React from "react";
 
-import { AvailabilityType } from "@/models/Availabilities";
 import { EventType } from "@/models/Event";
 import { UserType } from "@/models/Users";
 import { getAllMapped } from "@/utils/usersDB";
@@ -18,7 +15,7 @@ const ParticipantList = async ({ event }: { event: EventType }) => {
       const user: UserType = userMap.get(p.$oid) as UserType;
 
       return (
-        <ul key={p.$oid}>
+        <ul className="list-disc" key={p.$oid}>
           <li>
             <Link
               href={`/events/${event.id.$oid}/availabilities/${user.id.$oid}`}
@@ -26,7 +23,13 @@ const ParticipantList = async ({ event }: { event: EventType }) => {
               {user.name}{" "}
             </Link>
           </li>
-          {user.discord ? <li>{user.discord}</li> : <></>}
+          {user.discord ? (
+            <ul>
+              <li className={""}>discord: {user.discord}</li>
+            </ul>
+          ) : (
+            <></>
+          )}
         </ul>
       );
     });

@@ -6,7 +6,6 @@ import { DateTime } from "luxon";
 
 import { AvailabilityType } from "@/models/Availabilities";
 import { oid } from "@/models/common";
-import { UserType } from "@/models/Users";
 
 // export const getAllEvents = async () => {
 //   const events = await readFile();
