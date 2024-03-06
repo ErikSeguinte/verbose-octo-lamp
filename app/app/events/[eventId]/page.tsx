@@ -73,7 +73,6 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
 
         <Space h="md" />
         <Paper>
-          {/* @ts-expect-error Async Server Component */}
           <ParticipantList event={eventItem as EventType} />
         </Paper>
 
