@@ -3,6 +3,7 @@ import { Title } from "@mantine/core";
 import React from "react";
 
 import { AvailabilityType } from "@/models/Availabilities";
+import { EventType } from "@/models/Event";
 import { getAvailabilityById } from "@/utils/availabilitiesDB";
 import { getEventData } from "@/utils/database";
 import { getAllEvents } from "@/utils/eventsDB";
@@ -26,22 +27,30 @@ function listTimes() {
 
 const TimeTable = async ({
   availabilityId,
+  eventId,
   usingForm = true,
   readonly = false,
 }: {
-  availabilityId: string;
+  availabilityId?: string;
   usingForm: boolean;
   readonly?: boolean;
+  eventId?: string;
 }) => {
-  const availability = (await getAvailabilityById(
-    availabilityId,
-  )) as AvailabilityType;
-  const eventItem = await getEventData(availability.event.$oid as string);
-  const timeslots = new Set<string>(
-    availability.timeslots.map((dt) => {
-      return dt.toUTC().toISO({}) as string;
-    }),
-  );
+  let eventItem: EventType;
+  let timeslots: Set<string> | undefined = undefined;
+  if (availabilityId) {
+    const availability = (await getAvailabilityById(
+      availabilityId,
+    )) as AvailabilityType;
+    timeslots = new Set<string>(
+      availability.timeslots.map((dt) => {
+        return dt.toUTC().toISO({}) as string;
+      }),
+    );
+    eventItem = await getEventData(availability.event.$oid as string);
+  } else {
+    eventItem = await getEventData(eventId as string);
+  }
 
   const [startDate, endDate] = eventItem.dateStrings;
 

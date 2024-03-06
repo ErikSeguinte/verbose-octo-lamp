@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props) {
   const eventItem = await getEventData(availability?.event.$oid as string);
 
   return {
-    title: `Verbose Octolamp - ${eventItem.eventName} invitation form`,
+    title: `Verbose Octolamp - ${eventItem.eventName} availability edit form`,
   };
 }
 

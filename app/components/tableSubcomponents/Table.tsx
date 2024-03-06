@@ -31,7 +31,7 @@ const Table = ({
 }: {
   children: ReactNode;
   tableData: serializedTableData[];
-  slots: Set<string>;
+  slots?: Set<string>;
   usingForm?: boolean;
   readonly?: boolean;
 }) => {
@@ -71,7 +71,7 @@ const TableRow = ({
   readonly = false,
 }: {
   rowData: serializedTableData;
-  slots: Set<string>;
+  slots?: Set<string>;
   readonly?: boolean;
 }) => {
   const interval = getInterval(rowData.startDate, rowData.endDate);

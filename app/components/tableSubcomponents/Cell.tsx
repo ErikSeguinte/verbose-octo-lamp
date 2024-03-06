@@ -17,7 +17,7 @@ const Cell = ({
   readonly,
 }: {
   date: DateTime;
-  slots: Set<string>;
+  slots?: Set<string>;
   readonly?: boolean;
 }) => {
   const dt = date;
@@ -25,7 +25,9 @@ const Cell = ({
   const ref = useRef<HTMLTableCellElement | null>(null);
   const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
   const [timezoneInfo] = useTimezoneContext();
-  const [isSelected, setSelected] = useState(slots.has(dateString as string));
+  const [isSelected, setSelected] = useState(
+    slots ? slots.has(dateString as string) : null,
+  );
   const f = (dt: DateTime) => {
     if (dt.minute == 0) {
       return dt.toFormat("hha");
@@ -119,7 +121,7 @@ const Cell = ({
     element.dataset.date = date.toISODate() as string;
     element.dataset.row = date.toFormat("hhmm");
 
-    setSelected(slots.has(utc));
+    setSelected(slots ? slots.has(utc) : null);
   }, [date, timezoneInfo.timezone, isSelected, slots]);
 
   return <>{isSelected ? selectedCell : unselectedCell}</>;
