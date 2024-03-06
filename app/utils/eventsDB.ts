@@ -49,3 +49,4 @@ export const getEventfromId = async (id: string) => {
   const events = await getAllMapped();
   return events.get(id);
 };
+

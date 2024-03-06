@@ -1,8 +1,7 @@
-
-
 "use server";
 import { promises as fs} from "fs";
 import { DateTime } from "luxon";
+import { cache } from "react";
 
 import { AvailabilityType } from "@/models/Availabilities";
 import { oid } from "@/models/common";
@@ -34,11 +33,7 @@ export type availabilityJson = {
 };
 
 export const readFile = async ():Promise<AvailabilityType[]> => {
-  const availabilitiesFile = await fs.readFile(
-    process.cwd() + "/utils/dummydata/availabilities.json",
-    "utf8"
-  );
-  const availabilities: availabilityJson[] = JSON.parse(availabilitiesFile);
+  const availabilities: availabilityJson[] = await cacheFile()
   return availabilities.map((a) => {
     const aList = a.timeslots.map((dt)=>DateTime.fromISO(dt))
     const aObj = {...a, timeslots: aList}
@@ -46,18 +41,28 @@ export const readFile = async ():Promise<AvailabilityType[]> => {
   });
 };
 
+export const cacheFile = cache(async () => {
+  const availabilitiesFile = await fs.readFile(
+    process.cwd() + "/utils/dummydata/availabilities.json",
+    "utf8"
+  );
+  console.log("Reading File")
+  const availabilities: availabilityJson[] = JSON.parse(availabilitiesFile); 
+  return availabilities
+})
+
 // export const getUserFromId = async (id: string) => {
 //   const availabilities = await getAllMapped();
 //   return availabilities.get(id);
 // };
 
-export const query = async ({user, event}:{user:oid, event:oid}) =>{
+export const query = cache( async (userOid:oid, eventOid:oid) =>{
     const availabilities = await readFile()
     const filtered = availabilities.filter((a)=>{
-        return a.event.$oid == event.$oid && a.user.$oid == user.$oid
+        return a.event.$oid == eventOid.$oid && a.user.$oid == userOid.$oid
     })
     return filtered
-}
+})
 
 export const getAvailabilityById = async (id:string) => {
   const a = await getAllMapped()

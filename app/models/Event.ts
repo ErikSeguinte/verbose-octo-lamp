@@ -1,5 +1,7 @@
+import { Set as ImSet } from "immutable";
 import { DateTime, DateTime as LuxDateTime, Interval } from "luxon";
 
+import { query } from "@/utils/availabilitiesDB";
 import { toOid } from "@/utils/utils";
 
 import { oid } from "./common";
@@ -52,20 +54,6 @@ export class EventType {
   get eventId(): string | undefined {
     const id = this.id["$oid"];
     return id ? id : undefined;
-  }
-
-  get timeSlots(): LuxDateTime[] {
-    const extended_start = this.startDate.plus({ days: -1 });
-    const extended_end = this.endDate.plus({ days: 1 });
-    const timeslots: LuxDateTime[] = [];
-
-    let dt: LuxDateTime = extended_start.plus({ days: 0 });
-    while (dt.toMillis() < extended_end.toMillis()) {
-      timeslots.push(dt);
-      dt = dt.plus({ minutes: 30 });
-    }
-
-    return timeslots;
   }
 
   async asyncGetAsyncTimeslots({
@@ -160,20 +148,30 @@ export class EventType {
       startDt: this.startDate.toISO(),
     };
   }
-}
 
-export interface EventInterface {
-  eventName: string;
-  startDt: string;
-  endDt: string;
-}
+  async getSharedAvailability(participants?: oid[]): Promise<Set<string>> {
+    if (!participants) {
+      participants = this.participants;
+    }
+    const availabilities = await Promise.all(
+      await participants.map(async (p) => {
+        const q = await query(p, this.id);
+        return q;
+      })
+    );
 
-export interface expandedDtInterface {
-  year: number;
-  month: number;
-  hour: number;
-  day: number;
-  minute: number;
-  second: number;
-  millisecond: number;
+    const timeslots = availabilities
+      .filter((a) => {
+        return a[0] ? true : false;
+      })
+      .map((a) => {
+        return ImSet(a[0].timeslots);
+      });
+
+    const commonSet = ImSet.intersect(timeslots);
+    const slotsArray = commonSet.toArray().map((dt) => dt.toISO() as string);
+    const slots = new Set(slotsArray);
+    return slots;
+  }
+
 }

@@ -6,7 +6,7 @@ import React from "react";
 import MaxProse from "@/components/MaxProse";
 import TimeTable from "@/components/timeTable";
 import { EventType } from "@/models/Event";
-import { query } from "@/utils/availabilitiesDB";
+import { cacheFile, query } from "@/utils/availabilitiesDB";
 import { getAllIds, getEventfromId } from "@/utils/eventsDB";
 import { toOid } from "@/utils/utils";
 
@@ -19,27 +19,12 @@ export async function generateStaticParams() {
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
+  cacheFile();
+
   const eventItem = (await getEventfromId(params.eventId)) as EventType;
-  const availabilities = await Promise.all(
-    await eventItem.participants.map(async (p) => {
-      const q = await query({ event: toOid(params.eventId), user: p });
-      return q;
-    })
-  );
-
-  const timeslots = availabilities
-    .filter((a) => {
-      return a[0] ? true : false;
-    })
-    .map((a) => {
-      return ImSet(a[0].timeslots);
-    });
-
-  const commonSet = ImSet.intersect(timeslots);
-  const slotsArray = commonSet.toArray().map((dt) => dt.toISO() as string);
-  const slots = new Set(slotsArray);
   const invitecode = eventItem.inviteCode;
   const inviteLink: string = `http://localhost:3000/${invitecode}`;
+  const slots = await eventItem.getSharedAvailability();
 
   return (
     <section>
