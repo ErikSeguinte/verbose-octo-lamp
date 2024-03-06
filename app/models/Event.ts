@@ -174,4 +174,31 @@ export class EventType {
     return slots;
   }
 
+  async getOneOffAvailabilities(): Promise<Array<readonly [oid, Set<string>]>> {
+    if (this.participants.length < 3) {
+      return [];
+    }
+    type slotsType = Set<string>;
+    type slotsPromise = Promise<slotsType>;
+
+    const promises: slotsPromise[] = [];
+    const removedParticipant: oid[] = [];
+    for (const p of this.participants) {
+      const oneOffParticipants = this.participants.filter(
+        (removed) => !removed
+      );
+      promises.push(this.getSharedAvailability(oneOffParticipants));
+      removedParticipant.push(p);
+    }
+    const shared = await Promise.all(promises);
+
+    const oneOffs: Array<readonly [oid, slotsType]> = [];
+
+    for (let i = 0; i < removedParticipant.length; i = i + 1) {
+      const item = [removedParticipant[i], shared[i]] as const;
+      oneOffs.push(item);
+    }
+
+    return oneOffs;
+  }
 }
