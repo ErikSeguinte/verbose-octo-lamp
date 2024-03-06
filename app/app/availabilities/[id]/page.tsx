@@ -44,9 +44,9 @@ const Page = async ({ params }: Props) => {
     params.id,
   )) as AvailabilityType;
   const eventItem = await getEventData(availability.event.$oid as string);
-  const timeslots = new Set(
+  const timeslots = new Set<string>(
     availability.timeslots.map((dt) => {
-      return dt.toUTC().toISO({});
+      return dt.toUTC().toISO({}) as string;
     }),
   );
 
@@ -70,7 +70,7 @@ const Page = async ({ params }: Props) => {
   return (
     <div className="px-12">
       <Title>{eventItem.eventName}</Title>
-      <Table tableData={rows}>
+      <Table slots={timeslots} tableData={rows}>
         <TableHead rowData={heads} />
       </Table>
     </div>

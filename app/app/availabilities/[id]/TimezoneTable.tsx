@@ -25,9 +25,11 @@ function getInterval(startDate: string, endDate: string) {
 const Table = ({
   children,
   tableData,
+  slots,
 }: {
   children: ReactNode;
   tableData: serializedTableData[];
+  slots: Set<string>
 }) => {
   function* keygen() {
     for (let k = 0; k >= 0; k = k + 1) {
@@ -36,7 +38,7 @@ const Table = ({
   }
   const key = keygen();
   const rows = tableData.map((r) => {
-    return <TableRow key={key.next().value as string} rowData={r} />;
+    return <TableRow key={key.next().value as string} rowData={r} slots={slots}/>;
   });
   return (
     <TimezoneProvider>
@@ -52,7 +54,7 @@ const Table = ({
   );
 };
 
-const TableRow = ({ rowData }: { rowData: serializedTableData }) => {
+const TableRow = ({ rowData, slots }: { rowData: serializedTableData, slots:Set<string> }) => {
   const interval = getInterval(rowData.startDate, rowData.endDate);
   const startDate = DateTime.fromISO(rowData.startDate).plus({
     hour: rowData.hour,
@@ -68,7 +70,7 @@ const TableRow = ({ rowData }: { rowData: serializedTableData }) => {
     };
 
     while (interval.contains(date)) {
-      yield <Cell date={date} key={dateString}></Cell>;
+      yield <Cell date={date} key={dateString} slots={slots}></Cell>;
       [date, dateString] = getNext(date);
     }
   }

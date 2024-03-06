@@ -1,7 +1,7 @@
 "use client";
 import classNames from "classnames";
 import { DateTime } from "luxon";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useTimezoneContext } from "@/components/TimezoneProvider";
 
@@ -11,12 +11,13 @@ import {
   useMouseEventContext,
 } from "./MouseEventProvider";
 
-const Cell = ({ date }: { date: DateTime }) => {
+const Cell = ({ date, slots }: { date: DateTime; slots: Set<string> }) => {
   const dt = date;
   const dateString = date.toISO();
   const ref = useRef<HTMLTableCellElement | null>(null);
   const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
   const [timezoneInfo] = useTimezoneContext();
+  const [isSelected, setSelected] = useState(slots.has(dateString as string))
   const f = (dt: DateTime) => {
     if (dt.minute == 0) {
       return dt.toFormat("hha");
@@ -45,26 +46,13 @@ const Cell = ({ date }: { date: DateTime }) => {
       } else toggleOff(target);
     }
   };
-
-  useEffect(() => {
-    const element = ref.current as HTMLElement;
-    const localTimezone = timezoneInfo.timezone
-      ? timezoneInfo.timezone
-      : "local";
-    const zonedDt = date.setZone(localTimezone, { keepLocalTime: true });
-    const utc = zonedDt.toUTC().toISO() as string;
-    element.dataset.dt = utc;
-    element.dataset.date = date.toISODate() as string;
-    element.dataset.row = date.toFormat("hhmm");
-  }, [date, timezoneInfo.timezone]);
-
-  let classes = classNames(
+  const classes = classNames(
     "font-mono",
     "text-sm",
     "text-center",
-    "bg-slate-200",
+    "bg-slate-200"
   );
-  return (
+  const unselectedCell = (
     <td
       className={classes}
       data-dt={dateString}
@@ -79,6 +67,48 @@ const Cell = ({ date }: { date: DateTime }) => {
     >
       {f(dt)}
     </td>
+  );
+  const selectedClasses = classNames(
+    "font-mono",
+    "text-sm",
+    "text-center",
+    "bg-green-300"
+  );
+  const selectedCell = (
+    <td
+    className={selectedClasses}
+    data-dt={dateString}
+    key={dt.toISO()}
+    ref={ref}
+    onPointerDown={mousedown}
+    onPointerOver={mouseOver}
+    onMouseUp={() => {
+      const dispatch: mouseDispatch = { action: mouseEventActions.UP };
+      mouseEventDispatch(dispatch);
+    }}
+    data-is-selected
+  >
+    {f(dt)}
+  </td>
+  )
+
+  useEffect(() => {
+    const element = ref.current as HTMLElement;
+    const localTimezone = timezoneInfo.timezone
+      ? timezoneInfo.timezone
+      : "local";
+    const zonedDt = date.setZone(localTimezone, { keepLocalTime: true });
+    const utc = zonedDt.toUTC().toISO() as string;
+    element.dataset.dt = utc;
+    element.dataset.date = date.toISODate() as string;
+    element.dataset.row = date.toFormat("hhmm");
+
+    setSelected( slots.has(utc))
+  }, [date, timezoneInfo.timezone, isSelected, slots]);
+
+
+  return (
+<>{isSelected ? selectedCell : unselectedCell}</>
   );
 };
 
