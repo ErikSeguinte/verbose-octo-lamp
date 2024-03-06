@@ -24,7 +24,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
     await eventItem.participants.map(async (p) => {
       const q = await query({ event: toOid(params.eventId), user: p });
       return q;
-    }),
+    })
   );
 
   const timeslots = availabilities
@@ -66,12 +66,15 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
             <CopyButton_ value={inviteLink} />
           </Paper>
         </TypographyStylesProvider>
+      </MaxProse>
 
+      <MaxProse>
         <Space h="md" />
         <Paper>
           <ParticipantList event={eventItem as EventType} />
         </Paper>
       </MaxProse>
+
       <TimeTable
         eventId={params.eventId}
         readonly={true}
