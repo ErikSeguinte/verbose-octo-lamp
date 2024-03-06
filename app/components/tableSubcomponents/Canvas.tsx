@@ -1,7 +1,7 @@
 import { Affix, Button } from "@mantine/core";
 import React from "react";
 
-import InputDrawer from "../(form)/Drawer";
+import InputDrawer from "./(form)/Drawer";
 import {
   mouseDispatch,
   mouseEventActions,

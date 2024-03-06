@@ -1,10 +1,9 @@
+import TimeTable from "@c/timeTable";
 import React from "react";
 
 import { getAvailabilityById } from "@/utils/availabilitiesDB";
 import { getEventData } from "@/utils/database";
 import { getAllEvents } from "@/utils/eventsDB";
-
-import TimeTable from "./timeTable";
 
 type Props = {
   params: { id: string };
