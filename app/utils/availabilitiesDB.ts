@@ -17,14 +17,14 @@ import { oid } from "@/models/common";
 //   return events.map((u) => u.id["$oid"]);
 // };
 
-// export const getAllMapped = async () => {
-//   const availabilities = await readFile();
-//   const map: Map<string, UserType> = new Map();
-//   availabilities.forEach((u: UserType) => {
-//     map.set(u.id["$oid"] as string, u as UserType);
-//   });
-//   return map;
-// };
+export const getAllMapped = async () => {
+  const availabilities = await readFile();
+  const map: Map<string, AvailabilityType> = new Map();
+  availabilities.forEach((a: AvailabilityType) => {
+    map.set(a.id["$oid"] as string, a as AvailabilityType);
+  });
+  return map;
+};
 
 export type availabilityJson = {
   id: oid
@@ -57,4 +57,9 @@ export const query = async ({user, event}:{user:oid, event:oid}) =>{
         return a.event.$oid == event.$oid && a.user.$oid == user.$oid
     })
     return filtered
+}
+
+export const getAvailabilityById = async (id:string) => {
+  const a = await getAllMapped()
+  return a.get(id)
 }
