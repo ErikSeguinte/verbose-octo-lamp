@@ -1,18 +1,13 @@
 "use server";
-import { Title } from "@mantine/core";
+import { notFound } from "next/navigation";
 import React from "react";
 
 import { AvailabilityType } from "@/models/Availabilities";
 import { EventType } from "@/models/Event";
 import { getAvailabilityById } from "@/utils/availabilitiesDB";
-import { getEventData } from "@/utils/database";
-import { getAllEvents } from "@/utils/eventsDB";
+import { getEventfromId } from "@/utils/eventsDB";
 
 import Table, { TableHead } from "./tableSubcomponents/Table";
-
-type Props = {
-  params: { id: string };
-};
 
 function listTimes() {
   const times: Array<{ hour: number; min: number }> = [];
@@ -30,15 +25,19 @@ const TimeTable = async ({
   eventId,
   usingForm = true,
   readonly = false,
+  slots,
 }: {
   availabilityId?: string;
   usingForm: boolean;
   readonly?: boolean;
   eventId?: string;
+  slots?: Set<string>;
 }) => {
-  let eventItem: EventType;
+  let eventItem: EventType | undefined = undefined;
   let timeslots: Set<string> | undefined = undefined;
-  if (availabilityId) {
+  if (slots) {
+    timeslots = slots;
+  } else if (availabilityId) {
     const availability = (await getAvailabilityById(
       availabilityId,
     )) as AvailabilityType;
@@ -47,9 +46,15 @@ const TimeTable = async ({
         return dt.toUTC().toISO({}) as string;
       }),
     );
-    eventItem = await getEventData(availability.event.$oid as string);
-  } else {
-    eventItem = await getEventData(eventId as string);
+    eventItem = await getEventfromId(availability.event.$oid as string);
+  }
+
+  if (eventId) {
+    eventItem = await getEventfromId(eventId as string);
+  }
+
+  if (!eventItem) {
+    notFound();
   }
 
   const [startDate, endDate] = eventItem.dateStrings;
@@ -72,7 +77,6 @@ const TimeTable = async ({
   return (
     <>
       <div className="px-12">
-        <Title>{eventItem.eventName}</Title>
         <Table
           readonly={readonly}
           slots={timeslots}

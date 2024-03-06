@@ -1,10 +1,10 @@
 "use server";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
-import { Set } from "immutable";
-import { Duration, Interval } from "luxon";
+import { Set as ImSet } from "immutable";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
+import TimeTable from "@/components/timeTable";
 import { EventType } from "@/models/Event";
 import { query } from "@/utils/availabilitiesDB";
 import { getAllIds, getEventfromId } from "@/utils/eventsDB";
@@ -32,16 +32,12 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
       return a[0] ? true : false;
     })
     .map((a) => {
-      return Set(a[0].timeslots);
+      return ImSet(a[0].timeslots);
     });
 
-  const commonSet = Set.intersect(timeslots);
-
-  const commonArray = Interval.merge(
-    Array.from(commonSet).map((t) => {
-      return Interval.after(t, Duration.fromObject({ minutes: 30 }));
-    }),
-  );
+  const commonSet = ImSet.intersect(timeslots);
+  const slotsArray = commonSet.toArray().map((dt) => dt.toISO() as string);
+  const slots = new Set(slotsArray);
   const invitecode = eventItem.inviteCode;
   const inviteLink: string = `http://localhost:3000/${invitecode}`;
 
@@ -65,8 +61,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
           <Paper bg="var(--mantine-color-blue-light)" p="1rem" shadow="lg">
             <h2 className="text-center">Invite Link</h2>
             <Paper bg="white" className="b-2" p="0.5rem" ta="center">
-              {" "}
-              {inviteLink}{" "}
+              {inviteLink}
             </Paper>
             <CopyButton_ value={inviteLink} />
           </Paper>
@@ -76,9 +71,13 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
         <Paper>
           <ParticipantList event={eventItem as EventType} />
         </Paper>
-
-        {JSON.stringify(commonArray)}
       </MaxProse>
+      <TimeTable
+        eventId={params.eventId}
+        readonly={true}
+        slots={slots}
+        usingForm={false}
+      />
     </section>
   );
 };
