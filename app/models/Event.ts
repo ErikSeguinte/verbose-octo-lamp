@@ -1,5 +1,5 @@
 import { Set as ImSet } from "immutable";
-import { DateTime, DateTime as LuxDateTime, Interval } from "luxon";
+import { DateTime, Interval } from "luxon";
 
 import { query } from "@/utils/availabilitiesDB";
 import { toOid } from "@/utils/utils";
@@ -8,12 +8,13 @@ import { oid } from "./common";
 
 export class EventType {
   eventName: string;
-  startDate: LuxDateTime;
-  endDate: LuxDateTime;
+  startDate: DateTime;
+  endDate: DateTime;
   id: oid = { $oid: "" };
   organizer: oid = { $oid: "" };
   participants: Array<oid> = [];
   inviteCode: string;
+  timeSlots: timeSlots;
 
   constructor({
     eventName,
@@ -24,15 +25,17 @@ export class EventType {
     organizer = { $oid: "" },
     participants = [],
     inviteCode = "",
+    timeSlots,
   }: {
     eventName: string;
-    startDate: LuxDateTime;
-    endDate: LuxDateTime;
+    startDate: DateTime;
+    endDate: DateTime;
     eventId?: string;
     id?: oid;
     organizer?: oid;
     participants?: Array<oid>;
     inviteCode?: string;
+    timeSlots?: timeSlots;
   }) {
     this.eventName = eventName;
     this.startDate = startDate;
@@ -44,6 +47,11 @@ export class EventType {
       this.id = toOid(eventId);
     } else {
       this.id = id;
+    }
+    if (timeSlots && timeSlots?.size > 0) {
+      this.timeSlots = timeSlots;
+    } else {
+      this.timeSlots = this.initializeTimeslots();
     }
   }
 
@@ -90,10 +98,8 @@ export class EventType {
     startDate: Date,
     endDate: Date
   ): EventType {
-    const startLocal: LuxDateTime =
-      LuxDateTime.fromJSDate(startDate).setZone("utc");
-    const endLocal: LuxDateTime =
-      LuxDateTime.fromJSDate(endDate).setZone("utc");
+    const startLocal: DateTime = DateTime.fromJSDate(startDate).setZone("utc");
+    const endLocal: DateTime = DateTime.fromJSDate(endDate).setZone("utc");
 
     const start = startLocal.plus({ minutes: startLocal.offset });
     const end = endLocal.plus({ minutes: startLocal.offset });
@@ -104,49 +110,52 @@ export class EventType {
     });
   }
 
-  static fromJson({
-    eventName,
-    id,
-    startDate,
-    endDate,
-    organizer,
-    participants,
-    inviteCode,
-  }: {
-    eventName: string;
-    startDate: string;
-    endDate: string;
-    id: oid;
-    organizer: oid;
-    participants: oid[];
-    inviteCode: string;
-  }) {
+  static fromJson({ eventJson }: { eventJson: eventsJson }) {
     return new EventType({
-      endDate: this.stringToLuxDate(endDate),
-      eventName: eventName,
-      id: id,
-      inviteCode: inviteCode,
-      organizer: organizer,
-      participants: participants,
-      startDate: this.stringToLuxDate(startDate),
+      endDate: eventJson.endDate,
+      eventName: eventJson.eventName,
+      id: eventJson.id,
+      inviteCode: eventJson.inviteCode,
+      organizer: eventJson.organizer,
+      participants: eventJson.participants,
+      startDate: eventJson.startDate,
+      timeSlots: eventJson.timeSlots,
     });
   }
 
   static stringToLuxDate(s: string) {
-    return LuxDateTime.fromISO(s, { zone: "utc" });
+    return DateTime.fromISO(s, { zone: "utc" });
   }
 
   toString() {
     return `event: ${this.eventName}\nstart:${this.startDate}\nend: ${this.endDate}`;
   }
 
-  toJSON() {
-    return {
-      endDt: this.endDate.toISO({}),
-      eventId: this.eventId,
-      eventName: this.eventName,
-      startDt: this.startDate.toISO(),
-    };
+  static replacer(_key: any, value: any) {
+    if (value instanceof Map) {
+      return {
+        dataType: "Map",
+        value: [...value].filter((v) => v[1].size > 0),
+      };
+    } else if (value instanceof Set) {
+      return { dataType: "Set", value: [...value] };
+    } else {
+      return value;
+    }
+  }
+
+  static reviver(key: any, value: any) {
+    if (typeof value === "object" && value !== null) {
+      if (value.dataType === "Map") {
+        return new Map(value.value);
+      } else if (value.dataType === "Set") {
+        return new Set(value.value);
+      }
+    }
+    if (key == "startDate" || key == "endDate") {
+      return DateTime.fromISO(value);
+    }
+    return value;
   }
 
   async getSharedAvailability(participants?: oid[]): Promise<Set<string>> {
@@ -201,4 +210,36 @@ export class EventType {
 
     return oneOffs;
   }
+
+  initializeTimeslots() {
+    const timeSlots = new Map<ISOstring, participants>();
+    const interval = Interval.fromDateTimes(
+      this.startDate,
+      this.endDate.plus({ day: 1 })
+    );
+
+    let dt = this.startDate.plus({ days: 0 });
+    while (interval.contains(dt)) {
+      timeSlots.set(dt.toISO() as string, new Set<oid>());
+      dt = dt.plus({ minute: 30 });
+    }
+
+    return timeSlots;
+  }
 }
+
+export type participants = Set<oid>;
+type ISOstring = string;
+
+export type timeSlots = Map<ISOstring, participants>;
+
+export type eventsJson = {
+  id: { $oid: string };
+  startDate: DateTime;
+  endDate: DateTime;
+  eventName: string;
+  organizer: oid;
+  participants: oid[];
+  inviteCode: string;
+  timeSlots: timeSlots;
+};

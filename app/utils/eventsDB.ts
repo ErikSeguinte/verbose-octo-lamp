@@ -2,7 +2,7 @@
 import { promises as fs } from "fs";
 
 import { oid } from "@/models/common";
-import { EventType } from "@/models/Event";
+import { eventsJson,EventType } from "@/models/Event";
 
 export const getAllEvents = async () => {
   const events = await readFile();
@@ -23,16 +23,6 @@ export const getAllMapped = async () => {
   return map;
 };
 
-export type eventsJson = {
-  id: { $oid: string };
-  startDate: string;
-  endDate: string;
-  eventName: string;
-  organizer: oid;
-  participants: oid[];
-  inviteCode: string
-};
-
 export const readFile = async () => {
   const eventsFile = await fs.readFile(
     process.cwd() + "/utils/dummydata/events.json",
@@ -49,4 +39,3 @@ export const getEventfromId = async (id: string) => {
   const events = await getAllMapped();
   return events.get(id);
 };
-

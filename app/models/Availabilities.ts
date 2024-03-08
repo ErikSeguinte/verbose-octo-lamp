@@ -24,3 +24,10 @@ export class AvailabilityType {
             this.timeslots = timeslots
         }
 }
+
+export type availabilityJson = {
+    id: oid
+      event: oid,
+      user: oid,
+      timeslots: string[]
+  };
