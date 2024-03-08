@@ -1,7 +1,6 @@
 "use server";
 import { promises as fs } from "fs";
 
-import { oid } from "@/models/common";
 import { eventsJson,EventType } from "@/models/Event";
 
 export const getAllEvents = async () => {
@@ -28,10 +27,10 @@ export const readFile = async () => {
     process.cwd() + "/utils/dummydata/events.json",
     "utf8"
   );
-  const events: eventsJson[] = JSON.parse(eventsFile);
+  const events: eventsJson[] = JSON.parse(eventsFile, EventType.reviver);
   // console.log(events)
   return events.map((e) => {
-    return EventType.fromJson({ ...e });
+    return EventType.fromJson(e);
   });
 };
 

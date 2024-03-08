@@ -1,3 +1,4 @@
+
 import { EventType } from "@/models/Event";
 
 export const sortMethod = {
@@ -9,6 +10,7 @@ export const sortMethod = {
     "Start Date": (a: EventType, b: EventType) => {
       const aDate = a.startDate;
       const bDate = b.startDate;
+
   
       if (aDate.toMillis() > bDate.toMillis()) {
         return 1;

@@ -25,7 +25,7 @@ export class EventType {
     organizer = { $oid: "" },
     participants = [],
     inviteCode = "",
-    timeSlots,
+    timeSlots = new Map<string, participants>(),
   }: {
     eventName: string;
     startDate: DateTime;
@@ -48,11 +48,7 @@ export class EventType {
     } else {
       this.id = id;
     }
-    if (timeSlots && timeSlots?.size > 0) {
-      this.timeSlots = timeSlots;
-    } else {
-      this.timeSlots = this.initializeTimeslots();
-    }
+    this.timeSlots = timeSlots
   }
 
   set eventId(id: string) {
@@ -110,16 +106,16 @@ export class EventType {
     });
   }
 
-  static fromJson({ eventJson }: { eventJson: eventsJson }) {
+  static fromJson(  eventsJson: eventsJson ) {
     return new EventType({
-      endDate: eventJson.endDate,
-      eventName: eventJson.eventName,
-      id: eventJson.id,
-      inviteCode: eventJson.inviteCode,
-      organizer: eventJson.organizer,
-      participants: eventJson.participants,
-      startDate: eventJson.startDate,
-      timeSlots: eventJson.timeSlots,
+      endDate: eventsJson.endDate,
+      eventName: eventsJson.eventName,
+      id: eventsJson.id,
+      inviteCode: eventsJson.inviteCode,
+      organizer: eventsJson.organizer,
+      participants: eventsJson.participants,
+      startDate: eventsJson.startDate,
+      timeSlots: eventsJson.timeSlots,
     });
   }
 
@@ -153,7 +149,8 @@ export class EventType {
       }
     }
     if (key == "startDate" || key == "endDate") {
-      return DateTime.fromISO(value);
+      const dt = DateTime.fromISO(value)
+      return dt
     }
     return value;
   }
@@ -220,7 +217,7 @@ export class EventType {
 
     let dt = this.startDate.plus({ days: 0 });
     while (interval.contains(dt)) {
-      timeSlots.set(dt.toISO() as string, new Set<oid>());
+      timeSlots.set(dt.toISO() as string, new Set<string>());
       dt = dt.plus({ minute: 30 });
     }
 
@@ -228,7 +225,7 @@ export class EventType {
   }
 }
 
-export type participants = Set<oid>;
+export type participants = Set<string>;
 type ISOstring = string;
 
 export type timeSlots = Map<ISOstring, participants>;

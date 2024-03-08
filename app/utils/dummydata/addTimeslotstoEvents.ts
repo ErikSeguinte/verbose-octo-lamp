@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import { DateTime } from "luxon";
 
 import { availabilityJson, AvailabilityType } from "@/models/Availabilities";
+import { oid } from "@/models/common";
 import { eventsJson, EventType } from "@/models/Event";
 
 const availabilityFile = [
@@ -49,17 +50,13 @@ async function main() {
   ]);
 
   for (const e of events) {
-    const id = e.id;
-    const filteredAvailabilities = availabilities.filter(
-      (a) => a.event.$oid == id.$oid
-    );
-
-    for (const a of filteredAvailabilities) {
-      const user = a.user;
-      for (const dt of a.timeslots) {
-        const slot = e.timeSlots.get(dt.toISO() as string);
-        slot?.add(user);
+    for (const key of e.timeSlots.keys()) {
+      const oids = e.timeSlots.get(key) as unknown as Set<oid>;
+      const newValues = new Set<string>();
+      for (const oid of oids.values()) {
+        newValues.add(oid.$oid);
       }
+      e.timeSlots.set(key, newValues)
     }
   }
 

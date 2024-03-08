@@ -1,4 +1,5 @@
 "use server";
+import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import { Set as ImSet } from "immutable";
 import React from "react";
@@ -24,8 +25,8 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
   const eventItem = (await getEventfromId(params.eventId)) as EventType;
   const invitecode = eventItem.inviteCode;
   const inviteLink: string = `http://localhost:3000/${invitecode}`;
-  const slots = await eventItem.getSharedAvailability();
-
+  // const slots = await eventItem.getSharedAvailability();
+  const slots = undefined
   return (
     <section>
       <MaxProse>
@@ -49,12 +50,17 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
         </Paper>
       </MaxProse>
 
-      <TimeTable
-        eventId={params.eventId}
-        readonly={true}
-        slots={slots}
-        usingForm={false}
-      />
+      <AvailabilityProvider
+        availability={eventItem.timeSlots}
+        maxSize={eventItem.participants.length}
+      >
+        <TimeTable
+          eventId={params.eventId}
+          readonly={true}
+          slots={slots}
+          usingForm={false}
+        />
+      </AvailabilityProvider>
     </section>
   );
 };

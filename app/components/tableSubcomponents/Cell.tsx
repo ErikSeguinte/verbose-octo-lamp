@@ -1,15 +1,33 @@
 "use client";
+import {
+  IconDice1,
+  IconDice2,
+  IconDice3,
+  IconDice4,
+  IconDice5,
+  IconDice6,
+} from "@tabler/icons-react";
 import classNames from "classnames";
 import { DateTime } from "luxon";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import { useTimezoneContext } from "@/components/TimezoneProvider";
 
+import { useAvailabilityContext } from "./AvailabilityProvider";
 import {
   mouseDispatch,
   mouseEventActions,
   useMouseEventContext,
 } from "./MouseEventProvider";
+
+const dice = new Map();
+dice.set(1, <IconDice1 />);
+dice.set(2, <IconDice2 />);
+dice.set(4, <IconDice3 />);
+dice.set(4, <IconDice4 />);
+dice.set(5, <IconDice5 />);
+dice.set(6, <IconDice6 />);
+dice.set(null, null);
 
 const Cell = ({
   date,
@@ -21,12 +39,22 @@ const Cell = ({
   readonly?: boolean;
 }) => {
   const dt = date;
+  const [maxSize, timeSlots] = useAvailabilityContext();
   const dateString = date.toISO();
   const ref = useRef<HTMLTableCellElement | null>(null);
   const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
   const [timezoneInfo] = useTimezoneContext();
+
+  const [participantsState, setParticipantState] = useState(
+    timeSlots.get(dateString as string),
+  );
+
   const [isSelected, setSelected] = useState(
-    slots ? slots.has(dateString as string) : null,
+    participantsState ? participantsState.size === maxSize : false,
+  );
+
+  const [diceState, setDiceState] = useState(
+    dice.get(participantsState ? participantsState.size : null),
   );
   const f = (dt: DateTime) => {
     if (dt.minute == 0) {
@@ -68,6 +96,7 @@ const Cell = ({
       data-dt={dateString}
       key={dt.toISO()}
       ref={ref}
+      suppressHydrationWarning
       onPointerDown={readonly ? undefined : mousedown}
       onPointerOver={readonly ? undefined : mouseOver}
       onMouseUp={
@@ -79,7 +108,7 @@ const Cell = ({
             }
       }
     >
-      {f(dt)}
+      {f(dt)} {participantsState ? participantsState.size : 0}
     </td>
   );
   const selectedClasses = classNames(
@@ -88,6 +117,7 @@ const Cell = ({
     "text-center",
     "bg-green-300",
   );
+
   const selectedCell = (
     <td
       className={selectedClasses}
@@ -95,6 +125,7 @@ const Cell = ({
       key={dt.toISO()}
       ref={ref}
       data-is-selected
+      suppressHydrationWarning
       onPointerDown={readonly ? undefined : mousedown}
       onPointerOver={readonly ? undefined : mouseOver}
       onMouseUp={
@@ -106,7 +137,7 @@ const Cell = ({
             }
       }
     >
-      {f(dt)}
+      {f(dt)} {participantsState ? participantsState.size : 0}
     </td>
   );
 
@@ -121,8 +152,18 @@ const Cell = ({
     element.dataset.date = date.toISODate() as string;
     element.dataset.row = date.toFormat("hhmm");
 
-    setSelected(slots ? slots.has(utc) : null);
-  }, [date, timezoneInfo.timezone, isSelected, slots]);
+    setParticipantState(timeSlots.get(utc));
+    setSelected(participantsState ? participantsState.size === maxSize : false);
+    setDiceState(dice.get(participantsState ? participantsState.size : null));
+  }, [
+    date,
+    timezoneInfo.timezone,
+    isSelected,
+    slots,
+    participantsState,
+    timeSlots,
+    maxSize,
+  ]);
 
   return <>{isSelected ? selectedCell : unselectedCell}</>;
 };
