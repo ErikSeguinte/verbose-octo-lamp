@@ -20,13 +20,13 @@ export async function generateStaticParams() {
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  cacheFile();
-
   const eventItem = (await getEventfromId(params.eventId)) as EventType;
-  const invitecode = eventItem.inviteCode;
+  if (!eventItem) return null;
+  console.log(eventItem?.inviteCode);
+  const invitecode = eventItem?.inviteCode ? eventItem?.inviteCode : "";
   const inviteLink: string = `http://localhost:3000/${invitecode}`;
   // const slots = await eventItem.getSharedAvailability();
-  const slots = undefined
+  const slots = undefined;
   return (
     <section>
       <MaxProse>
