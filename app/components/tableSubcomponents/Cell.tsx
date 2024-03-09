@@ -34,45 +34,55 @@ const iconStroke = 1;
 const dice = new Map<number | null, React.JSX.Element>();
 dice.set(
   1,
-  <Group className="flex-no-wrap gap-0">
+  <span className="inline-block">
     <IconDice1 size={iconSize} stroke={3} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
-  </Group>,
+  </span>,
 );
 dice.set(
   2,
-  <Group className="flex-no-wrap gap-0">
+  <span className="inline-block">
     <IconDice2 size={iconSize} stroke={3} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
-  </Group>,
+  </span>,
 );
 dice.set(
   3,
-  <Group className="flex-no-wrap gap-0">
+  <span className="inline-block">
     <IconDice3 size={iconSize} stroke={3} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
-  </Group>,
+  </span>,
 );
 dice.set(
   4,
-  <Group className="flex-no-wrap gap-0">
+  <span className="inline-block">
     <IconDice4 size={iconSize} stroke={3} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
-  </Group>,
+  </span>,
 );
 dice.set(5, <IconDice5 size={iconSize} />);
 dice.set(6, <IconDice6 size={iconSize} />);
 dice.set(
   null,
-  <Group className="flex-no-wrap gap-0">
+  <span className="inline-block">
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    &#65279;
     <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
-  </Group>,
+  </span>,
 );
 
 const f = (dt: DateTime) => {
@@ -99,11 +109,8 @@ const Cell = ({
 
   const [timezoneInfo] = useTimezoneContext();
 
-  let size: number | undefined = timeSlots.get(dateString as string)?.size;
-
   const defaultContent = (
     <CellContents
-      dice={dice.get(size ? size : null) as React.JSX.Element}
       originalDt={dt}
       ref={ref}
       utcISOdt={dateString as string}
@@ -165,7 +172,7 @@ const toggleOff = (target: HTMLElement) => {
 };
 
 type contentProps = {
-  dice: React.JSX.Element;
+  dice?: React.JSX.Element;
   originalDt: DateTime;
   utcISOdt: string;
   readonly?: boolean;
@@ -188,10 +195,11 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
       "text-center",
       { "bg-slate-200": !isSelected },
       { "bg-green-200": isSelected },
-      "min-w-20",
-      "min-h-32",
-      "h-auto",
+      "w-auto",
+      "h-8",
       "m-auto",
+      "p-1",
+      "table-cell",
     );
     const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
     const mousedown = useCallback(
@@ -240,9 +248,9 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
               }
         }
       >
-        <Group className="justify-center flex-no-wrap w-24">
-          {f(originalDt)} {dice}
-        </Group>
+        <span className="inline-block whitespace-nowrap">
+          {f(originalDt)}&nbsp;{readonly ? dice : null}
+        </span>
       </td>
     );
   },
