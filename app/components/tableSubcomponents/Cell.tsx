@@ -1,4 +1,5 @@
 "use client";
+import { Group } from "@mantine/core";
 import {
   IconCrop11,
   IconDice1,
@@ -27,14 +28,52 @@ import {
   useMouseEventContext,
 } from "./MouseEventProvider";
 
+const iconSize = 16;
+const iconStroke = 1;
+
 const dice = new Map<number | null, React.JSX.Element>();
-dice.set(1, <IconDice1 />);
-dice.set(2, <IconDice2 />);
-dice.set(3, <IconDice3 />);
-dice.set(4, <IconDice4 />);
-dice.set(5, <IconDice5 />);
-dice.set(6, <IconDice6 />);
-dice.set(null, <IconCrop11 />);
+dice.set(
+  1,
+  <Group className="flex-no-wrap gap-0">
+    <IconDice1 size={iconSize} stroke={3} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+  </Group>,
+);
+dice.set(
+  2,
+  <Group className="flex-no-wrap gap-0">
+    <IconDice2 size={iconSize} stroke={3} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+  </Group>,
+);
+dice.set(
+  3,
+  <Group className="flex-no-wrap gap-0">
+    <IconDice3 size={iconSize} stroke={3} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+  </Group>,
+);
+dice.set(
+  4,
+  <Group className="flex-no-wrap gap-0">
+    <IconDice4 size={iconSize} stroke={3} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+  </Group>,
+);
+dice.set(5, <IconDice5 size={iconSize} />);
+dice.set(6, <IconDice6 size={iconSize} />);
+dice.set(
+  null,
+  <Group className="flex-no-wrap gap-0">
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+    <IconCrop11 className="" size={iconSize} stroke={iconStroke} />
+  </Group>,
+);
 
 const f = (dt: DateTime) => {
   if (dt.minute == 0) {
@@ -149,9 +188,10 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
       "text-center",
       { "bg-slate-200": !isSelected },
       { "bg-green-200": isSelected },
-      "min-w-16",
+      "min-w-24",
       "min-h-32",
       "h-auto",
+      "m-auto",
     );
     const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
     const mousedown = useCallback(
@@ -200,7 +240,9 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
               }
         }
       >
-        {f(originalDt)} {dice}
+        <Group className="justify-center flex-no-wrap w-28">
+          {f(originalDt)} {dice}
+        </Group>
       </td>
     );
   },

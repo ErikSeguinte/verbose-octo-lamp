@@ -112,7 +112,7 @@ export const TableHead = ({ rowData }: { rowData: string[] }) => {
 
   const format = (dt: DateTime) => {
     return (
-      <div className="flex">
+      <div className="flex justify-center">
         <Stack className="justify-center" gap={2}>
           <span className="text-center"> {dt.monthShort} </span>
           <span className="text-3xl text-center m-auto"> {dt.day} </span>
@@ -124,7 +124,14 @@ export const TableHead = ({ rowData }: { rowData: string[] }) => {
   return (
     <tr key={r[0][1]}>
       {dtr.map(([dt, s]) => {
-        return <th key={s}>{format(dt)}</th>;
+        return (
+          <th
+            className="border-slate-950 border-b-1 border-b-4 border-solid border-x border-t-2"
+            key={s}
+          >
+            {format(dt)}
+          </th>
+        );
       })}
     </tr>
   );
