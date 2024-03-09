@@ -1,15 +1,12 @@
 "use server";
 import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
-import { Set as ImSet } from "immutable";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
 import TimeTable from "@/components/timeTable";
 import { EventType } from "@/models/Event";
-import { cacheFile, query } from "@/utils/availabilitiesDB";
 import { getAllIds, getEventfromId } from "@/utils/eventsDB";
-import { toOid } from "@/utils/utils";
 
 import CopyButton_ from "./copyButton";
 import ParticipantList from "./ParticipantList";
@@ -22,7 +19,6 @@ export async function generateStaticParams() {
 const Page = async ({ params }: { params: { eventId: string } }) => {
   const eventItem = (await getEventfromId(params.eventId)) as EventType;
   if (!eventItem) return null;
-  console.log(eventItem?.inviteCode);
   const invitecode = eventItem?.inviteCode ? eventItem?.inviteCode : "";
   const inviteLink: string = `http://localhost:3000/${invitecode}`;
   // const slots = await eventItem.getSharedAvailability();

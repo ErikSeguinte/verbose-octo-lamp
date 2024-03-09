@@ -7,14 +7,13 @@ import {
   IconDice4,
   IconDice5,
   IconDice6,
-  IconSquareX,
 } from "@tabler/icons-react";
 import classNames from "classnames";
 import { DateTime } from "luxon";
 import React, {
+  forwardRef,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -28,7 +27,7 @@ import {
   useMouseEventContext,
 } from "./MouseEventProvider";
 
-const dice = new Map();
+const dice = new Map<number | null, React.JSX.Element>();
 dice.set(1, <IconDice1 />);
 dice.set(2, <IconDice2 />);
 dice.set(3, <IconDice3 />);
@@ -36,6 +35,14 @@ dice.set(4, <IconDice4 />);
 dice.set(5, <IconDice5 />);
 dice.set(6, <IconDice6 />);
 dice.set(null, <IconCrop11 />);
+
+const f = (dt: DateTime) => {
+  if (dt.minute == 0) {
+    return dt.toFormat("hha");
+  } else {
+    return dt.toFormat("hhmm");
+  }
+};
 
 const Cell = ({
   date,
@@ -50,87 +57,22 @@ const Cell = ({
   const [maxSize, timeSlots] = useAvailabilityContext();
   const dateString = date.toISO();
   const ref = useRef<HTMLTableCellElement | null>(null);
-  const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
+
   const [timezoneInfo] = useTimezoneContext();
 
-  const [participantsState, setParticipantState] = useState(
-    timeSlots.get(dateString as string),
+  let size: number | undefined = timeSlots.get(dateString as string)?.size;
+
+  const defaultContent = (
+    <CellContents
+      dice={dice.get(size ? size : null) as React.JSX.Element}
+      originalDt={dt}
+      ref={ref}
+      utcISOdt={dateString as string}
+      readonly
+    />
   );
 
-  const [isSelected, setSelected] = useState(
-    participantsState ? participantsState.size === maxSize : false,
-  );
-
-  const f = (dt: DateTime) => {
-    if (dt.minute == 0) {
-      return dt.toFormat("hha");
-    } else {
-      return dt.toFormat("hhmm");
-    }
-  };
-
-  const mousedown = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      const target = e.target as HTMLElement;
-      toggle(target);
-      const dispatch: mouseDispatch = {
-        action: mouseEventActions.DOWN,
-        isSelected: target.hasAttribute("data-is-selected"),
-      };
-      mouseEventDispatch(dispatch);
-    },
-    [mouseEventDispatch],
-  );
-
-  const mouseOver = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      const target = e.target as HTMLElement;
-      if (mouseEventState.down) {
-        if (mouseEventState.selecting) {
-          toggleOn(target);
-        } else toggleOff(target);
-      }
-    },
-    [mouseEventState.down, mouseEventState.selecting],
-  );
-  const classes = classNames(
-    "font-mono",
-    "text-sm",
-    "text-center",
-    { "bg-slate-200": !isSelected },
-    { "bg-green-200": isSelected },
-    "min-w-16",
-    "min-h-32",
-    "h-auto",
-  );
-  const serverCell = () => {
-    return (
-      <td
-        className={classes}
-        data-dt={dateString}
-        key={dt.toISO()}
-        ref={ref}
-        onPointerDown={readonly ? undefined : mousedown}
-        onPointerOver={readonly ? undefined : mouseOver}
-        onMouseUp={
-          readonly
-            ? undefined
-            : () => {
-                const dispatch: mouseDispatch = {
-                  action: mouseEventActions.UP,
-                };
-                mouseEventDispatch(dispatch);
-              }
-        }
-      >
-        {f(dt)}
-      </td>
-    );
-  };
-
-  const [content, setContent] = useState(serverCell());
+  const [content, setContent] = useState(defaultContent);
 
   useEffect(() => {
     const element = ref.current as HTMLElement;
@@ -142,59 +84,20 @@ const Cell = ({
     element.dataset.dt = utc;
     element.dataset.date = date.toISODate() as string;
     element.dataset.row = date.toFormat("hhmm");
-    console.log(utc);
     const p = timeSlots.get(utc as string);
-    setSelected(p ? p.size === maxSize : false);
+    const isSelected = p ? p.size === maxSize : false;
 
-    const classes = classNames(
-      "font-mono",
-      "text-sm",
-      "text-center",
-      { "bg-slate-200": !isSelected },
-      { "bg-green-200": isSelected },
-      "min-w-16",
-      "min-h-32",
-      "h-auto",
+    setContent(
+      <CellContents
+        dice={dice.get(p ? p.size : null) as React.JSX.Element}
+        isSelected={isSelected}
+        originalDt={dt}
+        readonly={readonly}
+        ref={ref}
+        utcISOdt={utc}
+      />,
     );
-
-    const cellContents = (die: React.JSX.Element) => {
-      return (
-        <td
-          className={classes}
-          data-dt={utc}
-          key={utc}
-          ref={ref}
-          onPointerDown={readonly ? undefined : mousedown}
-          onPointerOver={readonly ? undefined : mouseOver}
-          onMouseUp={
-            readonly
-              ? undefined
-              : () => {
-                  const dispatch: mouseDispatch = {
-                    action: mouseEventActions.UP,
-                  };
-                  mouseEventDispatch(dispatch);
-                }
-          }
-        >
-          {f(dt)} {die}
-        </td>
-      );
-    };
-
-    setContent(cellContents(dice.get(p ? p.size : null)));
-  }, [
-    date,
-    dt,
-    isSelected,
-    maxSize,
-    mouseEventDispatch,
-    mouseOver,
-    mousedown,
-    readonly,
-    timeSlots,
-    timezoneInfo.timezone,
-  ]);
+  }, [date, dt, maxSize, readonly, timeSlots, timezoneInfo.timezone]);
 
   return <>{content}</>;
 };
@@ -221,3 +124,84 @@ const toggleOff = (target: HTMLElement) => {
   target.classList.add("bg-slate-200");
   target.classList.remove("bg-green-300");
 };
+
+type contentProps = {
+  dice: React.JSX.Element;
+  originalDt: DateTime;
+  utcISOdt: string;
+  readonly?: boolean;
+  isSelected?: boolean;
+};
+
+const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
+  function ContentComponent(props: contentProps, ref) {
+    const {
+      dice,
+      originalDt,
+      utcISOdt,
+      readonly = false,
+      isSelected = false,
+    } = props;
+
+    const classes = classNames(
+      "font-mono",
+      "text-sm",
+      "text-center",
+      { "bg-slate-200": !isSelected },
+      { "bg-green-200": isSelected },
+      "min-w-16",
+      "min-h-32",
+      "h-auto",
+    );
+    const [mouseEventState, mouseEventDispatch] = useMouseEventContext();
+    const mousedown = useCallback(
+      (e: React.MouseEvent) => {
+        e.preventDefault();
+        const target = e.target as HTMLElement;
+        toggle(target);
+        const dispatch: mouseDispatch = {
+          action: mouseEventActions.DOWN,
+          isSelected: target.hasAttribute("data-is-selected"),
+        };
+        mouseEventDispatch(dispatch);
+      },
+      [mouseEventDispatch],
+    );
+
+    const mouseOver = useCallback(
+      (e: React.MouseEvent) => {
+        e.preventDefault();
+        const target = e.target as HTMLElement;
+        if (mouseEventState.down) {
+          if (mouseEventState.selecting) {
+            toggleOn(target);
+          } else toggleOff(target);
+        }
+      },
+      [mouseEventState.down, mouseEventState.selecting],
+    );
+
+    return (
+      <td
+        className={classes}
+        data-dt={utcISOdt}
+        key={utcISOdt}
+        ref={ref}
+        onPointerDown={readonly ? undefined : mousedown}
+        onPointerOver={readonly ? undefined : mouseOver}
+        onMouseUp={
+          props.readonly
+            ? undefined
+            : () => {
+                const dispatch: mouseDispatch = {
+                  action: mouseEventActions.UP,
+                };
+                mouseEventDispatch(dispatch);
+              }
+        }
+      >
+        {f(originalDt)} {dice}
+      </td>
+    );
+  },
+);
