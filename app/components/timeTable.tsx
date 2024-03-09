@@ -76,7 +76,7 @@ const TimeTable = async ({
 
   return (
     <>
-      <div className="px-12">
+      <div className="px-12 width-screen overflow-x-auto">
         <Table
           readonly={readonly}
           slots={timeslots}

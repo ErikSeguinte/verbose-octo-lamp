@@ -28,7 +28,7 @@ import {
   useMouseEventContext,
 } from "./MouseEventProvider";
 
-const iconSize = 16;
+const iconSize = 12;
 const iconStroke = 1;
 
 const dice = new Map<number | null, React.JSX.Element>();
@@ -184,11 +184,11 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
 
     const classes = classNames(
       "font-mono",
-      "text-sm",
+      "text-xs",
       "text-center",
       { "bg-slate-200": !isSelected },
       { "bg-green-200": isSelected },
-      "min-w-24",
+      "min-w-20",
       "min-h-32",
       "h-auto",
       "m-auto",
@@ -240,7 +240,7 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
               }
         }
       >
-        <Group className="justify-center flex-no-wrap w-28">
+        <Group className="justify-center flex-no-wrap w-24">
           {f(originalDt)} {dice}
         </Group>
       </td>
