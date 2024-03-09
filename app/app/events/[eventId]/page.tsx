@@ -20,7 +20,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
   const eventItem = (await getEventfromId(params.eventId)) as EventType;
   if (!eventItem) return null;
   const invitecode = eventItem?.inviteCode ? eventItem?.inviteCode : "";
-  const inviteLink: string = `http://localhost:3000/${invitecode}`;
+  const inviteLink: string = `http://localhost:3000/octolamp/${invitecode}`;
   // const slots = await eventItem.getSharedAvailability();
   const slots = undefined;
   return (

@@ -197,7 +197,7 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
     const mousedown = useCallback(
       (e: React.MouseEvent) => {
         e.preventDefault();
-        const target = e.target as HTMLElement;
+        const target = e.currentTarget as HTMLElement;
         toggle(target);
         const dispatch: mouseDispatch = {
           action: mouseEventActions.DOWN,
@@ -211,7 +211,7 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
     const mouseOver = useCallback(
       (e: React.MouseEvent) => {
         e.preventDefault();
-        const target = e.target as HTMLElement;
+        const target = e.currentTarget as HTMLElement;
         if (mouseEventState.down) {
           if (mouseEventState.selecting) {
             toggleOn(target);
