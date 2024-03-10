@@ -1,7 +1,7 @@
 import { oid } from "./common";
 
 export class UserType {
-id: oid
+_id: oid
 email: string
 discord: string
 name: string
@@ -12,14 +12,20 @@ constructor({
     discord = "",
     name
 }:{
-    id: oid,
+    id?: oid,
     email: string,
     discord: string
     name: string
 }){
-    this.id = id
+    this._id = id
     this.email = email
     this.discord = discord
     this.name = name
 }
+}
+
+export interface userDocument {
+    email: string,
+    discord: string,
+    name: string
 }

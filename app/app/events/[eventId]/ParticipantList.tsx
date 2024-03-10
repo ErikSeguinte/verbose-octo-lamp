@@ -18,7 +18,7 @@ const ParticipantList = async ({ event }: { event: EventType }) => {
         <ul className="list-disc" key={p.$oid}>
           <li>
             <Link
-              href={`/events/${event.id.$oid}/availabilities/${user.id.$oid}`}
+              href={`/events/${event.id.$oid}/availabilities/${user._id.$oid}`}
             >
               {user.name}{" "}
             </Link>

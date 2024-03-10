@@ -106,7 +106,7 @@ const Form = () => {
 
           <Paper p="1rem" radius="md" shadow="md" withBorder>
             <p className="px-2 text-balance">
-              Optionally, you may provide the server nickname you are currently
+              Additionally, you may provide the server nickname you are currently
               using on the production server.
             </p>
             <TextInput
