@@ -24,6 +24,22 @@
       ]
     }
     
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installOhMyZshConfig": true,
+      "upgradePackages": true,
+      "nonFreePackages": true,
+      "username": "none",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    },
+    "ghcr.io/devcontainers-contrib/features/tsx:1": {
+      "version": "latest"
+    }
   }
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
