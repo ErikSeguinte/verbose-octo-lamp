@@ -1,17 +1,42 @@
-import {MongoClient, ServerApiVersion} from "mongodb"
-
+import { MongoClient, ServerApiVersion } from "mongodb";
 
 // Replace the placeholder with your Atlas connection string
-const uri = process.env.MONGODB_URI as string
-console.log(uri)
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-export const client = new MongoClient(uri,  {
-        serverApi: {
-            deprecationErrors: true,
-            strict: true,
-            version: ServerApiVersion.v1,
-        }
-    }
-);
+const uri = process.env.MONGODB_URI as string;
+console.log(uri);
 
-export const db =  client.db('octolamp')
+declare global {
+  var _mongoClientPromise: Promise<MongoClient>;
+}
+
+class Singleton {
+  private static _instance: Singleton;
+  private client: MongoClient;
+  private clientPromise: Promise<MongoClient>;
+  private constructor() {
+    this.client = new MongoClient(uri, {
+      serverApi: {
+        deprecationErrors: true,
+        strict: true,
+        version: ServerApiVersion.v1,
+      },
+    });
+    this.clientPromise = this.client.connect();
+    if (process.env.NODE_ENV === "development") {
+      // In development mode, use a global variable so that the value
+      // is preserved across module reloads caused by HMR (Hot Module Replacement).
+      global._mongoClientPromise = this.clientPromise;
+    }
+  }
+
+  public static get instance() {
+    if (!this._instance) {
+      this._instance = new Singleton();
+    }
+    return this._instance.clientPromise;
+  }
+}
+const clientPromise = Singleton.instance;
+
+// Export a module-scoped MongoClient promise. By doing this in a
+// separate module, the client can be shared across functions.
+export default clientPromise;

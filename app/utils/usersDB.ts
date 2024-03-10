@@ -1,11 +1,10 @@
 "use server";
 import { promises as fs } from "fs";
+import { ObjectId } from "mongodb";
 
 import { oid } from "@/models/common";
-import { userDocument,UserType } from "@/models/Users";
-import { client, db } from "@/utils/database";
-
-const userCollection = db.collection<userDocument>("users");
+import { UserType } from "@/models/Users";
+import clientPromise from "@/utils/database";
 
 export const getAllUsers = async () => {
   const events = await readFile();
@@ -34,7 +33,7 @@ export type userJson = {
 };
 
 export const readFile = async () => {
-  const us = await db.collection("users");
+  const us = await getUserDB();
   const us2 = us.find({});
   const usersFile = await fs.readFile(
     process.cwd() + "/utils/dummydata/users.json",
@@ -52,9 +51,26 @@ export const getUserFromId = async (id: string) => {
   return users.get(id);
 };
 
-export const saveUser = async (user: UserType) => {
-
-  const doc = await userCollection.findOneAndUpdate({email: user.email},
-    {$set:{discord:user.discord, name: user.name}}, {upsert:true})
-return doc
+const getUserDB = async () => {
+  const users = (await clientPromise)
+    .db("octolamp")
+    .collection<UserDocument>("users");
+  return users;
 };
+
+export const saveUser = async (user: UserType) => {
+  const users = await getUserDB();
+
+  const doc = await users.updateOne(
+    { email: user.email },
+    { $set: { discord: user.discord, name: user.name } },
+    { upsert: true }
+  );
+  return String(doc);
+};
+export interface UserDocument {
+  _id: ObjectId
+  email: string,
+  discord: string,
+  name: string
+}

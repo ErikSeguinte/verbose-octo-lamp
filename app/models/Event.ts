@@ -240,3 +240,4 @@ export type eventsJson = {
   inviteCode: string;
   timeSlots: timeSlots;
 };
+

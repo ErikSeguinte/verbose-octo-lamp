@@ -100,15 +100,7 @@ const Timezone = ({ text }: { text?: string }) => {
               timezoneDispatch(dispatch);
             }}
           />
-          <Button
-            className="mb-10"
-            fullWidth
-            onClick={() => {
-              alert(JSON.stringify(timezoneInfo));
-            }}
-          >
-            Submit
-          </Button>
+
         </Stack>
         <div></div>
         <br />

@@ -12,7 +12,7 @@ const TimezoneProvider = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   const [timezoneInfo, timezoneInfoDispatch] = useReducer(reducer, {
-    discord: "default",
+    discord: "",
     email: "",
     isAcknowledged: false,
     isLoading: true,

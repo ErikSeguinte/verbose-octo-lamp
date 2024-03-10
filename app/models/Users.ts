@@ -10,12 +10,12 @@ constructor({
     id = {$oid:""},
     email,
     discord = "",
-    name
+    name = ""
 }:{
     id?: oid,
     email: string,
-    discord: string
-    name: string
+    discord?: string
+    name?: string
 }){
     this._id = id
     this.email = email
@@ -24,8 +24,3 @@ constructor({
 }
 }
 
-export interface userDocument {
-    email: string,
-    discord: string,
-    name: string
-}

@@ -8,29 +8,43 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 
 import DaterangePicker from "@/components/daterangePicker";
-import { useTimezoneContext } from "@/components/TimezoneProvider";
+import {
+  timezoneActionTypes,
+  timezoneDispatchTypes,
+  useTimezoneContext,
+} from "@/components/TimezoneProvider";
 import { EventType } from "@/models/Event";
+import { UserType } from "@/models/Users";
 
+import { handleSubmit } from "./serverActions";
 import TimezoneSelectionCard from "./TimezoneCard";
+import { saveUser } from "@/utils/usersDB";
+import { saveNewEvent, saveNewEventJSON } from "@/utils/eventsDB";
 
 const NewEventCard = () => {
   const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
   const [eventName, setEventName] = useState<string>("");
   const [, setTimezone] = useState("");
 
-  const handleSubmit = (event: React.MouseEvent) => {
+  const submitToServer = (event: React.MouseEvent) => {
     event.preventDefault();
+    const user = new UserType({ email: timezoneInfo.email! });
     const [start, end] = dates;
     const newEvent = EventType.fromJsDates(eventName, start!, end!);
-
+    // handleSubmit(JSON.stringify(user), JSON.stringify(newEvent, EventType.replacer));
+    saveUser(user).then((user) => {
+      newEvent.organizer = {$oid: user}
+      return newEvent
+    }).then(()=>{
+      // const eventDoc = saveNewEventJSON(JSON.stringify(newEvent)) 
+    })
     const message = newEvent.toString();
-    alert(message);
   };
   useEffect(() => {
     setTimezone(localStorage.getItem("localTimezone") as string);
   }, []);
 
-  const [timezoneInfo] = useTimezoneContext();
+  const [timezoneInfo, timezoneDispatch] = useTimezoneContext();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -52,7 +66,19 @@ const NewEventCard = () => {
           withAsterisk
           onChange={(event) => setEventName(event.currentTarget.value)}
         />
-        <Space h="md" />
+        <Space h="sm" />
+        <TextInput
+        className="mb-5"
+          label="Email"
+          placeholder="your@email.com"
+          onChange={(e) => {
+            const dispatch: timezoneDispatchTypes = {
+              newString: { email: e.target.value },
+              type: timezoneActionTypes.SET,
+            };
+            timezoneDispatch(dispatch);
+          }}
+        />
         <TypographyStylesProvider>
           <p>
             Please select the desired dates with which to ask for
@@ -62,7 +88,6 @@ const NewEventCard = () => {
           </p>
         </TypographyStylesProvider>
 
-        <Space h="md" />
 
         <section className="">
           <DaterangePicker dates={dates} setDates={setDates} />
@@ -74,9 +99,7 @@ const NewEventCard = () => {
           className="mb-10"
           ref={buttonRef}
           fullWidth
-          onClick={() => {
-            alert(JSON.stringify(timezoneInfo));
-          }}
+          onClick={submitToServer}
         >
           Submit
         </Button>
