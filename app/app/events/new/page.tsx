@@ -7,7 +7,6 @@ import MaxProse from "@/components/MaxProse";
 
 import NewEventCard from "./clientSide";
 import LocalClock from "./LocalClock";
-import TimezoneSelectionCard from "./TimezoneCard";
 
 const Page = () => {
   return (
@@ -18,12 +17,8 @@ const Page = () => {
             Create a New Event
           </Title>
         </div>
-
         <TimezoneProvider>
-          {" "}
-          <TimezoneSelectionCard></TimezoneSelectionCard>
           <NewEventCard />
-          <LocalClock />
         </TimezoneProvider>
       </Stack>
     </MaxProse>

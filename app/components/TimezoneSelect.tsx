@@ -1,5 +1,12 @@
 "use client";
-import { Checkbox, LoadingOverlay, Paper, Select, Stack } from "@mantine/core";
+import {
+  Button,
+  Checkbox,
+  LoadingOverlay,
+  Paper,
+  Select,
+  Stack,
+} from "@mantine/core";
 import classNames from "classnames";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useState } from "react";
@@ -8,16 +15,14 @@ import {
   timezoneActionTypes,
   timezoneDispatchTypes,
   timezoneState,
-  useTimezone,
-  useTimezoneDispatch,
+  useTimezoneContext,
 } from "./TimezoneProvider";
 
 const Timezone = ({ text }: { text?: string }) => {
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [, setIsAcknowledged] = useState<boolean>(false);
-  const timezoneInfo = useTimezone();
-  const timezoneDispatch = useTimezoneDispatch();
+  const [timezoneInfo, timezoneDispatch] = useTimezoneContext();
   const selectBoxDispatch = (value: timezoneState) => {
     const dispatch: timezoneDispatchTypes = {
       newString: value,
@@ -75,6 +80,7 @@ const Timezone = ({ text }: { text?: string }) => {
           />
 
           <Checkbox
+            checked={timezoneInfo.isAcknowledged}
             label="I acknowledge that the above selection is correct."
             onChange={(s) => {
               const dispatch: timezoneDispatchTypes = {
@@ -94,6 +100,15 @@ const Timezone = ({ text }: { text?: string }) => {
               timezoneDispatch(dispatch);
             }}
           />
+          <Button
+            className="mb-10"
+            fullWidth
+            onClick={() => {
+              alert(JSON.stringify(timezoneInfo));
+            }}
+          >
+            Submit
+          </Button>
         </Stack>
         <div></div>
         <br />

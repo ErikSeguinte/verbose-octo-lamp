@@ -12,7 +12,7 @@ const TimezoneProvider = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   const [timezoneInfo, timezoneInfoDispatch] = useReducer(reducer, {
-    discord: "",
+    discord: "default",
     email: "",
     isAcknowledged: false,
     isLoading: true,
@@ -85,7 +85,7 @@ const reducer = (
     case timezoneActionTypes.TOGGLE: {
       const checked = !state.toSave;
       const newState: timezoneState = {
-        timezone: state.timezone ? state.timezone : "",
+        ...state,
         toSave: checked,
       };
       if (!checked) {
