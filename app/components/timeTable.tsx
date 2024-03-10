@@ -78,6 +78,7 @@ const TimeTable = async ({
     <>
       <div className="px-12 width-screen overflow-x-auto">
         <Table
+          eventId={eventId}
           readonly={readonly}
           slots={timeslots}
           tableData={rows}

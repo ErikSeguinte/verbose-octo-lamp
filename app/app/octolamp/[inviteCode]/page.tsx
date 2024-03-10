@@ -1,3 +1,4 @@
+import { Title } from "@mantine/core";
 import React from "react";
 
 import TimeTable from "@/components/timeTable";
@@ -26,7 +27,14 @@ const Page = async ({ params }: { params: { inviteCode: string } }) => {
   const eventItem = events.filter((e) => (e.inviteCode = params.inviteCode))[0];
 
   return (
-    <TimeTable eventId={eventItem.id.$oid} readonly={false} usingForm={true} />
+    <>
+      <Title order={1}>{eventItem.eventName}</Title>
+      <TimeTable
+        eventId={eventItem.id.$oid as string}
+        readonly={false}
+        usingForm={true}
+      />
+    </>
   );
 };
 

@@ -12,10 +12,12 @@ const Canvas = ({
   children,
   usingForm = true,
   readonly = false,
+  eventId,
 }: {
   children: React.ReactNode;
   usingForm?: boolean;
   readonly?: boolean;
+  eventId?: string;
 }) => {
   const [, mouseEventDispatch] = useMouseEventContext();
   const dispatch: mouseDispatch = { action: mouseEventActions.UP };
@@ -42,7 +44,7 @@ const Canvas = ({
   );
   return (
     <>
-      {usingForm ? <InputDrawer /> : null}
+      {usingForm ? <InputDrawer eventId={eventId as string} /> : null}
       {readonly ? <> {children}</> : <> {mouseComponent} </>}
     </>
   );

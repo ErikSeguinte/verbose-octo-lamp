@@ -28,8 +28,10 @@ const Table = ({
   slots,
   usingForm = true,
   readonly = true,
+  eventId,
 }: {
   children: ReactNode;
+  eventId?: string;
   tableData: serializedTableData[];
   slots?: Set<string>;
   usingForm?: boolean;
@@ -54,7 +56,7 @@ const Table = ({
   return (
     <TimezoneProvider>
       <MouseEventProvider>
-        <Canvas readonly={readonly} usingForm={usingForm}>
+        <Canvas eventId={eventId} readonly={readonly} usingForm={usingForm}>
           <table className="select-none p-8 mb-20 table-auto border-collapse">
             <thead className="bg-slate-300">{children}</thead>
             <tbody>{rows}</tbody>

@@ -6,7 +6,7 @@ import React from "react";
 
 import Form from "./Form";
 
-function InputDrawer() {
+function InputDrawer({ eventId }: { eventId: string }) {
   const [opened, { open, close }] = useDisclosure(true);
   const classes = classNames({ invisible: opened });
 
@@ -18,10 +18,10 @@ function InputDrawer() {
         title="Authentication"
         onClose={close}
       >
-        <Form />
+        <Form eventId={eventId} />
       </Drawer>
       <Affix
-        position={{ bottom: "50%", left: "-5%" }}
+        position={{ bottom: "50%", left: "0" }}
         style={{ transform: `rotate(-90deg)` }}
       >
         <Button

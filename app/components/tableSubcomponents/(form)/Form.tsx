@@ -11,7 +11,7 @@ import Timezone from "@/components/TimezoneSelect";
 
 import { submitToServer } from "./serveractions";
 
-const Form = () => {
+const Form = ({ eventId }: { eventId: string }) => {
   const form = useForm({
     initialValues: {
       discord: "",
@@ -35,6 +35,7 @@ const Form = () => {
     console.log("submitting");
     const data = {
       ...v,
+      eventId: eventId,
       timeslots: selectedDates,
     };
     submitToServer(data);
@@ -106,19 +107,20 @@ const Form = () => {
 
           <Paper p="1rem" radius="md" shadow="md" withBorder>
             <p className="px-2 text-balance">
-              Additionally, you may provide the server nickname you are currently
-              using on the production server.
+              Additionally, you may provide the server nickname you are
+              currently using on the production server.
             </p>
             <TextInput
               label="Discord"
               placeholder="Discord Displayname"
-              value={timezoneInfo.discord}
+              {...form.getInputProps("discord")}
               onChange={(e) => {
                 const dispatch: timezoneDispatchTypes = {
-                  newString: { discord: e.target.value },
+                  newString: { discord: e.target.value as string },
                   type: timezoneActionTypes.SET,
                 };
                 timezoneDispatch(dispatch);
+                form.setFieldValue("discord", e.target.value as string);
               }}
             />
           </Paper>
