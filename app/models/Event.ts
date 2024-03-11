@@ -1,5 +1,8 @@
 import { Set as ImSet } from "immutable";
 import { DateTime, Interval } from "luxon";
+import { ObjectId } from "mongodb";
+import { isMongoId } from "validator";
+import { z } from "zod";
 
 import { query } from "@/utils/availabilitiesDB";
 import { toOid } from "@/utils/utils";
@@ -48,7 +51,7 @@ export class EventType {
     } else {
       this.id = id;
     }
-    this.timeSlots = timeSlots
+    this.timeSlots = timeSlots;
   }
 
   set eventId(id: string) {
@@ -106,7 +109,7 @@ export class EventType {
     });
   }
 
-  static fromJson(  eventsJson: eventsJson ) {
+  static fromJson(eventsJson: eventsJson) {
     return new EventType({
       endDate: eventsJson.endDate,
       eventName: eventsJson.eventName,
@@ -149,8 +152,8 @@ export class EventType {
       }
     }
     if (key == "startDate" || key == "endDate") {
-      const dt = DateTime.fromISO(value)
-      return dt
+      const dt = DateTime.fromISO(value);
+      return dt;
     }
     return value;
   }
@@ -241,3 +244,55 @@ export type eventsJson = {
   timeSlots: timeSlots;
 };
 
+// eventName: string;
+// startDate: DateTime;
+// endDate: DateTime;
+// id: oid = { $oid: "" };
+// organizer: oid = { $oid: "" };
+// participants: Array<oid> = [];
+// inviteCode: string;
+// timeSlots: timeSlots;
+
+export const eventDocSchema = z.object({
+  _id: z.instanceof(ObjectId),
+  endDate: z.coerce.date(),
+  eventName: z.string().trim().min(2),
+  inviteCode: z.string().ulid(),
+  organizer: z.instanceof(ObjectId),
+  startDate: z.coerce.date(),
+});
+
+export type EventDoc = z.infer<typeof eventDocSchema>;
+
+export const eventDTOSchema = z.object({
+  endDate: z.string().datetime({ offset: true }),
+  eventName: eventDocSchema.shape.eventName,
+  id: z.string().refine((s) => isMongoId(s)),
+  inviteCode: eventDocSchema.shape.inviteCode,
+  organizer: z.string().refine((s) => isMongoId(s)),
+  startDate: z.string().datetime({ offset: true }),
+});
+
+export type EventDTO = z.infer<typeof eventDTOSchema>;
+
+export const EventDTO = {
+  convertFromDoc(doc: EventDoc): EventDTO {
+    const { _id, startDate, endDate, eventName, inviteCode, organizer } = doc;
+    const dto: EventDTO = {
+      endDate: endDate.toISOString(),
+      eventName: eventName,
+      id: _id.toHexString(),
+      inviteCode: inviteCode,
+      organizer: organizer.toHexString(),
+      startDate: startDate.toISOString()
+    };
+
+    return eventDTOSchema.parse(dto);
+  },
+};
+
+export const eventQuerySchema = eventDTOSchema.partial()
+export type EventQuery = z.infer<typeof eventQuerySchema>
+
+export const eventCreateSchema = eventDTOSchema.omit({id:true, inviteCode:true })
+export type EventCreate = z.infer<typeof eventCreateSchema>

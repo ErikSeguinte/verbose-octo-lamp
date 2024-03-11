@@ -11,7 +11,8 @@ import {
   UserDocSchema,
   UserDTO,
   UserQuery,
-  UserType} from "@/models/Users";
+  UserType,
+} from "@/models/Users";
 import clientPromise from "@/utils/database";
 
 export const getAllUsers = async () => {
@@ -58,9 +59,7 @@ export const getUserFromId = async (id: string) => {
 };
 
 const getUserDB = async <T extends Document>() => {
-  const users = (await clientPromise)
-    .db("octolamp")
-    .collection<T>("users");
+  const users = (await clientPromise).db("octolamp").collection<T>("users");
   return users;
 };
 
@@ -84,31 +83,28 @@ export interface UserDocument {
 export async function findUser({
   query,
 }: {
-  query: UserQuery
-
+  query: UserQuery;
 }): Promise<UserDTO | null> {
-
   const q = {
-    ...(query.discord ? {discord: query.discord as string}: {}),
-    ...(query.email ? {email: query.email}: {}),
-    ...(query.name ? {name: query.name}: {}),
-    ...(query.id ? {_id: new ObjectId(query.id)}: {}),
-  }
+    ...(query.discord ? { discord: query.discord as string } : {}),
+    ...(query.email ? { email: query.email } : {}),
+    ...(query.name ? { name: query.name } : {}),
+    ...(query.id ? { _id: new ObjectId(query.id) } : {}),
+  };
 
   const users = await getUserDB<UserDoc>();
 
-  const userDoc = await users.findOne(q)
-  return userDoc ? UserDTO.convertFromDoc(userDoc) : null
-
+  const userDoc = await users.findOne(q);
+  return userDoc ? UserDTO.convertFromDoc(userDoc) : null;
 }
 
 export async function createUser(dto: UserCreate): Promise<UserDTO> {
-  const q = userCreateSchema.parse(dto)
-  const userDocCreateSchema = UserDocSchema.omit({_id: true})
-  type userDocCreate = z.infer<typeof userDocCreateSchema>
-  const users = await getUserDB<userDocCreate>()
+  const q = userCreateSchema.parse(dto);
+  const userDocCreateSchema = UserDocSchema.omit({ _id: true });
+  type userDocCreate = z.infer<typeof userDocCreateSchema>;
+  const users = await getUserDB<userDocCreate>();
 
-  const { insertedId }  = await users.insertOne({...q})
-  
-  return UserDTO.convertFromDoc({...dto, _id:insertedId} as UserDoc)
+  const { insertedId } = await users.insertOne({ ...q });
+
+  return UserDTO.convertFromDoc({ ...dto, _id: insertedId } as UserDoc);
 }

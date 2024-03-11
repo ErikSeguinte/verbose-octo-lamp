@@ -1,9 +1,23 @@
 "use server";
 import { promises as fs } from "fs";
 import { DateTime } from "luxon";
-import { Collection, ObjectId, OptionalId } from "mongodb";
+import { Collection, Document, ObjectId, OptionalId } from "mongodb";
+import { ulid } from "ulid";
+import { z } from "zod";
 
-import { eventsJson, EventType, timeSlots } from "@/models/Event";
+import {
+  EventCreate,
+  eventCreateSchema,
+  EventDoc,
+  eventDocSchema,
+  EventDTO,
+  eventDTOSchema,
+  EventQuery,
+  eventQuerySchema,
+  eventsJson,
+  EventType,
+  timeSlots,
+} from "@/models/Event";
 
 import clientPromise from "./database";
 
@@ -54,17 +68,17 @@ export const getEventfromId = async (id: string) => {
   return events.get(id);
 };
 
-const getEventsDb = async () => {
-  const events = (await clientPromise).db("octolamp").collection<EventDocument>("events");
+const getEventsDb = async <T extends Document>() => {
+  const events = (await clientPromise).db("octolamp").collection<T>("events");
   return events;
 };
 
-const getInsertEventsDb = async ( ) => {
+const getInsertEventsDb = async () => {
   const events = (await clientPromise)
-        .db("octolamp")
-        .collection<OptionalId<EventDocument>>("events")
-  return events
-}
+    .db("octolamp")
+    .collection<OptionalId<EventDocument>>("events");
+  return events;
+};
 
 export const saveNewEvent = async (event: EventType) => {
   const events = await getInsertEventsDb();
@@ -81,6 +95,43 @@ export const saveNewEvent = async (event: EventType) => {
   return doc;
 };
 
-export const saveNewEventJSON = async (event:string) => {
-  return saveNewEvent(JSON.parse(event, EventType.reviver))
+export const saveNewEventJSON = async (event: string) => {
+  return saveNewEvent(JSON.parse(event, EventType.reviver));
+};
+
+export async function findEvent({
+  query,
+}: {
+  query: EventQuery;
+}): Promise<EventDTO | null> {
+  const validQuery = eventQuerySchema.parse(query);
+
+  const partialDoc = eventDocSchema.partial();
+  type partialDoc = z.infer<typeof partialDoc>;
+
+  const q: partialDoc = partialDoc.parse({
+    ...validQuery,
+    ...(validQuery.id ? { _id: new ObjectId(validQuery.id) } : {}),
+  });
+
+  const events = await getEventsDb<EventDoc>();
+
+  const eventDoc = await events.findOne(q);
+  return eventDoc ? EventDTO.convertFromDoc(eventDoc) : null;
+}
+
+export async function createEvent(dto: EventCreate): Promise<EventDTO> {
+  const validDTO = eventCreateSchema.parse(dto);
+  const eventDocCreateSchema = eventDocSchema.omit({ _id: true });
+  type EventDocCreate = z.infer<typeof eventDocCreateSchema>;
+  const q = eventDocCreateSchema.parse({
+    ...validDTO,
+    inviteCode: ulid(),
+    organizer: new ObjectId(validDTO.organizer),
+  });
+  const events = await getEventsDb<EventDocCreate>();
+
+  const { insertedId } = await events.insertOne({ ...q });
+
+  return EventDTO.convertFromDoc({ ...q, _id: insertedId } as EventDoc);
 }

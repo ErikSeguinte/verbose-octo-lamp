@@ -13,6 +13,7 @@ import {
   timezoneDispatchTypes,
   useTimezoneContext,
 } from "@/components/TimezoneProvider";
+import { EventQuery } from "@/models/Event";
 import { UserCreate } from "@/models/Users";
 
 import { handleSubmit } from "./serverActions";
@@ -26,8 +27,13 @@ const NewEventCard = () => {
   const submitToServer = async (event: React.MouseEvent) => {
     event.preventDefault();
     const user = { email: timezoneInfo.email } as UserCreate;
-    const results = await handleSubmit(user, "");
-    // const [start, end] = dates;
+    const [start, end] = dates;
+    const newEvent = {
+      endDate: end?.toISOString(),
+      eventName: eventName,
+      startDate: start?.toISOString(),
+    } as EventQuery;
+    const results = await handleSubmit(user, newEvent);
     // const newEvent = EventType.fromJsDates(eventName, start!, end!);
 
     alert(JSON.stringify(results));
