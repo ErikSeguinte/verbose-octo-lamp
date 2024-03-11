@@ -20,7 +20,8 @@
         "bradlc.vscode-tailwindcss",
         "dsznajder.es7-react-js-snippets",
         "esbenp.prettier-vscode",
-        "unifiedjs.vscode-mdx"
+        "unifiedjs.vscode-mdx",
+        "YoavBls.pretty-ts-errors"
       ]
     }
     

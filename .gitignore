@@ -241,3 +241,5 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,linux,node,nextjs
 
 app/.vscode/settings.json
+
+.vscode/

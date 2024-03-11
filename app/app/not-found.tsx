@@ -1,8 +1,11 @@
+"use client";
 import { Button, Container, Group, Text, Title } from "@mantine/core";
+import { useRouter } from "next/navigation";
 
 import classes from "./error.module.css";
 
-const error = () => {
+const NotFound = () => {
+  const router = useRouter();
   return (
     <Container className={classes.root}>
       <div className={classes.label}>404</div>
@@ -12,7 +15,7 @@ const error = () => {
         address, or the page has been moved to another URL.
       </Text>
       <Group justify="center">
-        <Button size="md" variant="subtle">
+        <Button size="md" variant="subtle" onClick={() => router.push("/")}>
           Take me back to home page
         </Button>
       </Group>
@@ -20,4 +23,4 @@ const error = () => {
   );
 };
 
-export default error;
+export default NotFound;

@@ -72,7 +72,7 @@ export class EventType {
   }): Promise<DateTime[]> {
     const interval = Interval.fromDateTimes(
       this.startDate,
-      this.endDate.plus({ day: 1 })
+      this.endDate.plus({ day: 1 }),
     );
 
     let dt = this.startDate.plus({ days: 0, hour: hour, minutes: min });
@@ -95,7 +95,7 @@ export class EventType {
   static fromJsDates(
     eventName: string,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
   ): EventType {
     const startLocal: DateTime = DateTime.fromJSDate(startDate).setZone("utc");
     const endLocal: DateTime = DateTime.fromJSDate(endDate).setZone("utc");
@@ -166,7 +166,7 @@ export class EventType {
       await participants.map(async (p) => {
         const q = await query(p, this.id);
         return q;
-      })
+      }),
     );
 
     const timeslots = availabilities
@@ -194,7 +194,7 @@ export class EventType {
     const removedParticipant: oid[] = [];
     for (const p of this.participants) {
       const oneOffParticipants = this.participants.filter(
-        (removed) => !removed
+        (removed) => !removed,
       );
       promises.push(this.getSharedAvailability(oneOffParticipants));
       removedParticipant.push(p);
@@ -215,7 +215,7 @@ export class EventType {
     const timeSlots = new Map<ISOstring, participants>();
     const interval = Interval.fromDateTimes(
       this.startDate,
-      this.endDate.plus({ day: 1 })
+      this.endDate.plus({ day: 1 }),
     );
 
     let dt = this.startDate.plus({ days: 0 });
@@ -284,15 +284,18 @@ export const EventDTO = {
       id: _id.toHexString(),
       inviteCode: inviteCode,
       organizer: organizer.toHexString(),
-      startDate: startDate.toISOString()
+      startDate: startDate.toISOString(),
     };
 
     return eventDTOSchema.parse(dto);
   },
 };
 
-export const eventQuerySchema = eventDTOSchema.partial()
-export type EventQuery = z.infer<typeof eventQuerySchema>
+export const eventQuerySchema = eventDTOSchema.partial();
+export type EventQuery = z.infer<typeof eventQuerySchema>;
 
-export const eventCreateSchema = eventDTOSchema.omit({id:true, inviteCode:true })
-export type EventCreate = z.infer<typeof eventCreateSchema>
+export const eventCreateSchema = eventDTOSchema.omit({
+  id: true,
+  inviteCode: true,
+});
+export type EventCreate = z.infer<typeof eventCreateSchema>;

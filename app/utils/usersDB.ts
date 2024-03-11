@@ -44,7 +44,7 @@ export type userJson = {
 export const readFile = async () => {
   const usersFile = await fs.readFile(
     process.cwd() + "/utils/dummydata/users.json",
-    "utf8"
+    "utf8",
   );
   const users: userJson[] = JSON.parse(usersFile);
   return users.map((u) => {
@@ -69,7 +69,7 @@ export const saveUser = async (user: UserType) => {
   const doc = await users.updateOne(
     { email: user.email },
     { $set: { discord: user.discord, name: user.name } },
-    { upsert: true }
+    { upsert: true },
   );
   return String(doc);
 };

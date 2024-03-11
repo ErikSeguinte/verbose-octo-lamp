@@ -1,3 +1,3 @@
 export type oid = {
-    $oid: string
-}
+  $oid: string;
+};

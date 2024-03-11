@@ -56,7 +56,7 @@ async function main() {
       for (const oid of oids.values()) {
         newValues.add(oid.$oid);
       }
-      e.timeSlots.set(key, newValues)
+      e.timeSlots.set(key, newValues);
     }
   }
 

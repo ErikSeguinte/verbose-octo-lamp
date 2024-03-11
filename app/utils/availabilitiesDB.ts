@@ -37,7 +37,7 @@ export const readFile = async (): Promise<AvailabilityType[]> => {
 export const cacheFile = cache(async () => {
   const availabilitiesFile = await fs.readFile(
     process.cwd() + "/utils/dummydata/availabilities.json",
-    "utf8"
+    "utf8",
   );
   console.log("Reading File");
   const availabilities: availabilityJson[] = JSON.parse(availabilitiesFile);

@@ -1,5 +1,3 @@
-
-
-export const toOid = (id:string = "") => {
-    return {$oid: id}
-}
+export const toOid = (id: string = "") => {
+  return { $oid: id };
+};

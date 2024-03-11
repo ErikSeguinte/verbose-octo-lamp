@@ -1,4 +1,3 @@
-"use server";
 import { Code, TypographyStylesProvider } from "@mantine/core";
 import React from "react";
 
