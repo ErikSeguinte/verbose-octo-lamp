@@ -63,9 +63,9 @@ const Form = ({ eventId }: { eventId: string }) => {
         >
           <Paper p="1rem" radius="md" shadow="md" withBorder>
             <p className="px-2 text-balance">
-              Your email address will not be shared with the event organizer. It will
-              only be used to match you with your events and optionally to see
-              your event history.
+              Your email address will not be shared with the event organizer. It
+              will only be used to match you with your events and optionally to
+              see your event history.
             </p>
             <TextInput
               label="Email"

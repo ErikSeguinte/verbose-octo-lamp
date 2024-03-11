@@ -1,9 +1,17 @@
 "use server";
 import { promises as fs } from "fs";
-import { ObjectId } from "mongodb";
+import { Document, ObjectId } from "mongodb";
+import { z } from "zod";
 
 import { oid } from "@/models/common";
-import { UserType } from "@/models/Users";
+import {
+  UserCreate,
+  userCreateSchema,
+  UserDoc,
+  UserDocSchema,
+  UserDTO,
+  UserQuery,
+  UserType} from "@/models/Users";
 import clientPromise from "@/utils/database";
 
 export const getAllUsers = async () => {
@@ -33,8 +41,6 @@ export type userJson = {
 };
 
 export const readFile = async () => {
-  const us = await getUserDB();
-  const us2 = us.find({});
   const usersFile = await fs.readFile(
     process.cwd() + "/utils/dummydata/users.json",
     "utf8"
@@ -51,10 +57,10 @@ export const getUserFromId = async (id: string) => {
   return users.get(id);
 };
 
-const getUserDB = async () => {
+const getUserDB = async <T extends Document>() => {
   const users = (await clientPromise)
     .db("octolamp")
-    .collection<UserDocument>("users");
+    .collection<T>("users");
   return users;
 };
 
@@ -69,8 +75,40 @@ export const saveUser = async (user: UserType) => {
   return String(doc);
 };
 export interface UserDocument {
-  _id: ObjectId
-  email: string,
-  discord: string,
-  name: string
+  _id: ObjectId;
+  email: string;
+  discord: string;
+  name: string;
+}
+
+export async function findUser({
+  query,
+}: {
+  query: UserQuery
+
+}): Promise<UserDTO | null> {
+
+  const q = {
+    ...(query.discord ? {discord: query.discord as string}: {}),
+    ...(query.email ? {email: query.email}: {}),
+    ...(query.name ? {name: query.name}: {}),
+    ...(query.id ? {_id: new ObjectId(query.id)}: {}),
+  }
+
+  const users = await getUserDB<UserDoc>();
+
+  const userDoc = await users.findOne(q)
+  return userDoc ? UserDTO.convertFromDoc(userDoc) : null
+
+}
+
+export async function createUser(dto: UserCreate): Promise<UserDTO> {
+  const q = userCreateSchema.parse(dto)
+  const userDocCreateSchema = UserDocSchema.omit({_id: true})
+  type userDocCreate = z.infer<typeof userDocCreateSchema>
+  const users = await getUserDB<userDocCreate>()
+
+  const { insertedId }  = await users.insertOne({...q})
+  
+  return UserDTO.convertFromDoc({...dto, _id:insertedId} as UserDoc)
 }

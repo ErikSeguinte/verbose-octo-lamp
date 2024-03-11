@@ -100,7 +100,6 @@ const Timezone = ({ text }: { text?: string }) => {
               timezoneDispatch(dispatch);
             }}
           />
-
         </Stack>
         <div></div>
         <br />

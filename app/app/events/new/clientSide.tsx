@@ -13,32 +13,24 @@ import {
   timezoneDispatchTypes,
   useTimezoneContext,
 } from "@/components/TimezoneProvider";
-import { EventType } from "@/models/Event";
-import { UserType } from "@/models/Users";
+import { UserCreate } from "@/models/Users";
 
 import { handleSubmit } from "./serverActions";
 import TimezoneSelectionCard from "./TimezoneCard";
-import { saveUser } from "@/utils/usersDB";
-import { saveNewEvent, saveNewEventJSON } from "@/utils/eventsDB";
 
 const NewEventCard = () => {
   const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
   const [eventName, setEventName] = useState<string>("");
   const [, setTimezone] = useState("");
 
-  const submitToServer = (event: React.MouseEvent) => {
+  const submitToServer = async (event: React.MouseEvent) => {
     event.preventDefault();
-    const user = new UserType({ email: timezoneInfo.email! });
-    const [start, end] = dates;
-    const newEvent = EventType.fromJsDates(eventName, start!, end!);
-    // handleSubmit(JSON.stringify(user), JSON.stringify(newEvent, EventType.replacer));
-    saveUser(user).then((user) => {
-      newEvent.organizer = {$oid: user}
-      return newEvent
-    }).then(()=>{
-      // const eventDoc = saveNewEventJSON(JSON.stringify(newEvent)) 
-    })
-    const message = newEvent.toString();
+    const user = { email: timezoneInfo.email } as UserCreate;
+    const results = await handleSubmit(user, "");
+    // const [start, end] = dates;
+    // const newEvent = EventType.fromJsDates(eventName, start!, end!);
+
+    alert(JSON.stringify(results));
   };
   useEffect(() => {
     setTimezone(localStorage.getItem("localTimezone") as string);
@@ -68,7 +60,7 @@ const NewEventCard = () => {
         />
         <Space h="sm" />
         <TextInput
-        className="mb-5"
+          className="mb-5"
           label="Email"
           placeholder="your@email.com"
           onChange={(e) => {
@@ -87,7 +79,6 @@ const NewEventCard = () => {
             day on either end of the given window.
           </p>
         </TypographyStylesProvider>
-
 
         <section className="">
           <DaterangePicker dates={dates} setDates={setDates} />
