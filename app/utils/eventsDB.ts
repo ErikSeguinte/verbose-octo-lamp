@@ -12,6 +12,7 @@ import {
 } from "@/models/Event";
 
 import clientPromise from "./database";
+import { tryParse } from "./utils";
 
 // see https://github.com/vercel/next.js/pull/62821
 
@@ -31,19 +32,21 @@ export async function findOneEvent({
   return eventDoc ? eventFromDocSchema.parse(eventDoc) : null;
 }
 
-export async function createEvent(dto: EventCreate): Promise<EventFromDoc> {
+export async function createEvent(dto: EventQuery): Promise<EventFromDoc> {
   const eventDocCreateSchema = eventToDocSchema.omit({ _id: true });
   type EventDocCreateInput = z.input<typeof eventDocCreateSchema>;
   type EventDocCreateOutput = z.infer<typeof eventDocCreateSchema>;
 
-  const q: EventDocCreateInput = {
-    ...dto,
-    inviteCode: ulid(),
-    participants: new Set<string>(),
-  };
+  const q = tryParse<EventQuery, EventDocCreateOutput>(
+    {
+      ...dto,
+      inviteCode: ulid(),
+      participants: new Set<string>(),
+    },
+    eventDocCreateSchema,
+  );
   const events = await getEventsDb<EventDocCreateOutput>();
-  const query: EventDocCreateOutput = eventDocCreateSchema.parse(q);
-  const { insertedId } = await events.insertOne(query);
+  const { insertedId } = await events.insertOne(q);
   const newEvent = await events.findOne({ _id: insertedId });
 
   return eventFromDocSchema.parse({ ...newEvent });

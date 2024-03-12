@@ -1,34 +1,26 @@
 "use server";
-
-import { fromZodError, ZodError } from "zod-validation-error";
-
-import { eventDTOSchema, EventFromDoc, EventQuery } from "@/models/Event";
+import {
+  EventCreate,
+  eventCreateSchema,
+  EventFromDoc,
+  EventQuery,
+  eventQuerySchema,
+} from "@/models/Event";
 import { UserCreate, userCreateSchema, UserDTO } from "@/models/Users";
 import { createEvent } from "@/utils/eventsDB";
-import { createUser } from "@/utils/usersDB";
+import { createUser, saveUser } from "@/utils/usersDB";
+import { tryParse } from "@/utils/utils";
 
 export const handleSubmit = async (user: UserCreate, event: EventQuery) => {
-  try {
-    var u = userCreateSchema.parse(user);
-  } catch (err) {
-    const validationError = fromZodError(err as ZodError);
-    return `Error parsing user. ${validationError.toString()}`;
-  }
-  const savedUser: UserDTO = await createUser(u);
+  const userQuery = tryParse<UserCreate, UserCreate>(user, userCreateSchema);
+  const savedUser: UserDTO = await saveUser(userQuery);
 
-  const eventInputSchema = eventDTOSchema.omit({
-    _id: true,
-    inviteCode: true,
-    participants: true,
-  });
-  try {
-    var e = eventInputSchema.parse({ ...event, organizer: savedUser.id });
-  } catch (err) {
-    const validationError = fromZodError(err as ZodError);
-    return `Error parsing event. ${validationError.toString()}`;
-  }
+  const eventQuery = tryParse<EventQuery, EventQuery>(
+    { ...event, organizer: savedUser._id },
+    eventQuerySchema,
+  );
 
-  const savedEvent: EventFromDoc = await createEvent(e);
+  const savedEvent: EventFromDoc = await createEvent(eventQuery);
 
   return savedEvent;
 };

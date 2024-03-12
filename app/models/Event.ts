@@ -296,7 +296,7 @@ export const eventDTOSchema = z.object({
 
 export type EventDTO = z.infer<typeof eventDTOSchema>;
 
-export const eventQuerySchema = eventToDocSchema.partial();
+export const eventQuerySchema = eventDTOSchema.partial();
 export type EventQuery = z.input<typeof eventQuerySchema>;
 
 export const eventCreateSchema = eventToDocSchema.omit({
