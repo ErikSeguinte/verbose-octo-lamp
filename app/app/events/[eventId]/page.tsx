@@ -7,9 +7,9 @@ import { fromZodError } from "zod-validation-error";
 
 import MaxProse from "@/components/MaxProse";
 // import TimeTable from "@/components/timeTable";
-import { eventDTOSchema, EventQuery, eventQuerySchema } from "@/models/Event";
+import { eventDTOSchema, eventQuerySchema } from "@/models/Event";
 import { userAdvancedQuerySchema } from "@/models/Users";
-import { findEvents, findOneEvent } from "@/utils/eventsDB";
+import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
 import { findUsers } from "@/utils/usersDB";
 
 import CopyButton_ from "./copyButton";
@@ -41,21 +41,14 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const query: EventQuery = {};
-  const events = await findEvents({ query });
+  const events = await findAllEvents();
   return events ? events.map((e) => e.inviteCode) : [];
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  const parsedEventQuery = ((query): EventQuery => {
-    const result = eventQuerySchema.safeParse(query);
-    if (!result.success) {
-      if (result.error instanceof ZodError) {
-        const validationError = fromZodError(result.error);
-        console.error(validationError.toString());
-        notFound();
-      }
-    } else {
+  const parsedEventQuery = ((query) => {
+    const result = eventDTOSchema.partial().safeParse(query);
+    if (result.success) {
       return result.data;
     }
     return {};
@@ -103,7 +96,10 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
       <MaxProse>
         <Space h="md" />
         <Paper>
-          <ParticipantList eventId={eventItem.id} participants={participants} />
+          <ParticipantList
+            eventId={eventItem._id}
+            participants={participants}
+          />
         </Paper>
       </MaxProse>
       {/*

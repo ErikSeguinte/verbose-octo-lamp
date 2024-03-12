@@ -1,16 +1,13 @@
 "use server";
-import { Document, ObjectId } from "mongodb";
+import { Document } from "mongodb";
 import { ulid } from "ulid";
 import { z } from "zod";
 
 import {
   EventCreate,
-  eventCreateSchema,
   EventFromDoc,
   eventFromDocSchema,
   EventQuery,
-  eventQuerySchema,
-  EventToDoc,
   eventToDocSchema,
 } from "@/models/Event";
 
@@ -28,20 +25,10 @@ export async function findOneEvent({
 }: {
   query: EventQuery;
 }): Promise<EventFromDoc | null> {
-  const validQuery = eventQuerySchema.parse(query);
-
-  const partialDoc = eventFromDocSchema.partial();
-  type partialDoc = z.infer<typeof partialDoc>;
-
-  const q: partialDoc = partialDoc.parse({
-    ...validQuery,
-    ...(validQuery.id ? { _id: new ObjectId(validQuery.id) } : {}),
-  });
-
-  const events = await getEventsDb<EventFromDoc>();
-
+  const q = eventToDocSchema.partial().parse(query);
+  const events = await getEventsDb();
   const eventDoc = await events.findOne(q);
-  return eventDoc ? EventDTO.convertFromDoc(eventDoc) : null;
+  return eventDoc ? eventFromDocSchema.parse(eventDoc) : null;
 }
 
 export async function createEvent(dto: EventCreate): Promise<EventFromDoc> {
@@ -55,36 +42,16 @@ export async function createEvent(dto: EventCreate): Promise<EventFromDoc> {
     participants: new Set<string>(),
   };
   const events = await getEventsDb<EventDocCreateOutput>();
-
   const query: EventDocCreateOutput = eventDocCreateSchema.parse(q);
-
   const { insertedId } = await events.insertOne(query);
-
   const newEvent = await events.findOne({ _id: insertedId });
-
-  console.log(String(newEvent?.startDate));
 
   return eventFromDocSchema.parse({ ...newEvent });
 }
 
-export async function findEvents({ query }: { query: EventQuery }) {
-  const validQuery = eventQuerySchema.parse(query);
-
-  const partialDoc = eventFromDocSchema.partial();
-  type partialDoc = z.infer<typeof partialDoc>;
-
-  const q: partialDoc = partialDoc.parse({
-    ...validQuery,
-    ...(validQuery.id ? { _id: new ObjectId(validQuery.id) } : {}),
-  });
-
+export async function findAllEvents() {
   const events = await getEventsDb<EventFromDoc>();
 
-  const eventDocs = await z
-    .array(eventFromDocSchema)
-    .promise()
-    .parse(events.find({ q }).toArray());
-  return eventDocs
-    ? eventDocs.map((doc) => EventDTO.convertFromDoc(doc))
-    : null;
+  const eventDocs = await events.find({}).toArray();
+  return eventDocs ? eventFromDocSchema.array().parse(eventDocs) : null;
 }

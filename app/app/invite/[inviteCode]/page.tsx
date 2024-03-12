@@ -5,8 +5,8 @@ import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
 // import TimeTable from "@/components/timeTable";
-import { EventQuery, eventQuerySchema } from "@/models/Event";
-import { findEvents, findOneEvent } from "@/utils/eventsDB";
+import { eventDTOSchema, eventFromDocSchema, EventQuery } from "@/models/Event";
+import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
 
 type Props = {
   params: { inviteCode: string };
@@ -15,36 +15,40 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   let query = {};
   try {
-    query = eventQuerySchema.parse({ inviteCode: params.inviteCode });
+    query = eventDTOSchema.partial().parse({ inviteCode: params.inviteCode });
   } catch (err) {
     if (err instanceof ZodError) {
       const validationError = fromZodError(err);
       console.error(validationError.toString());
       notFound();
     }
-  }
+    ``;
+  } finally {
+    const result = await findOneEvent({ query });
+    if (!result) {
+      console.error(`page ${(query as EventQuery).inviteCode} not found`);
+      notFound();
+    }
+    const eventItem = eventFromDocSchema.safeParse(result);
+    if (eventItem.success) {
+      return {
+        title: `Verbose Octolamp - ${eventItem.data.eventName} invitation form`,
+      };
+    }
 
-  const result = await findOneEvent({ query });
-  if (!result) {
-    console.error(`page ${(query as EventQuery).inviteCode} not found`);
-    notFound();
+    return { title: "verbose Octolamp" };
   }
-  const eventItem = eventDTOSchema.parse(result);
-  return {
-    title: `Verbose Octolamp - ${eventItem.eventName} invitation form`,
-  };
 }
 
 export async function generateStaticParams() {
-  const query: EventQuery = {};
-  const events = await findEvents({ query });
+  const events = await findAllEvents();
   return events ? events.map((e) => e.inviteCode) : [];
 }
 
 const Page = async ({ params }: { params: { inviteCode: string } }) => {
   let query = {};
   try {
-    query = eventQuerySchema.parse({ inviteCode: params.inviteCode });
+    query = eventDTOSchema.partial().parse({ inviteCode: params.inviteCode });
   } catch (err) {
     if (err instanceof ZodError) {
       const validationError = fromZodError(err);

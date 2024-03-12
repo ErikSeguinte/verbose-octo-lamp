@@ -1,15 +1,8 @@
 "use server";
 
-import { z } from "zod";
 import { fromZodError, ZodError } from "zod-validation-error";
 
-import {
-  eventCreateSchema,
-  EventDTO,
-  eventDTOSchema,
-  EventFromDoc,
-  EventQuery,
-} from "@/models/Event";
+import { eventDTOSchema, EventFromDoc, EventQuery } from "@/models/Event";
 import { UserCreate, userCreateSchema, UserDTO } from "@/models/Users";
 import { createEvent } from "@/utils/eventsDB";
 import { createUser } from "@/utils/usersDB";
