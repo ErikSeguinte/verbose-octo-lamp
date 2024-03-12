@@ -32,7 +32,7 @@ const Form = ({ eventId }: { eventId: string }) => {
     for (const e of selected) {
       selectedDates.push(e.getAttribute("data-dt"));
     }
-    console.log("submitting");
+    // console.log("submitting");
     const data = {
       ...v,
       eventId: eventId,

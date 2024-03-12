@@ -3,7 +3,6 @@ import React from "react";
 
 import MaxProse from "@/components/MaxProse";
 import { EventType } from "@/models/Event";
-import { getAllEvents } from "@/utils/eventsDB";
 
 import ClientSide from "./client";
 import { sortMethod, sortMethodValues } from "./utils";
@@ -31,11 +30,11 @@ const nodify = (events: EventType[]) => {
 };
 
 const Page = async () => {
-  const events = await getAllEvents();
+  // const events = await getAllEvents();
 
-  const daySorted = nodify(sortEvents(events, sortMethod["Start Date"]));
-  const nameSorted = nodify(sortEvents(events, sortMethod["Event Name"]));
-  const sortedEvents = [daySorted, nameSorted] as const;
+  // const daySorted = nodify(sortEvents(events, sortMethod["Start Date"]));
+  // const nameSorted = nodify(sortEvents(events, sortMethod["Event Name"]));
+  // const sortedEvents = [daySorted, nameSorted] as const;
 
   return (
     <>

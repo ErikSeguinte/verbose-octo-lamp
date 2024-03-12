@@ -4,8 +4,8 @@ import React from "react";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
-import TimeTable from "@/components/timeTable";
-import { eventDTOSchema, EventQuery, eventQuerySchema } from "@/models/Event";
+// import TimeTable from "@/components/timeTable";
+import { EventQuery, eventQuerySchema } from "@/models/Event";
 import { findEvents, findOneEvent } from "@/utils/eventsDB";
 
 type Props = {

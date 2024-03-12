@@ -6,7 +6,7 @@ import React from "react";
 import MaxProse from "@/components/MaxProse";
 
 import NewEventCard from "./clientSide";
-import LocalClock from "./LocalClock";
+// import LocalClock from "./LocalClock";
 
 const Page = () => {
   return (

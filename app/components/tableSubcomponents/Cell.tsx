@@ -1,5 +1,4 @@
 "use client";
-import { Group } from "@mantine/core";
 import {
   IconCrop11,
   IconDice1,
@@ -95,7 +94,7 @@ const f = (dt: DateTime) => {
 
 const Cell = ({
   date,
-  slots,
+  // slots,
   readonly,
 }: {
   date: DateTime;

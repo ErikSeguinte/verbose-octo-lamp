@@ -2,7 +2,6 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 
 // Replace the placeholder with your Atlas connection string
 const uri = process.env.MONGODB_URI as string;
-console.log(uri);
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient>;

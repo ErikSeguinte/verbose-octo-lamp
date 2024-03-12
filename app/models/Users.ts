@@ -28,20 +28,20 @@ export class UserType {
   }
 }
 
-export const UserDocSchema = z.object({
+export const userDocSchema = z.object({
   _id: z.instanceof(ObjectId),
   discord: z.string().optional(),
   email: z.string().email(),
   name: z.string().optional(),
 });
 
-export type UserDoc = z.infer<typeof UserDocSchema>;
+export type UserDoc = z.infer<typeof userDocSchema>;
 
 export const userDTOSchema = z.object({
-  discord: UserDocSchema.shape.discord,
-  email: UserDocSchema.shape.email,
+  discord: userDocSchema.shape.discord,
+  email: userDocSchema.shape.email,
   id: z.string().refine((s) => ismongoid(s)),
-  name: UserDocSchema.shape.name,
+  name: userDocSchema.shape.name,
 });
 
 export type UserDTO = z.infer<typeof userDTOSchema>;
@@ -62,12 +62,18 @@ export const UserDTO = {
       ...dto,
       _id: new ObjectId(dto.id),
     };
-    return UserDocSchema.parse(doc);
+    return userDocSchema.parse(doc);
   },
 };
 
-export const userQuery = userDTOSchema.partial();
-export type UserQuery = z.infer<typeof userQuery>;
+export const userAdvancedQuerySchema = z.object({
+  _id: z.object({
+    $in: userDTOSchema.shape.id.transform((id) => new ObjectId(id)).array(),
+  }),
+});
+export type UserAdvancedQuery = z.infer<typeof userAdvancedQuerySchema>;
+export const userQuerySchema = userDTOSchema.partial();
+export type UserQuery = z.infer<typeof userQuerySchema>;
 
 export const userCreateSchema = userDTOSchema.omit({ id: true });
 export type UserCreate = z.infer<typeof userCreateSchema>;

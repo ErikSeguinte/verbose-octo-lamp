@@ -1,16 +1,17 @@
 "use server";
-import { Document, ObjectId, } from "mongodb";
+import { Document, ObjectId } from "mongodb";
 import { ulid } from "ulid";
 import { z } from "zod";
 
 import {
   EventCreate,
   eventCreateSchema,
-  EventDoc,
-  eventDocSchema,
-  EventDTO,
+  EventFromDoc,
+  eventFromDocSchema,
   EventQuery,
   eventQuerySchema,
+  EventToDoc,
+  eventToDocSchema,
 } from "@/models/Event";
 
 import clientPromise from "./database";
@@ -26,10 +27,10 @@ export async function findOneEvent({
   query,
 }: {
   query: EventQuery;
-}): Promise<EventDTO | null> {
+}): Promise<EventFromDoc | null> {
   const validQuery = eventQuerySchema.parse(query);
 
-  const partialDoc = eventDocSchema.partial();
+  const partialDoc = eventFromDocSchema.partial();
   type partialDoc = z.infer<typeof partialDoc>;
 
   const q: partialDoc = partialDoc.parse({
@@ -37,32 +38,39 @@ export async function findOneEvent({
     ...(validQuery.id ? { _id: new ObjectId(validQuery.id) } : {}),
   });
 
-  const events = await getEventsDb<EventDoc>();
+  const events = await getEventsDb<EventFromDoc>();
 
   const eventDoc = await events.findOne(q);
   return eventDoc ? EventDTO.convertFromDoc(eventDoc) : null;
 }
 
-export async function createEvent(dto: EventCreate): Promise<EventDTO> {
-  const validDTO = eventCreateSchema.parse(dto);
-  const eventDocCreateSchema = eventDocSchema.omit({ _id: true });
-  type EventDocCreate = z.infer<typeof eventDocCreateSchema>;
-  const q = eventDocCreateSchema.parse({
-    ...validDTO,
+export async function createEvent(dto: EventCreate): Promise<EventFromDoc> {
+  const eventDocCreateSchema = eventToDocSchema.omit({ _id: true });
+  type EventDocCreateInput = z.input<typeof eventDocCreateSchema>;
+  type EventDocCreateOutput = z.infer<typeof eventDocCreateSchema>;
+
+  const q: EventDocCreateInput = {
+    ...dto,
     inviteCode: ulid(),
-    organizer: new ObjectId(validDTO.organizer),
-  });
-  const events = await getEventsDb<EventDocCreate>();
+    participants: new Set<string>(),
+  };
+  const events = await getEventsDb<EventDocCreateOutput>();
 
-  const { insertedId } = await events.insertOne({ ...q });
+  const query: EventDocCreateOutput = eventDocCreateSchema.parse(q);
 
-  return EventDTO.convertFromDoc({ ...q, _id: insertedId } as EventDoc);
+  const { insertedId } = await events.insertOne(query);
+
+  const newEvent = await events.findOne({ _id: insertedId });
+
+  console.log(String(newEvent?.startDate));
+
+  return eventFromDocSchema.parse({ ...newEvent });
 }
 
 export async function findEvents({ query }: { query: EventQuery }) {
   const validQuery = eventQuerySchema.parse(query);
 
-  const partialDoc = eventDocSchema.partial();
+  const partialDoc = eventFromDocSchema.partial();
   type partialDoc = z.infer<typeof partialDoc>;
 
   const q: partialDoc = partialDoc.parse({
@@ -70,10 +78,10 @@ export async function findEvents({ query }: { query: EventQuery }) {
     ...(validQuery.id ? { _id: new ObjectId(validQuery.id) } : {}),
   });
 
-  const events = await getEventsDb<EventDoc>();
+  const events = await getEventsDb<EventFromDoc>();
 
   const eventDocs = await z
-    .array(eventDocSchema)
+    .array(eventFromDocSchema)
     .promise()
     .parse(events.find({ q }).toArray());
   return eventDocs

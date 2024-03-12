@@ -244,58 +244,64 @@ export type eventsJson = {
   timeSlots: timeSlots;
 };
 
-// eventName: string;
-// startDate: DateTime;
-// endDate: DateTime;
-// id: oid = { $oid: "" };
-// organizer: oid = { $oid: "" };
-// participants: Array<oid> = [];
-// inviteCode: string;
-// timeSlots: timeSlots;
-
-export const eventDocSchema = z.object({
-  _id: z.instanceof(ObjectId),
-  endDate: z.coerce.date(),
+export const eventFromDocSchema = z.object({
+  _id: z.instanceof(ObjectId).transform((o) => o.toHexString()),
+  endDate: z.date().transform((d) => d.toISOString()),
   eventName: z.string().trim().min(2),
   inviteCode: z.string().ulid(),
-  organizer: z.instanceof(ObjectId),
-  startDate: z.coerce.date(),
+  organizer: z.instanceof(ObjectId).transform((o) => o.toHexString()),
+  participants: z
+    .instanceof(ObjectId)
+    .array()
+    .transform((arr) => new Set<string>(arr.map((s) => s.toHexString()))),
+  startDate: z.date().transform((d) => d.toISOString()),
 });
 
-export type EventDoc = z.infer<typeof eventDocSchema>;
+export const eventToDocSchema = z.object({
+  _id: z
+    .string()
+    .refine((s) => isMongoId(s))
+    .transform((s) => new ObjectId(s)),
+  endDate: z
+    .string()
+    .datetime({ offset: true })
+    .transform((s) => new Date(s)),
+  eventName: z.string().trim().min(2),
+  inviteCode: z.string().ulid(),
+  organizer: z
+    .string()
+    .refine((s) => isMongoId(s))
+    .transform((s) => new ObjectId(s)),
+  participants: z
+    .set(z.string().refine((s) => isMongoId(s)))
+    .transform((s) => Array.from(s).map((i) => new ObjectId(i))),
+  startDate: z
+    .string()
+    .datetime({ offset: true })
+    .transform((s) => new Date(s)),
+});
+
+export type EventFromDoc = z.infer<typeof eventFromDocSchema>;
+export type EventToDoc = z.infer<typeof eventToDocSchema>;
 
 export const eventDTOSchema = z.object({
-  endDate: z.string().datetime({ offset: true }),
-  eventName: eventDocSchema.shape.eventName,
-  id: z.string().refine((s) => isMongoId(s)),
-  inviteCode: eventDocSchema.shape.inviteCode,
+  _id: z.string().refine((s) => isMongoId(s)),
+  endDate: z.coerce.string().datetime({ offset: true }),
+  eventName: z.string(),
+  inviteCode: eventFromDocSchema.shape.inviteCode,
   organizer: z.string().refine((s) => isMongoId(s)),
-  startDate: z.string().datetime({ offset: true }),
+  participants: z.set(z.string().refine((s) => isMongoId(s))),
+  startDate: z.coerce.string().datetime({ offset: true }),
 });
 
 export type EventDTO = z.infer<typeof eventDTOSchema>;
 
-export const EventDTO = {
-  convertFromDoc(doc: EventDoc): EventDTO {
-    const { _id, startDate, endDate, eventName, inviteCode, organizer } = doc;
-    const dto: EventDTO = {
-      endDate: endDate.toISOString(),
-      eventName: eventName,
-      id: _id.toHexString(),
-      inviteCode: inviteCode,
-      organizer: organizer.toHexString(),
-      startDate: startDate.toISOString(),
-    };
+export const eventQuerySchema = eventToDocSchema.partial();
+export type EventQuery = z.input<typeof eventQuerySchema>;
 
-    return eventDTOSchema.parse(dto);
-  },
-};
-
-export const eventQuerySchema = eventDTOSchema.partial();
-export type EventQuery = z.infer<typeof eventQuerySchema>;
-
-export const eventCreateSchema = eventDTOSchema.omit({
-  id: true,
+export const eventCreateSchema = eventToDocSchema.omit({
+  _id: true,
   inviteCode: true,
+  participants: true,
 });
-export type EventCreate = z.infer<typeof eventCreateSchema>;
+export type EventCreate = z.input<typeof eventCreateSchema>;

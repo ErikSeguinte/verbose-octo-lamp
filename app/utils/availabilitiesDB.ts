@@ -39,7 +39,6 @@ export const cacheFile = cache(async () => {
     process.cwd() + "/utils/dummydata/availabilities.json",
     "utf8",
   );
-  console.log("Reading File");
   const availabilities: availabilityJson[] = JSON.parse(availabilitiesFile);
   return availabilities;
 });

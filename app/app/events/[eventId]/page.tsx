@@ -1,19 +1,16 @@
-import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
+// import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import { notFound } from "next/navigation";
 import React from "react";
-import { ZodError } from "zod";
-import { fromZodError, isValidationErrorLike } from "zod-validation-error";
+import { z, ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 import MaxProse from "@/components/MaxProse";
-import TimeTable from "@/components/timeTable";
-import {
-  eventDTOSchema,
-  EventQuery,
-  eventQuerySchema,
-  EventType,
-} from "@/models/Event";
+// import TimeTable from "@/components/timeTable";
+import { eventDTOSchema, EventQuery, eventQuerySchema } from "@/models/Event";
+import { userAdvancedQuerySchema } from "@/models/Users";
 import { findEvents, findOneEvent } from "@/utils/eventsDB";
+import { findUsers } from "@/utils/usersDB";
 
 import CopyButton_ from "./copyButton";
 import ParticipantList from "./ParticipantList";
@@ -23,18 +20,21 @@ export async function generateMetadata({
 }: {
   params: { eventId: string };
 }) {
+  let query = {};
   try {
-    var query = eventQuerySchema.parse({ id: params.eventId });
+    query = eventQuerySchema.parse({ id: params.eventId });
   } catch (err) {
     if (err instanceof ZodError) {
       const validationError = fromZodError(err);
-      console.log(validationError.toString());
+      console.error(validationError.toString());
       notFound();
     }
   }
-  const eventItem = await eventDTOSchema
-    .promise()
-    .parse(findOneEvent({ query }));
+  const result = await findOneEvent({ query });
+  if (!result) {
+    notFound();
+  }
+  const eventItem = eventDTOSchema.parse(result);
   return {
     title: `Verbose Octolamp - ${eventItem.eventName} details`,
   };
@@ -47,18 +47,43 @@ export async function generateStaticParams() {
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  try {
-    var query = eventQuerySchema.parse({ id: params.eventId });
-  } catch (err) {
-    if (err instanceof ZodError) {
-      const validationError = fromZodError(err);
-      notFound();
+  const parsedEventQuery = ((query): EventQuery => {
+    const result = eventQuerySchema.safeParse(query);
+    if (!result.success) {
+      if (result.error instanceof ZodError) {
+        const validationError = fromZodError(result.error);
+        console.error(validationError.toString());
+        notFound();
+      }
+    } else {
+      return result.data;
     }
-  }
-  const eventItem = await findOneEvent({ query });
-  if (!eventItem) return notFound();
+    return {};
+  })({ id: params.eventId });
+
+  const result = await findOneEvent({ query: parsedEventQuery });
+  if (!result) return notFound();
+  const eventItem = eventDTOSchema.parse(result);
   const invitecode = eventItem.inviteCode;
   const inviteLink: string = `http://localhost:3000/invite/${invitecode}`;
+
+  type advancedQuery = z.input<typeof userAdvancedQuerySchema>;
+
+  const parsedUserQuery = ((query: advancedQuery) => {
+    const result = userAdvancedQuerySchema.safeParse(query);
+    if (!result.success) {
+      if (result.error instanceof ZodError) {
+        const validationError = fromZodError(result.error);
+        console.error(validationError.toString());
+        notFound();
+      }
+    } else {
+      return result.data;
+    }
+    return {};
+  })({ _id: { $in: Array.from(eventItem.participants) } });
+
+  const participants = await findUsers({ query: parsedUserQuery });
   return (
     <section>
       <MaxProse>
@@ -75,13 +100,13 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
         </TypographyStylesProvider>
       </MaxProse>
 
-      {/* <MaxProse>
+      <MaxProse>
         <Space h="md" />
         <Paper>
-          <ParticipantList event={eventItem as EventType} />
+          <ParticipantList eventId={eventItem.id} participants={participants} />
         </Paper>
       </MaxProse>
-
+      {/*
       <AvailabilityProvider
         availability={eventItem.timeSlots}
         maxSize={eventItem.participants.length}

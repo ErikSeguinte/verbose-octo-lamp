@@ -1,31 +1,29 @@
 import Link from "next/link";
 import React from "react";
 
-import { EventType } from "@/models/Event";
-import { UserType } from "@/models/Users";
-import { getAllMapped } from "@/utils/usersDB";
+import { UserDTO } from "@/models/Users";
 
-const ParticipantList = async ({ event }: { event: EventType }) => {
-  if (!event.participants) {
+const ParticipantList = async ({
+  participants,
+  eventId,
+}: {
+  participants: UserDTO[] | null;
+  eventId: string;
+}) => {
+  if (!participants) {
     return <></>;
   } else {
-    const participants = event.participants;
-    const userMap = await getAllMapped();
     const users = participants.map((p) => {
-      const user: UserType = userMap.get(p.$oid) as UserType;
-
       return (
-        <ul className="list-disc" key={p.$oid}>
+        <ul className="list-disc" key={p.id}>
           <li>
-            <Link
-              href={`/events/${event.id.$oid}/availabilities/${user._id.$oid}`}
-            >
-              {user.name}{" "}
+            <Link href={`/events/${eventId}/availabilities/${p.id}`}>
+              {p.name ? p.name : p.email}
             </Link>
           </li>
-          {user.discord ? (
+          {p.discord ? (
             <ul>
-              <li className={""}>discord: {user.discord}</li>
+              <li className={""}>discord: {p.discord}</li>
             </ul>
           ) : (
             <></>
