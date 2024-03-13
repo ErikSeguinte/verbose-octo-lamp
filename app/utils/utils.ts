@@ -5,7 +5,10 @@ export const toOid = (id: string = "") => {
   return { $oid: id };
 };
 
-export const tryParse = <T>(value: unknown, schema: ZodTypeAny): T => {
+export const tryParse = <T, input = unknown>(
+  value: input,
+  schema: ZodTypeAny,
+): T => {
   let v: T | null = null;
   try {
     v = schema.parse(value);

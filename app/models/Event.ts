@@ -244,6 +244,47 @@ export type eventsJson = {
   timeSlots: timeSlots;
 };
 
+const transformToArrays = {
+  fromArrays: z
+    // string[] to ObjectId[]
+    .string()
+    .refine((s) => isMongoId(s))
+    .transform((s) => new ObjectId(s))
+    .array()
+    // ObjectId[]
+    .or(z.instanceof(ObjectId).array()),
+  fromSets: z
+    // Set<ObjectId>
+    .set(z.instanceof(ObjectId))
+    // Set<String> to Set<ObjectId>
+    .or(
+      z
+        .set(z.string().refine((s) => isMongoId(s)))
+        .transform(
+          (set) => new Set(Array.from(set).map((str) => new ObjectId(str))),
+        ),
+    )
+    .transform((set) => Array.from(set)),
+};
+
+export const participantsToArrays = transformToArrays.fromArrays.or(
+  transformToArrays.fromSets,
+);
+export type participantsToArrays = z.infer<typeof participantsToArrays>;
+export type participantsToArraysInput = z.input<typeof participantsToArrays>;
+
+export const dateToDateTime = z
+  .date()
+  .transform((dt) => DateTime.fromJSDate(dt) as DateTime)
+  .or(
+    z
+      .string()
+      .datetime({ offset: true })
+      .transform((s) => DateTime.fromISO(s) as DateTime),
+  )
+  .or(z.custom<DateTime>((dt) => DateTime.isDateTime(dt)));
+export type dateToDateTime = z.infer<typeof dateToDateTime>;
+export type dateToDateTimeInput = z.input<typeof dateToDateTime>;
 
 export const eventDocSchema = z.object({
   _id: z
@@ -251,20 +292,7 @@ export const eventDocSchema = z.object({
     .refine((s) => isMongoId(s))
     .transform((s) => new ObjectId(s))
     .or(z.instanceof(ObjectId)),
-  endDate: z
-    .date()
-    .or(
-      z
-        .string()
-        .datetime({ offset: true })
-        .transform((s) => new Date(s)),
-    )
-    .or(z.date())
-    .or(
-      z
-        .custom<DateTime>((dt) => DateTime.isDateTime(dt))
-        .transform((dt) => dt.toJSDate()),
-    ),
+  endDate: dateToDateTime.transform((dt) => dt.toJSDate()),
   eventName: z.string().trim().min(2),
   inviteCode: z.string().ulid(),
   organizer: z
@@ -272,80 +300,57 @@ export const eventDocSchema = z.object({
     .refine((s) => isMongoId(s))
     .transform((s) => new ObjectId(s))
     .or(z.instanceof(ObjectId)),
-  participants: z
-    .set(z.string().refine((s) => isMongoId(s)))
-    .transform((s) => Array.from(s).map((i) => new ObjectId(i)))
-    .or(z.set(z.instanceof(ObjectId)).transform((s) => Array.from(s))),
-  startDate: z
-    .date()
-    .or(
-      z
-        .string()
-        .datetime({ offset: true })
-        .transform((s) => new Date(s)),
-    )
-    .or(z.date())
-    .or(
-      z
-        .custom<DateTime>((dt) => DateTime.isDateTime(dt))
-        .transform((dt) => dt.toJSDate()),
-    ),
+  participants: participantsToArrays,
+  startDate: dateToDateTime.transform((dt) => dt.toJSDate()),
 });
 
 export type EventDoc = z.infer<typeof eventDocSchema>;
 export type EventDocInput = z.input<typeof eventDocSchema>;
 
-const ArraysToSetOfStrings = z
-  .string()
-  .refine((s) => isMongoId(s))
-  .array()
-  .or(
-    z
-      .instanceof(ObjectId)
-      .array()
-      .transform((a) => a.map((o) => o.toHexString())),
-  )
-  .transform((a) => new Set(a));
-const setsToSetOfStrings = z.set(z.string().refine((s) => isMongoId(s))).or(
-  z.set(z.instanceof(ObjectId)).transform((o) => {
-    const arr = Array.from(o).map((o) => o.toHexString());
-    return new Set<string>(arr);
-  }),
+const transformToSets = {
+  fromArrays: z
+    .string()
+    .refine((s) => isMongoId(s))
+    .array()
+    .or(
+      z
+        .instanceof(ObjectId)
+        .array()
+        .transform((a) => a.map((o) => o.toHexString())),
+    )
+    .transform((a) => new Set(a)),
+  fromSets: z.set(z.string().refine((s) => isMongoId(s))).or(
+    z.set(z.instanceof(ObjectId)).transform((o) => {
+      const arr = Array.from(o).map((o) => o.toHexString());
+      return new Set<string>(arr);
+    }),
+  ),
+};
+
+export const participantsToSets = transformToSets.fromArrays.or(
+  transformToSets.fromSets,
 );
+export type participantsToSets = z.infer<typeof participantsToSets>;
+export type participantsToSetsInput = z.input<typeof participantsToSets>;
 
 export const eventDTOSchema = z.object({
   _id: z
     .string()
     .refine((s) => isMongoId(s))
     .or(z.instanceof(ObjectId).transform((o) => o.toHexString())),
-  endDate: z
-    .string()
-    .datetime({ offset: true })
-    .or(z.date().transform((dt) => dt.toISOString()))
-    .or(
-      z
-        .custom<DateTime>((dt) => DateTime.isDateTime(dt))
-        .transform((dt) => dt.toISO() as string),
-    ),
+  endDate: dateToDateTime.transform((dt) => dt.toISO()),
   eventName: z.string(),
   inviteCode: eventDocSchema.shape.inviteCode,
   organizer: z
     .string()
     .refine((s) => isMongoId(s))
     .or(z.instanceof(ObjectId).transform((o) => o.toHexString())),
-  participants: ArraysToSetOfStrings.or(setsToSetOfStrings),
-  startDate: z
-    .string()
-    .datetime({ offset: true })
-    .or(z.date().transform((dt) => dt.toISOString()))
-    .or(
-      z
-        .custom<DateTime>((dt) => DateTime.isDateTime(dt))
-        .transform((dt) => dt.toISO() as string),
-    ),
+  participants: participantsToSets,
+  startDate: dateToDateTime.transform((dt) => dt.toISO()),
 });
 
 export type EventDTO = z.infer<typeof eventDTOSchema>;
+export type EventDTOInput = z.input<typeof eventDTOSchema>;
 
 export const EventQuerySchema = eventDTOSchema.partial();
 export type EventQuery = z.infer<typeof EventQuerySchema>;

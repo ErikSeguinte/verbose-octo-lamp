@@ -7,6 +7,7 @@ import {
   EventDoc,
   eventDocSchema,
   EventDTO,
+  EventDTOInput,
   eventDTOSchema,
   EventQuery,
   eventSortType,
@@ -48,8 +49,15 @@ export async function createEvent(dto: EventQuery): Promise<EventDTO> {
   const events = await getEventDB<EventDocCreateOutput>();
   const { insertedId } = await events.insertOne(q);
   const newEvent = await events.findOne({ _id: insertedId });
+  if (!newEvent) {
+    throw new Error();
+  }
+  const parsedEvent = tryParse<EventDTO, EventDTOInput>(
+    newEvent,
+    eventDTOSchema,
+  );
 
-  return eventDTOSchema.parse({ ...newEvent });
+  return eventDTOSchema.parse(parsedEvent);
 }
 
 export async function findAllEvents() {

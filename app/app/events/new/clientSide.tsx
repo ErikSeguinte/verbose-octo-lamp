@@ -36,7 +36,7 @@ const NewEventCard = () => {
     const results = await handleSubmit(user, newEvent);
     // const newEvent = EventType.fromJsDates(eventName, start!, end!);
 
-    alert(JSON.stringify(results));
+    alert(JSON.stringify(results, null, 2));
   };
   useEffect(() => {
     setTimezone(localStorage.getItem("localTimezone") as string);

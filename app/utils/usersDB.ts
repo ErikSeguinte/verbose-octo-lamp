@@ -35,7 +35,7 @@ export const saveUser = async (user: UserQuery) => {
         ...(query.name ? { name: query.name } : {}),
       },
     },
-    { returnDocument: "after", upsert: true }
+    { returnDocument: "after", upsert: true },
   );
 
   if (!doc) throw new Error("Could not save user");
