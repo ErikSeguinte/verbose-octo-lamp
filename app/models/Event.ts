@@ -305,3 +305,12 @@ export const eventCreateSchema = eventToDocSchema.omit({
   participants: true,
 });
 export type EventCreate = z.input<typeof eventCreateSchema>;
+
+export const eventSortType = {
+  // eslint-disable-next-line sort-keys/sort-keys-fix
+  startDate: { startDate: 1, eventName: 1, eventDate: 1 },
+  // eslint-disable-next-line sort-keys/sort-keys-fix
+  name: { eventName: 1, startDate: 1, endDate: 1 },
+} as const;
+
+export type eventSortType = (typeof eventSortType)[keyof typeof eventSortType];

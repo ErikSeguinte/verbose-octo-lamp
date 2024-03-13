@@ -1,14 +1,8 @@
 "use server";
-import {
-  EventCreate,
-  eventCreateSchema,
-  EventFromDoc,
-  EventQuery,
-  eventQuerySchema,
-} from "@/models/Event";
+import { EventFromDoc, EventQuery, eventQuerySchema } from "@/models/Event";
 import { UserCreate, userCreateSchema, UserDTO } from "@/models/Users";
 import { createEvent } from "@/utils/eventsDB";
-import { createUser, saveUser } from "@/utils/usersDB";
+import { saveUser } from "@/utils/usersDB";
 import { tryParse } from "@/utils/utils";
 
 export const handleSubmit = async (user: UserCreate, event: EventQuery) => {

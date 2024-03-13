@@ -7,10 +7,11 @@ import { fromZodError } from "zod-validation-error";
 
 import MaxProse from "@/components/MaxProse";
 // import TimeTable from "@/components/timeTable";
-import { eventDTOSchema, eventQuerySchema } from "@/models/Event";
+import { eventDTOSchema, EventQuery, eventQuerySchema } from "@/models/Event";
 import { userAdvancedQuerySchema } from "@/models/Users";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
 import { findUsers } from "@/utils/usersDB";
+import { tryParse } from "@/utils/utils";
 
 import CopyButton_ from "./copyButton";
 import ParticipantList from "./ParticipantList";
@@ -20,16 +21,10 @@ export async function generateMetadata({
 }: {
   params: { eventId: string };
 }) {
-  let query = {};
-  try {
-    query = eventQuerySchema.parse({ id: params.eventId });
-  } catch (err) {
-    if (err instanceof ZodError) {
-      const validationError = fromZodError(err);
-      console.error(validationError.toString());
-      notFound();
-    }
-  }
+  let query = tryParse<EventQuery, EventQuery>(
+    { _id: params.eventId },
+    eventQuerySchema,
+  );
   const result = await findOneEvent({ query });
   if (!result) {
     notFound();

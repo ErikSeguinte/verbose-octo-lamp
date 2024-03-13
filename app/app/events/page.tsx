@@ -1,27 +1,24 @@
+import { DateTime } from "luxon";
 import Link from "next/link";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
-import { EventType } from "@/models/Event";
+import { EventFromDoc, eventSortType } from "@/models/Event";
+import { queryEvents } from "@/utils/eventsDB";
 
 import ClientSide from "./client";
-import { sortMethod, sortMethodValues } from "./utils";
 
-const sortEvents = function (e: EventType[], compareFn: sortMethodValues) {
-  const events = [...e];
-  events.sort(compareFn);
-  return events;
-};
-
-const nodify = (events: EventType[]) => {
+const nodify = (events: EventFromDoc[]) => {
   return (
     <>
       {events.map((e) => {
+        const startDate = DateTime.fromISO(e.startDate);
+        const endDate = DateTime.fromISO(e.endDate);
         return (
-          <li key={e.eventId}>
-            <Link href={`/events/${e.eventId}`}> {e.eventName} </Link>
-            <br /> {e.startDate.toLocal().toLocaleString()} -{" "}
-            {e.endDate.toLocal().toLocaleString()}
+          <li key={e._id}>
+            <Link href={`/events/${e._id}`}> {e.eventName} </Link>
+            <br /> {startDate.toLocal().toLocaleString()} -{" "}
+            {endDate.toLocal().toLocaleString()}
           </li>
         );
       })}
@@ -30,11 +27,12 @@ const nodify = (events: EventType[]) => {
 };
 
 const Page = async () => {
-  // const events = await getAllEvents();
+  const dateSortedEvents = await queryEvents({ sort: eventSortType.startDate });
+  const nameSortedEvents = await queryEvents({ sort: eventSortType.name });
 
-  // const daySorted = nodify(sortEvents(events, sortMethod["Start Date"]));
-  // const nameSorted = nodify(sortEvents(events, sortMethod["Event Name"]));
-  // const sortedEvents = [daySorted, nameSorted] as const;
+  const daySorted = dateSortedEvents ? nodify(dateSortedEvents) : <></>;
+  const nameSorted = nameSortedEvents ? nodify(nameSortedEvents) : <></>;
+  const sortedEvents = [daySorted, nameSorted] as const;
 
   return (
     <>

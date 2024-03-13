@@ -1,7 +1,6 @@
 "use server";
-import { Document, ObjectId } from "mongodb";
-import { z, ZodError } from "zod";
-import { fromZodError } from "zod-validation-error";
+import { Document } from "mongodb";
+import { z } from "zod";
 
 import {
   UserAdvancedQuery,
@@ -16,6 +15,8 @@ import {
   userToDocSchema,
 } from "@/models/Users";
 import clientPromise from "@/utils/database";
+
+import { tryParse } from "./utils";
 
 const getUserDB = async <T extends Document>() => {
   const users = (await clientPromise).db("octolamp").collection<T>("users");
@@ -76,20 +77,11 @@ export async function queryUsers({
 }: {
   query: UserAdvancedQuery;
 }): Promise<Array<UserFromDoc> | null> {
-  const q = ((query: UserAdvancedQuery) => {
-    try {
-      const q = userAdvancedQuerySchema.parse(query);
-      return q;
-    } catch (err) {
-      if (err instanceof ZodError) {
-        const validationError = fromZodError(err);
-        console.error(validationError.toString());
-      }
-    }
-  })(query);
-
+  const q = tryParse<UserAdvancedQuery, UserAdvancedQuery>(
+    query,
+    userAdvancedQuerySchema,
+  );
   const users = await getUserDB<UserToDoc>();
-
   const results = await users.find({ query: q }).toArray();
   if (results) {
     const userDocs = userFromDocSchema.array().parse(results);
