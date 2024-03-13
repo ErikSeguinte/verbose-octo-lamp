@@ -5,6 +5,7 @@ import {
   TextInput,
   TypographyStylesProvider,
 } from "@mantine/core";
+import { DateTime } from "luxon";
 import React, { useEffect, useRef, useState } from "react";
 
 import DaterangePicker from "@/components/daterangePicker";
@@ -29,9 +30,13 @@ const NewEventCard = () => {
     const user = { email: timezoneInfo.email } as UserCreate;
     const [start, end] = dates;
     const newEvent = {
-      endDate: end?.toISOString(),
+      endDate: DateTime.fromJSDate(end as Date)
+        .setZone("utc", { keepLocalTime: true })
+        .toISO(),
       eventName: eventName,
-      startDate: start?.toISOString(),
+      startDate: DateTime.fromJSDate(start as Date)
+        .setZone("utc", { keepLocalTime: true })
+        .toISO(),
     } as EventQuery;
     const results = await handleSubmit(user, newEvent);
     // const newEvent = EventType.fromJsDates(eventName, start!, end!);

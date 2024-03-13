@@ -1,5 +1,5 @@
 "use server";
-import { Document, ObjectId } from "mongodb";
+import { Document } from "mongodb";
 import { ulid } from "ulid";
 import { z } from "zod";
 
@@ -43,7 +43,7 @@ export async function createEvent(dto: EventQuery): Promise<EventDTO> {
       ...dto,
       inviteCode: ulid(),
       participants: new Set<string>(),
-      timeslots: new Array<Record<string, ObjectId[]>>(),
+      timeslots: {},
     },
     eventDocCreateSchema,
   );

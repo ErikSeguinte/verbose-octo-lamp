@@ -44,7 +44,7 @@ const Canvas = ({
   );
   return (
     <>
-      {usingForm ? <InputDrawer eventId={eventId as string} /> : null}
+      {/* {usingForm ? <InputDrawer eventId={eventId as string} /> : null} */}
       {readonly ? <> {children}</> : <> {mouseComponent} </>}
     </>
   );

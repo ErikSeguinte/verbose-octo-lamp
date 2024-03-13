@@ -63,7 +63,7 @@ export class EventType {
     return id ? id : undefined;
   }
 
-  async asyncGetAsyncTimeslots({
+  async GetAsyncTimeslots({
     hour,
     min,
   }: {
@@ -286,22 +286,11 @@ export const dateToDateTime = z
 export type dateToDateTime = z.infer<typeof dateToDateTime>;
 export type dateToDateTimeInput = z.input<typeof dateToDateTime>;
 
-export const timeslotToDocSchema = z
-  .record(
-    dateToDateTime.transform((dt) => dt.toISO() as string),
-    participantsToArrays,
-  )
-  .array()
-  .or(
-    z
-      .set(
-        z.record(
-          dateToDateTime.transform((dt) => dt.toISO() as string),
-          participantsToArrays,
-        ),
-      )
-      .transform((set) => Array.from(set)),
-  );
+export const timeslotToDocSchema = z.record(
+  dateToDateTime.transform((dt) => dt.toISO() as string),
+  participantsToArrays,
+);
+
 type timeslotToDocSchema = z.infer<typeof timeslotToDocSchema>;
 type timeslotToDocSchemaInput = z.input<typeof timeslotToDocSchema>;
 
@@ -352,23 +341,12 @@ export const participantsToSets = transformToSets.fromArrays.or(
 );
 export type participantsToSets = z.infer<typeof participantsToSets>;
 export type participantsToSetsInput = z.input<typeof participantsToSets>;
-export const timeslotToDTO = z
-  .set(
-    z.record(
-      dateToDateTime.transform((dt) => dt.toISO() as string),
-      participantsToSets,
-    ),
-  )
-  .or(
-    z
-      .record(
-        dateToDateTime.transform((dt) => dt.toISO() as string),
-        participantsToSets,
-      )
-      .array()
-      .transform((arr) => new Set(arr)),
-  );
-type timeslotToDTO = z.infer<typeof timeslotToDTO>;
+export const timeslotToDTO = z.record(
+  dateToDateTime.transform((dt) => dt.toISO() as string),
+  participantsToSets,
+);
+
+export type timeslotToDTO = z.infer<typeof timeslotToDTO>;
 type timeslotToDTOInput = z.input<typeof timeslotToDTO>;
 
 export const eventDTOSchema = z.object({
@@ -393,6 +371,7 @@ export type EventDTOInput = z.input<typeof eventDTOSchema>;
 
 export const EventQuerySchema = eventDTOSchema.partial();
 export type EventQuery = z.infer<typeof EventQuerySchema>;
+export type EventQueryInput = z.input<typeof EventQuerySchema>;
 
 export const eventDocCreateSchema = eventDocSchema.omit({
   _id: true,

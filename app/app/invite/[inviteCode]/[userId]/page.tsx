@@ -4,7 +4,7 @@ import React from "react";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
-// import TimeTable from "@/components/timeTable";
+import TimeTable from "@/components/timeTable";
 import { eventDocSchema, eventDTOSchema, EventQuery } from "@/models/Event";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
 
@@ -65,11 +65,7 @@ const Page = async ({ params }: { params: { inviteCode: string } }) => {
     <>
       <Title order={1}>{eventItem.eventName}</Title>
       page
-      {/* <TimeTable
-        eventId={eventItem.id.$oid as string}
-        readonly={false}
-        usingForm={true}
-      /> */}
+      <TimeTable eventItem={eventItem} readonly={false} usingForm={true} />
     </>
   );
 };

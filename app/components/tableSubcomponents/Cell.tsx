@@ -19,6 +19,7 @@ import React, {
 } from "react";
 
 import { useTimezoneContext } from "@/components/TimezoneProvider";
+import { timeslotToDTO } from "@/models/Event";
 
 import { useAvailabilityContext } from "./AvailabilityProvider";
 import {
@@ -98,23 +99,19 @@ const Cell = ({
   readonly,
 }: {
   date: DateTime;
-  slots?: Set<string>;
+  slots?: timeslotToDTO;
   readonly?: boolean;
 }) => {
   const dt = date;
   const [maxSize, timeSlots] = useAvailabilityContext();
-  const dateString = date.toISO();
   const ref = useRef<HTMLTableCellElement | null>(null);
 
   const [timezoneInfo] = useTimezoneContext();
 
   const defaultContent = (
-    <CellContents
-      originalDt={dt}
-      ref={ref}
-      utcISOdt={dateString as string}
-      readonly
-    />
+    <>
+      <td ref={ref} />
+    </>
   );
 
   const [content, setContent] = useState(defaultContent);
@@ -248,7 +245,8 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
         }
       >
         <span className="inline-block whitespace-nowrap">
-          {f(originalDt)}&nbsp;{readonly ? dice : null}
+          {f(originalDt)}&nbsp;
+          {readonly ? dice : null}
         </span>
       </td>
     );

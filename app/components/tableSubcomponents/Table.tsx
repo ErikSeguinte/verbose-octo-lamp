@@ -1,9 +1,8 @@
 "use client";
-import { Stack } from "@mantine/core";
 import { DateTime, Interval } from "luxon";
-import { ReactNode } from "react";
 
 import TimezoneProvider from "@/components/TimezoneProvider";
+import { EventDTO, timeslotToDTO } from "@/models/Event";
 
 import Canvas from "./Canvas";
 import Cell from "./Cell";
@@ -23,17 +22,15 @@ function getInterval(startDate: string, endDate: string) {
 }
 
 const Table = ({
-  children,
+  // children,
   tableData,
-  slots,
   usingForm = true,
   readonly = true,
-  eventId,
+  eventItem,
 }: {
-  children: ReactNode;
-  eventId?: string;
+  // children: ReactNode;
+  eventItem: EventDTO;
   tableData: serializedTableData[];
-  slots?: Set<string>;
   usingForm?: boolean;
   readonly?: boolean;
 }) => {
@@ -42,6 +39,8 @@ const Table = ({
       yield `row_${k}`;
     }
   }
+  const timeslots = eventItem.timeslots;
+
   const key = keygen();
   const rows = tableData.map((r) => {
     return (
@@ -49,16 +48,20 @@ const Table = ({
         key={key.next().value as string}
         readonly={readonly}
         rowData={r}
-        slots={slots}
+        slots={timeslots}
       />
     );
   });
   return (
     <TimezoneProvider>
       <MouseEventProvider>
-        <Canvas eventId={eventId} readonly={readonly} usingForm={usingForm}>
+        <Canvas
+          eventId={eventItem._id}
+          readonly={readonly}
+          usingForm={usingForm}
+        >
           <table className="select-none p-8 mb-20 table-auto border-collapse">
-            <thead className="bg-slate-300">{children}</thead>
+            {/* <thead className="bg-slate-300">{children}</thead> */}
             <tbody>{rows}</tbody>
           </table>
         </Canvas>
@@ -73,7 +76,7 @@ const TableRow = ({
   readonly = false,
 }: {
   rowData: serializedTableData;
-  slots?: Set<string>;
+  slots?: timeslotToDTO;
   readonly?: boolean;
 }) => {
   const interval = getInterval(rowData.startDate, rowData.endDate);
@@ -86,7 +89,7 @@ const TableRow = ({
     let dateString = rowData.startDate;
     const getNext = (date: DateTime) => {
       const d = date.plus({ day: 1 });
-      const s = d.toISO() as string;
+      const s = d.toISO({ includeOffset: false }) as string;
       return [d, s] as const;
     };
 
@@ -106,37 +109,37 @@ const TableRow = ({
   return <tr key={startDate.toFormat("hhmm")}>{Array.from(cells())}</tr>;
 };
 
-export const TableHead = ({ rowData }: { rowData: string[] }) => {
-  const r = rowData;
-  const dtr = rowData.map((s) => {
-    return [DateTime.fromISO(s), s] as const;
-  });
+// export const TableHead = ({ rowData }: { rowData: string[] }) => {
+//   const r = rowData;
+//   const dtr = rowData.map((s) => {
+//     return [DateTime.fromISO(s), s] as const;
+//   });
 
-  const format = (dt: DateTime) => {
-    return (
-      <div className="flex justify-center">
-        <Stack className="justify-center" gap={2}>
-          <span className="text-center"> {dt.monthShort} </span>
-          <span className="text-3xl text-center m-auto"> {dt.day} </span>
-          <span className="text-xs"> {dt.year}</span>
-        </Stack>
-      </div>
-    );
-  };
-  return (
-    <tr key={r[0][1]}>
-      {dtr.map(([dt, s]) => {
-        return (
-          <th
-            className="border-slate-950 border-b-1 border-b-4 border-solid border-x border-t-2"
-            key={s}
-          >
-            {format(dt)}
-          </th>
-        );
-      })}
-    </tr>
-  );
-};
+//   const format = (dt: DateTime) => {
+//     return (
+//       <div className="flex justify-center">
+//         <Stack className="justify-center" gap={2}>
+//           <span className="text-center"> {dt.monthShort} </span>
+//           <span className="text-3xl text-center m-auto"> {dt.day} </span>
+//           <span className="text-xs"> {dt.year}</span>
+//         </Stack>
+//       </div>
+//     );
+//   };
+//   return (
+//     <tr key={r[0][1]}>
+//       {dtr.map(([dt, s]) => {
+//         return (
+//           <th
+//             className="border-slate-950 border-b-1 border-b-4 border-solid border-x border-t-2"
+//             key={s}
+//           >
+//             {format(dt)}
+//           </th>
+//         );
+//       })}
+//     </tr>
+//   );
+// };
 
 export default Table;

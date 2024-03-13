@@ -1,12 +1,10 @@
-import { notFound } from "next/navigation";
+import { DateTime } from "luxon";
 import React from "react";
 
-import { AvailabilityType } from "@/models/Availabilities";
-import { EventType } from "@/models/Event";
-import { getAvailabilityById } from "@/utils/availabilitiesDB";
-import { getEventfromId } from "@/utils/eventsDB";
+import { EventDTO } from "@/models/Event";
 
-import Table, { TableHead } from "./tableSubcomponents/Table";
+// import Table, { TableHead } from "./tableSubcomponents/Table";
+import Table from "./tableSubcomponents/Table";
 
 function listTimes() {
   const times: Array<{ hour: number; min: number }> = [];
@@ -20,70 +18,53 @@ function listTimes() {
 }
 
 const TimeTable = async ({
-  availabilityId,
-  eventId,
+  eventItem,
   usingForm = true,
   readonly = false,
-  slots,
 }: {
-  availabilityId?: string;
+  eventItem: EventDTO;
   usingForm: boolean;
   readonly?: boolean;
-  eventId?: string;
-  slots?: Set<string>;
 }) => {
-  let eventItem: EventType | undefined = undefined;
-  let timeslots: Set<string> | undefined = undefined;
-  if (slots) {
-    timeslots = slots;
-  } else if (availabilityId) {
-    const availability = (await getAvailabilityById(
-      availabilityId,
-    )) as AvailabilityType;
-    timeslots = new Set<string>(
-      availability.timeslots.map((dt) => {
-        return dt.toUTC().toISO({}) as string;
-      }),
-    );
-    eventItem = await getEventfromId(availability.event.$oid as string);
-  }
-
-  if (eventId) {
-    eventItem = await getEventfromId(eventId as string);
-  }
-
-  if (!eventItem) {
-    notFound();
-  }
-
-  const [startDate, endDate] = eventItem.dateStrings;
-
   const times = listTimes();
+  const localStart = DateTime.fromISO(eventItem.startDate)
+    .setZone("local", {
+      keepLocalTime: true,
+    })
+    .toISO({ includeOffset: false }) as string;
+  const localend = DateTime.fromISO(eventItem.endDate)
+    .setZone("local", {
+      keepLocalTime: true,
+    })
+    .toISO({ includeOffset: false }) as string;
   const rows: Array<{
     startDate: string;
     endDate: string;
     hour: number;
     min: number;
   }> = times.map((time) => {
-    return { endDate, startDate, ...time };
+    return {
+      endDate: localend,
+      startDate: localStart,
+      ...time,
+    };
   });
 
-  const dtheads = await eventItem.asyncGetAsyncTimeslots({ hour: 0, min: 0 });
-  const heads = dtheads.map((dt) => {
-    return dt.toISO({ includeOffset: false }) as string;
-  });
+  // const dtheads = await eventItem.asyncGetAsyncTimeslots({ hour: 0, min: 0 });
+  // const heads = dtheads.map((dt) => {
+  // return dt.toISO({ includeOffset: false }) as string;
+  // });
 
   return (
     <>
       <div className="px-12 width-screen overflow-x-auto">
         <Table
-          eventId={eventId}
+          eventItem={eventItem}
           readonly={readonly}
-          slots={timeslots}
           tableData={rows}
           usingForm={usingForm}
         >
-          <TableHead rowData={heads} />
+          {/* <TableHead rowData={heads} /> */}
         </Table>
       </div>
     </>

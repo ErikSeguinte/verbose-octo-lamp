@@ -1,11 +1,19 @@
 "use server";
-import { EventDTO, EventQuery, EventQuerySchema } from "@/models/Event";
+import {
+  EventDTO,
+  EventQuery,
+  EventQueryInput,
+  EventQuerySchema,
+} from "@/models/Event";
 import { UserCreate, userCreateSchema, UserDTO } from "@/models/Users";
 import { createEvent } from "@/utils/eventsDB";
 import { saveUser } from "@/utils/usersDB";
 import { tryParse } from "@/utils/utils";
 
-export const handleSubmit = async (user: UserCreate, event: EventQuery) => {
+export const handleSubmit = async (
+  user: UserCreate,
+  event: EventQueryInput,
+) => {
   const userQuery = tryParse<UserCreate>(user, userCreateSchema);
   const savedUser: UserDTO = await saveUser(userQuery);
 
