@@ -5,7 +5,7 @@ import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
 // import TimeTable from "@/components/timeTable";
-import { eventDTOSchema, eventFromDocSchema, EventQuery } from "@/models/Event";
+import { eventDocSchema, eventDTOSchema, EventQuery } from "@/models/Event";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
 
 type Props = {
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props) {
       console.error(`page ${(query as EventQuery).inviteCode} not found`);
       notFound();
     }
-    const eventItem = eventFromDocSchema.safeParse(result);
+    const eventItem = eventDocSchema.safeParse(result);
     if (eventItem.success) {
       return {
         title: `Verbose Octolamp - ${eventItem.data.eventName} invitation form`,

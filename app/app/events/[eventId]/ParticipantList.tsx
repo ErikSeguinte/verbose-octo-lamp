@@ -15,9 +15,9 @@ const ParticipantList = async ({
   } else {
     const users = participants.map((p) => {
       return (
-        <ul className="list-disc" key={p.id}>
+        <ul className="list-disc" key={p._id}>
           <li>
-            <Link href={`/events/${eventId}/availabilities/${p.id}`}>
+            <Link href={`/events/${eventId}/availabilities/${p._id}`}>
               {p.name ? p.name : p.email}
             </Link>
           </li>

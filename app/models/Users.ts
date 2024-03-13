@@ -68,11 +68,15 @@ export type UserDTO = z.infer<typeof userDTOSchema>;
 
 export const userAdvancedQuerySchema = z.object({
   _id: z.object({
-    $in: userDTOSchema.shape._id.transform((id) => new ObjectId(id)).array(),
+    $in: userDTOSchema.shape._id
+      .transform((id) => new ObjectId(id))
+      .array()
+      .or(z.instanceof(ObjectId).array()),
   }),
 });
 export type UserAdvancedQuery = z.infer<typeof userAdvancedQuerySchema>;
 export const userQuerySchema = userDTOSchema.partial();
+export type UserAdvancedQueryInput = z.input<typeof userAdvancedQuerySchema>;
 export type UserQuery = z.infer<typeof userQuerySchema>;
 
 export const userCreateSchema = userDTOSchema.omit({ _id: true });

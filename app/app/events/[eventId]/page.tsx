@@ -2,15 +2,13 @@
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import { notFound } from "next/navigation";
 import React from "react";
-import { z, ZodError } from "zod";
-import { fromZodError } from "zod-validation-error";
 
 import MaxProse from "@/components/MaxProse";
 // import TimeTable from "@/components/timeTable";
-import { eventDTOSchema, EventQuery, eventQuerySchema } from "@/models/Event";
-import { userAdvancedQuerySchema } from "@/models/Users";
+import { eventDTOSchema, EventQuery, EventQuerySchema } from "@/models/Event";
+import { UserAdvancedQuery, userAdvancedQuerySchema } from "@/models/Users";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
-import { findUsers } from "@/utils/usersDB";
+import { queryUsers } from "@/utils/usersDB";
 import { tryParse } from "@/utils/utils";
 
 import CopyButton_ from "./copyButton";
@@ -21,10 +19,7 @@ export async function generateMetadata({
 }: {
   params: { eventId: string };
 }) {
-  let query = tryParse<EventQuery, EventQuery>(
-    { _id: params.eventId },
-    eventQuerySchema,
-  );
+  let query = tryParse<EventQuery>({ _id: params.eventId }, EventQuerySchema);
   const result = await findOneEvent({ query });
   if (!result) {
     notFound();
@@ -41,37 +36,23 @@ export async function generateStaticParams() {
 }
 
 const Page = async ({ params }: { params: { eventId: string } }) => {
-  const parsedEventQuery = ((query) => {
-    const result = eventDTOSchema.partial().safeParse(query);
-    if (result.success) {
-      return result.data;
-    }
-    return {};
-  })({ id: params.eventId });
+  const parsedEventQuery = tryParse<EventQuery>(
+    {
+      _id: params.eventId,
+    },
+    EventQuerySchema,
+  );
 
-  const result = await findOneEvent({ query: parsedEventQuery });
-  if (!result) return notFound();
-  const eventItem = eventDTOSchema.parse(result);
+  const eventItem = await findOneEvent({ query: parsedEventQuery });
+  if (!eventItem) return notFound();
   const invitecode = eventItem.inviteCode;
   const inviteLink: string = `http://localhost:3000/invite/${invitecode}`;
+  const parsedUserQuery = tryParse<UserAdvancedQuery>(
+    { _id: { $in: Array.from(eventItem.participants) } },
+    userAdvancedQuerySchema,
+  );
 
-  type advancedQuery = z.input<typeof userAdvancedQuerySchema>;
-
-  const parsedUserQuery = ((query: advancedQuery) => {
-    const result = userAdvancedQuerySchema.safeParse(query);
-    if (!result.success) {
-      if (result.error instanceof ZodError) {
-        const validationError = fromZodError(result.error);
-        console.error(validationError.toString());
-        notFound();
-      }
-    } else {
-      return result.data;
-    }
-    return {};
-  })({ _id: { $in: Array.from(eventItem.participants) } });
-
-  const participants = await findUsers({ query: parsedUserQuery });
+  const participants = await queryUsers({ query: parsedUserQuery });
   return (
     <section>
       <MaxProse>

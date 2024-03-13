@@ -4,12 +4,12 @@ import { ulid } from "ulid";
 import { z } from "zod";
 
 import {
-  EventFromDoc,
-  eventFromDocSchema,
+  EventDoc,
+  eventDocSchema,
+  EventDTO,
+  eventDTOSchema,
   EventQuery,
   eventSortType,
-  EventToDoc,
-  eventToDocSchema,
 } from "@/models/Event";
 
 import clientPromise from "./database";
@@ -26,18 +26,18 @@ export async function findOneEvent({
   query,
 }: {
   query: EventQuery;
-}): Promise<EventFromDoc | null> {
-  const q = eventToDocSchema.partial().parse(query);
+}): Promise<EventDTO | null> {
+  const q = eventDocSchema.partial().parse(query);
   const events = await getEventDB();
   const eventDoc = await events.findOne(q);
-  return eventDoc ? eventFromDocSchema.parse(eventDoc) : null;
+  return eventDoc ? eventDTOSchema.parse(eventDoc) : null;
 }
 
-export async function createEvent(dto: EventQuery): Promise<EventFromDoc> {
-  const eventDocCreateSchema = eventToDocSchema.omit({ _id: true });
+export async function createEvent(dto: EventQuery): Promise<EventDTO> {
+  const eventDocCreateSchema = eventDocSchema.omit({ _id: true });
   type EventDocCreateOutput = z.infer<typeof eventDocCreateSchema>;
 
-  const q = tryParse<EventQuery, EventDocCreateOutput>(
+  const q = tryParse<EventDocCreateOutput>(
     {
       ...dto,
       inviteCode: ulid(),
@@ -49,14 +49,14 @@ export async function createEvent(dto: EventQuery): Promise<EventFromDoc> {
   const { insertedId } = await events.insertOne(q);
   const newEvent = await events.findOne({ _id: insertedId });
 
-  return eventFromDocSchema.parse({ ...newEvent });
+  return eventDTOSchema.parse({ ...newEvent });
 }
 
 export async function findAllEvents() {
-  const events = await getEventDB<EventFromDoc>();
+  const events = await getEventDB<EventDoc>();
 
   const eventDocs = await events.find({}).toArray();
-  return eventDocs ? eventFromDocSchema.array().parse(eventDocs) : null;
+  return eventDocs ? eventDTOSchema.array().parse(eventDocs) : null;
 }
 
 export async function queryEvents({
@@ -65,14 +65,12 @@ export async function queryEvents({
 }: {
   query?: EventQuery;
   sort: eventSortType;
-}): Promise<Array<EventFromDoc> | null> {
-  const q = query
-    ? tryParse<EventQuery, EventToDoc>(query, eventToDocSchema)
-    : {};
-  const events = await getEventDB<EventToDoc>();
+}): Promise<Array<EventDTO> | null> {
+  const q = query ? tryParse<EventDoc>(query, eventDocSchema) : {};
+  const events = await getEventDB<EventDoc>();
   const results = await events.find(q).sort(sort).toArray();
   if (results) {
-    const eventDocs = eventFromDocSchema.array().parse(results);
+    const eventDocs = eventDTOSchema.array().parse(results);
     return eventDocs;
   } else return null;
 }

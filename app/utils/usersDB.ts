@@ -35,7 +35,7 @@ export const saveUser = async (user: UserQuery) => {
         ...(query.name ? { name: query.name } : {}),
       },
     },
-    { upsert: true },
+    { returnDocument: "after", upsert: true }
   );
 
   if (!doc) throw new Error("Could not save user");
@@ -77,12 +77,9 @@ export async function queryUsers({
 }: {
   query: UserAdvancedQuery;
 }): Promise<Array<UserFromDoc> | null> {
-  const q = tryParse<UserAdvancedQuery, UserAdvancedQuery>(
-    query,
-    userAdvancedQuerySchema,
-  );
-  const users = await getUserDB<UserToDoc>();
-  const results = await users.find({ query: q }).toArray();
+  const q = tryParse<UserAdvancedQuery>(query, userAdvancedQuerySchema);
+  const users = await getUserDB<UserAdvancedQuery>();
+  const results = await users.find(q).toArray();
   if (results) {
     const userDocs = userFromDocSchema.array().parse(results);
     return userDocs;
