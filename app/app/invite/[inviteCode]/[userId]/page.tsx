@@ -5,8 +5,15 @@ import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
 import TimeTable from "@/components/timeTable";
-import { eventDocSchema, eventDTOSchema, EventQuery } from "@/models/Event";
+import {
+  eventDocSchema,
+  eventDTOSchema,
+  EventQuery,
+  EventQueryInput,
+  EventQuerySchema,
+} from "@/models/Event";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
+import { tryParse } from "@/utils/utils";
 
 type Props = {
   params: { inviteCode: string };
@@ -46,16 +53,11 @@ export async function generateStaticParams() {
 }
 
 const Page = async ({ params }: { params: { inviteCode: string } }) => {
-  let query = {};
-  try {
-    query = eventDTOSchema.partial().parse({ inviteCode: params.inviteCode });
-  } catch (err) {
-    if (err instanceof ZodError) {
-      const validationError = fromZodError(err);
-      console.error(validationError.toString());
-      notFound();
-    }
-  }
+  let query = tryParse<EventQuery, EventQueryInput>(
+    { inviteCode: params.inviteCode },
+    EventQuerySchema
+  );
+
   const eventItem = await findOneEvent({ query });
   if (!eventItem) {
     notFound();
