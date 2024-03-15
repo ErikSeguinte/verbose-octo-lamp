@@ -55,7 +55,7 @@ export async function generateStaticParams() {
 const Page = async ({ params }: { params: { inviteCode: string } }) => {
   let query = tryParse<EventQuery, EventQueryInput>(
     { inviteCode: params.inviteCode },
-    EventQuerySchema
+    EventQuerySchema,
   );
 
   const eventItem = await findOneEvent({ query });

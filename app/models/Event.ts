@@ -253,6 +253,7 @@ const transformToArrays = {
     .array()
     // ObjectId[]
     .or(z.instanceof(ObjectId).array()),
+
   fromSets: z
     // Set<ObjectId>
     .set(z.instanceof(ObjectId))

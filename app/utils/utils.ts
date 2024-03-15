@@ -1,5 +1,8 @@
+import { cache } from "react";
 import { ZodError, ZodTypeAny } from "zod";
 import { fromZodError } from "zod-validation-error";
+
+import { findOneEvent } from "./eventsDB";
 
 export const toOid = (id: string = "") => {
   return { $oid: id };
@@ -27,3 +30,5 @@ export const tryParse = <T, input = unknown>(
   }
   return v;
 };
+
+export const cacheEvent = cache(findOneEvent);
