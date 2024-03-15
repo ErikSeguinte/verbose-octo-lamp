@@ -4,7 +4,7 @@ import React from "react";
 import { EventDTO } from "@/models/Event";
 
 // import Table, { TableHead } from "./tableSubcomponents/Table";
-import Table from "./tableSubcomponents/Table";
+import Table, { TableHead } from "./tableSubcomponents/Table";
 
 function listTimes() {
   const times: Array<{ hour: number; min: number }> = [];
@@ -52,11 +52,6 @@ const TimeTable = async ({
     };
   });
 
-  // const dtheads = await eventItem.asyncGetAsyncTimeslots({ hour: 0, min: 0 });
-  // const heads = dtheads.map((dt) => {
-  // return dt.toISO({ includeOffset: false }) as string;
-  // });
-
   return (
     <>
       <div className="px-12 w-screen overflow-x-auto">
@@ -67,7 +62,11 @@ const TimeTable = async ({
           timezone={timezone}
           usingForm={usingForm}
         >
-          {/* <TableHead rowData={heads} /> */}
+          <TableHead
+            endDate={eventItem.endDate}
+            startDate={eventItem.startDate}
+            timezone={timezone as string}
+          />
         </Table>
       </div>
     </>

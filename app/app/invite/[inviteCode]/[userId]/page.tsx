@@ -13,6 +13,7 @@ import {
 } from "@/models/Event";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
 import { tryParse } from "@/utils/utils";
+import { DateTime } from "luxon";
 
 type Props = {
   params: { inviteCode: string };
@@ -60,7 +61,7 @@ const Page = async ({
 }) => {
   let query = tryParse<EventQuery, EventQueryInput>(
     { inviteCode: params.inviteCode },
-    EventQuerySchema,
+    EventQuerySchema
   );
 
   const eventItem = await findOneEvent({ query });
@@ -71,7 +72,15 @@ const Page = async ({
   return (
     <>
       <TimeTable
-        eventItem={eventItem}
+        eventItem={{
+          ...eventItem,
+          startDate: DateTime.fromISO(eventItem.startDate).toISO({
+            includeOffset: false,
+          }) as string,
+          endDate: DateTime.fromISO(eventItem.endDate).toISO({
+            includeOffset: false,
+          }) as string,
+        }}
         readonly={false}
         timezone={searchParams.timezone}
         usingForm={true}
