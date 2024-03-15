@@ -1,4 +1,3 @@
-import { Title } from "@mantine/core";
 import { notFound } from "next/navigation";
 import React from "react";
 import { ZodError } from "zod";
@@ -52,7 +51,13 @@ export async function generateStaticParams() {
   return events ? events.map((e) => e.inviteCode) : [];
 }
 
-const Page = async ({ params }: { params: { inviteCode: string } }) => {
+const Page = async ({
+  params,
+  searchParams,
+}: {
+  params: { inviteCode: string };
+  searchParams: { timezone: string };
+}) => {
   let query = tryParse<EventQuery, EventQueryInput>(
     { inviteCode: params.inviteCode },
     EventQuerySchema,
@@ -65,9 +70,12 @@ const Page = async ({ params }: { params: { inviteCode: string } }) => {
 
   return (
     <>
-      <Title order={1}>{eventItem.eventName}</Title>
-      page
-      <TimeTable eventItem={eventItem} readonly={false} usingForm={true} />
+      <TimeTable
+        eventItem={eventItem}
+        readonly={false}
+        timezone={searchParams.timezone}
+        usingForm={true}
+      />
     </>
   );
 };

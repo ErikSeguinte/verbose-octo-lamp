@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "@mantine/core";
 import {
   IconCrop11,
   IconDice1,
@@ -110,7 +111,9 @@ const Cell = ({
 
   const defaultContent = (
     <>
-      <td ref={ref} />
+      <td ref={ref}>
+        <Skeleton height="2rem" width="3rem" />{" "}
+      </td>
     </>
   );
 

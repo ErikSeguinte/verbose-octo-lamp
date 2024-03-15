@@ -27,12 +27,14 @@ const Table = ({
   usingForm = true,
   readonly = true,
   eventItem,
+  timezone,
 }: {
   // children: ReactNode;
   eventItem: EventDTO;
   tableData: serializedTableData[];
   usingForm?: boolean;
   readonly?: boolean;
+  timezone?: string;
 }) => {
   function* keygen() {
     for (let k = 0; k >= 0; k = k + 1) {
@@ -53,7 +55,7 @@ const Table = ({
     );
   });
   return (
-    <TimezoneProvider>
+    <TimezoneProvider value={timezone ? timezone : ""}>
       <MouseEventProvider>
         <Canvas
           eventId={eventItem._id}

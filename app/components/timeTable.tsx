@@ -21,10 +21,12 @@ const TimeTable = async ({
   eventItem,
   usingForm = true,
   readonly = false,
+  timezone,
 }: {
   eventItem: EventDTO;
   usingForm: boolean;
   readonly?: boolean;
+  timezone?: string;
 }) => {
   const times = listTimes();
   const localStart = DateTime.fromISO(eventItem.startDate)
@@ -57,11 +59,12 @@ const TimeTable = async ({
 
   return (
     <>
-      <div className="px-12 width-screen overflow-x-auto">
+      <div className="px-12 w-screen overflow-x-auto">
         <Table
           eventItem={eventItem}
           readonly={readonly}
           tableData={rows}
+          timezone={timezone}
           usingForm={usingForm}
         >
           {/* <TableHead rowData={heads} /> */}

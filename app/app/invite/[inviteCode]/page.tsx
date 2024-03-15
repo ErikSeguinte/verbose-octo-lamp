@@ -62,7 +62,6 @@ const Page = async ({ params }: Props) => {
   return (
     <MaxProse>
       <TypographyStylesProvider>
-        <h1>{eventItem.eventName}</h1>
         <p>Welcome to Octolamp.</p>
 
         <p>

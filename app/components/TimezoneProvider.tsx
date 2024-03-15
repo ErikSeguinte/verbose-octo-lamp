@@ -9,15 +9,19 @@ export const TimezoneDispatchContext = createContext<
 >(undefined);
 
 const TimezoneProvider = ({
+  value,
   children,
-}: Readonly<{ children: React.ReactNode }>) => {
+}: {
+  value: string;
+  children: React.ReactNode;
+}) => {
   const [timezoneInfo, timezoneInfoDispatch] = useReducer(reducer, {
     discord: "",
     email: "",
     isAcknowledged: false,
     isLoading: true,
     name: "",
-    timezone: "",
+    timezone: value ? value : "",
     toSave: false,
   });
   return (

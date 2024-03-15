@@ -21,6 +21,7 @@ export default function HeroTitle() {
             className="w-auto"
             height="400"
             src={octolamp}
+            priority
           />
           <Container className={classes.inner} size={700}>
             <h1 className={classes.title}>Verbose Octolamp</h1>

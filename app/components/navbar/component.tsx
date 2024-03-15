@@ -48,7 +48,13 @@ export default function Navbar() {
               setActive("");
             }}
           >
-            <Image alt="" className="pr-1 w-auto" height={48} src={favicon} />
+            <Image
+              alt=""
+              className="pr-1 w-auto"
+              height={48}
+              src={favicon}
+              priority
+            />
           </Link>
           <Link
             className="no-underline"

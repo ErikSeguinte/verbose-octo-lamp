@@ -42,10 +42,11 @@ const TimezoneText = () => {
 
 export const Form = ({ event }: { event: EventDTO }) => {
   const handleSubmit = (v: any) => {
-    const user = submitToServer(v);
-    // router.push(
-    //   `localhost:3000/invite/${event._id}/${user}?timezone=${encodeURIComponent(v.timeZone)}`
-    // );
+    submitToServer(v).then((user) => {
+      router.push(
+        `http://localhost:3000/invite/${event.inviteCode}/${user}?timezone=${encodeURIComponent(v.timezone)}`,
+      );
+    });
   };
   const { _id } = event;
 
@@ -73,6 +74,7 @@ export const Form = ({ event }: { event: EventDTO }) => {
       form: form,
       localTimezone: local,
     };
+    form.setValues({ ...form.values, timezone: local });
     setSelect(TimezoneSelect(props));
   }, []);
 
@@ -148,6 +150,7 @@ function TimezoneSelect(props: { form: any; localTimezone: string }) {
         {...props.form.getInputProps("timezone")}
         data={Intl.supportedValuesOf("timeZone")}
         defaultSearchValue={props.localTimezone}
+        defaultValue={props.localTimezone}
         label="Please select your timezone"
         leftSection={<IconWorldSearch />}
         limit={100}
