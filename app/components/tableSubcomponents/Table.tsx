@@ -1,5 +1,5 @@
 "use client";
-import { Stack } from "@mantine/core";
+import { Affix, Button, Stack } from "@mantine/core";
 import classNames from "classnames";
 import { DateTime, Interval } from "luxon";
 
@@ -44,6 +44,16 @@ const Table = ({
     }
   }
   const timeslots = eventItem.timeslots;
+  const submitAction = () => {
+    const selected = document.querySelectorAll("[data-is-selected]");
+
+    const selectedDates = [];
+
+    for (const e of selected) {
+      selectedDates.push(e.getAttribute("data-dt"));
+    }
+    alert(JSON.stringify(selectedDates, null, 2));
+  };
 
   const key = keygen();
   const rows = tableData.map((r) => {
@@ -69,6 +79,17 @@ const Table = ({
             <tbody>{rows}</tbody>
           </table>
         </Canvas>
+        <Affix pb="1rem" position={{ bottom: "0%", left: "50%" }}>
+          <Button
+            color="dark"
+            size="lg"
+            onClick={() => {
+              submitAction();
+            }}
+          >
+            Submit Availability
+          </Button>
+        </Affix>
       </MouseEventProvider>
     </TimezoneProvider>
   );

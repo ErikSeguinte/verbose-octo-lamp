@@ -10,7 +10,6 @@ import {
 
 const Canvas = ({
   children,
-  usingForm = true,
   readonly = false,
   eventId,
 }: {
@@ -35,11 +34,6 @@ const Canvas = ({
       >
         {children}
       </div>
-      <Affix pb="1rem" position={{ bottom: "0%", left: "50%" }}>
-        <Button color="dark" size="lg" onClick={() => {}}>
-          Submit Availability
-        </Button>
-      </Affix>
     </>
   );
   return (
