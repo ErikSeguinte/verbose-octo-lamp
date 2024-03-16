@@ -178,4 +178,72 @@ export const TableHead = ({
   );
 };
 
+export const TableHeadWeekDay = ({
+  startDate,
+  endDate,
+  timezone,
+}: {
+  startDate: string;
+  endDate: string;
+  timezone: string;
+}) => {
+  const start = DateTime.fromISO(startDate).setZone(
+    timezone ? timezone : "local",
+    { keepLocalTime: true }
+  );
+  const end = DateTime.fromISO(endDate)
+    .plus({ days: 1 })
+    .setZone(timezone ? timezone : "local", { keepLocalTime: true });
+  const interval = Interval.fromDateTimes(start, end);
+
+  function* _cells() {
+    let date = start;
+    const getNext = (date: DateTime) => {
+      const d = date.plus({ day: 1 });
+      return d;
+    };
+
+    while (interval.contains(date)) {
+      yield date as DateTime;
+      date = getNext(date);
+    }
+  }
+
+  const dtr = Array.from(_cells());
+
+  const format = (dt: DateTime) => {
+    const classes = classNames(
+      "flex",
+      "justify-center",
+      `dt-date-${dt.toISODate()}`
+    );
+    return (
+      <div className={classes}>
+        <Stack className="justify-center" gap={2}>
+          <span className="text-xs"> {dt.weekdayShort}</span>
+        </Stack>
+      </div>
+    );
+  };
+  return (
+    <tr key="row_0">
+      {dtr.map((dt) => {
+        return (
+          <td
+            className="border-slate-950 border-b-1 border-b-4 border-solid border-x border-t-2"
+            key={dt.toISODate()}
+          >
+            {format(dt)}
+          </td>
+        );
+      })}
+    </tr>
+  );
+};
+
+
+
+
+
+
 export default Table;

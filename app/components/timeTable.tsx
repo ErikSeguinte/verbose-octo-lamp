@@ -4,7 +4,7 @@ import React from "react";
 import { EventDTO } from "@/models/Event";
 
 // import Table, { TableHead } from "./tableSubcomponents/Table";
-import Table, { TableHead } from "./tableSubcomponents/Table";
+import Table, { TableHead, TableHeadWeekDay } from "./tableSubcomponents/Table";
 
 function listTimes() {
   const times: Array<{ hour: number; min: number }> = [];
@@ -63,6 +63,11 @@ const TimeTable = async ({
           usingForm={usingForm}
         >
           <TableHead
+            endDate={eventItem.endDate}
+            startDate={eventItem.startDate}
+            timezone={timezone as string}
+          />
+          <TableHeadWeekDay
             endDate={eventItem.endDate}
             startDate={eventItem.startDate}
             timezone={timezone as string}
