@@ -1,7 +1,7 @@
 "use server";
 import { EventQuery, EventQueryInput, EventQuerySchema } from "@/models/Event";
 import { UserQuery, userQuerySchema } from "@/models/Users";
-import { updateParticipants } from "@/utils/eventsDB";
+import { updateParticipants, updateTimeslots } from "@/utils/eventsDB";
 import { saveUser } from "@/utils/usersDB";
 import { tryParse } from "@/utils/utils";
 
@@ -30,4 +30,24 @@ export async function submitToServer(s: submission) {
   if (!eventDoc) throw Error();
 
   return user._id;
+}
+
+export async function saveTimeslots({
+  eventId,
+  userId,
+  timeslots,
+}: {
+  eventId: string;
+  userId: string;
+  timeslots: string[];
+}) {
+  await updateTimeslots({
+    eventId,
+    selectedTimeslots: timeslots,
+    userId,
+  })
+    .then
+    // (newDoc) => {
+    // console.log(JSON.stringify({ newDoc }, null, 2));}
+    ();
 }

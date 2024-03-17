@@ -2,7 +2,9 @@
 import { Affix, Button, Stack } from "@mantine/core";
 import classNames from "classnames";
 import { DateTime, Interval } from "luxon";
+import { string } from "zod";
 
+import { saveTimeslots } from "@/app/invite/[inviteCode]/serveractions";
 import TimezoneProvider from "@/components/TimezoneProvider";
 import { EventDTO, timeslotToDTO } from "@/models/Event";
 
@@ -30,6 +32,7 @@ const Table = ({
   readonly = true,
   eventItem,
   timezone,
+  userId,
 }: {
   children: React.ReactNode;
   eventItem: EventDTO;
@@ -37,6 +40,7 @@ const Table = ({
   usingForm?: boolean;
   readonly?: boolean;
   timezone?: string;
+  userId?: string;
 }) => {
   function* keygen() {
     for (let k = 0; k >= 0; k = k + 1) {
@@ -47,12 +51,18 @@ const Table = ({
   const submitAction = () => {
     const selected = document.querySelectorAll("[data-is-selected]");
 
-    const selectedDates = [];
+    const selectedDates: string[] = [];
 
     for (const e of selected) {
-      selectedDates.push(e.getAttribute("data-dt"));
+      selectedDates.push(e.getAttribute("data-dt") as string);
     }
-    alert(JSON.stringify(selectedDates, null, 2));
+
+    const submission = {
+      eventId: eventItem._id as string,
+      timeslots: selectedDates,
+      userId: userId as string,
+    };
+    saveTimeslots(submission);
   };
 
   const key = keygen();
@@ -83,6 +93,7 @@ const Table = ({
           <Button
             color="dark"
             size="lg"
+            type="submit"
             onClick={() => {
               submitAction();
             }}
@@ -145,7 +156,7 @@ export const TableHead = ({
 }) => {
   const start = DateTime.fromISO(startDate).setZone(
     timezone ? timezone : "local",
-    { keepLocalTime: true }
+    { keepLocalTime: true },
   );
   const end = DateTime.fromISO(endDate)
     .plus({ days: 1 })
@@ -171,7 +182,7 @@ export const TableHead = ({
     const classes = classNames(
       "flex",
       "justify-center",
-      `dt-date-${dt.toISODate()}`
+      `dt-date-${dt.toISODate()}`,
     );
     return (
       <div className={classes}>
@@ -210,7 +221,7 @@ export const TableHeadWeekDay = ({
 }) => {
   const start = DateTime.fromISO(startDate).setZone(
     timezone ? timezone : "local",
-    { keepLocalTime: true }
+    { keepLocalTime: true },
   );
   const end = DateTime.fromISO(endDate)
     .plus({ days: 1 })
@@ -236,7 +247,7 @@ export const TableHeadWeekDay = ({
     const classes = classNames(
       "flex",
       "justify-center",
-      `dt-date-${dt.toISODate()}`
+      `dt-date-${dt.toISODate()}`,
     );
     return (
       <div className={classes}>
@@ -261,10 +272,5 @@ export const TableHeadWeekDay = ({
     </tr>
   );
 };
-
-
-
-
-
 
 export default Table;

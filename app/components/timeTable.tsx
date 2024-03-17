@@ -3,7 +3,6 @@ import React from "react";
 
 import { EventDTO } from "@/models/Event";
 
-// import Table, { TableHead } from "./tableSubcomponents/Table";
 import Table, { TableHead, TableHeadWeekDay } from "./tableSubcomponents/Table";
 
 function listTimes() {
@@ -22,11 +21,13 @@ const TimeTable = async ({
   usingForm = true,
   readonly = false,
   timezone,
+  userId,
 }: {
   eventItem: EventDTO;
   usingForm: boolean;
   readonly?: boolean;
   timezone?: string;
+  userId?: string;
 }) => {
   const times = listTimes();
   const localStart = DateTime.fromISO(eventItem.startDate)
@@ -60,6 +61,7 @@ const TimeTable = async ({
           readonly={readonly}
           tableData={rows}
           timezone={timezone}
+          userId={userId}
           usingForm={usingForm}
         >
           <TableHead

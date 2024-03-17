@@ -1,23 +1,18 @@
-import { Input, Title, TypographyStylesProvider } from "@mantine/core";
+import { TypographyStylesProvider } from "@mantine/core";
 import { notFound } from "next/navigation";
-import { eventNames } from "process";
 import React from "react";
-import { ZodError } from "zod";
-import { fromZodError } from "zod-validation-error";
 
 import MaxProse from "@/components/MaxProse";
 import {
   eventDocSchema,
-  EventDTO,
   eventDTOSchema,
   EventQuery,
   EventQuerySchema,
 } from "@/models/Event";
-import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
+import { findAllEvents } from "@/utils/eventsDB";
 import { cacheEvent, tryParse } from "@/utils/utils";
 
 import { Form } from "./Form";
-import { submitToServer } from "./serveractions";
 
 type Props = {
   params: { inviteCode: string };
@@ -28,7 +23,7 @@ export async function generateMetadata({ params }: Props) {
     { inviteCode: params.inviteCode },
     EventQuerySchema,
   );
-  const result = await cacheEvent({ query });
+  const result = await cacheEvent(query);
   if (!result) {
     console.error(`page ${(query as EventQuery).inviteCode} not found`);
     notFound();
@@ -53,7 +48,7 @@ const Page = async ({ params }: Props) => {
     { inviteCode: params.inviteCode },
     EventQuerySchema,
   );
-  const result = eventDTOSchema.safeParse(await cacheEvent({ query }));
+  const result = eventDTOSchema.safeParse(await cacheEvent(query));
   if (!result.success) {
     throw new Error();
   }

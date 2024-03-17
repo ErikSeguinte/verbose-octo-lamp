@@ -1,50 +1,38 @@
+import { DateTime } from "luxon";
 import { notFound } from "next/navigation";
 import React from "react";
-import { ZodError } from "zod";
-import { fromZodError } from "zod-validation-error";
 
 import TimeTable from "@/components/timeTable";
 import {
   eventDocSchema,
-  eventDTOSchema,
   EventQuery,
   EventQueryInput,
   EventQuerySchema,
 } from "@/models/Event";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
 import { tryParse } from "@/utils/utils";
-import { DateTime } from "luxon";
 
-type Props = {
-  params: { inviteCode: string };
-};
+type params = { inviteCode: string; userId: string };
+type searchParams = { timezone: string };
 
-export async function generateMetadata({ params }: Props) {
-  let query = {};
-  try {
-    query = eventDTOSchema.partial().parse({ inviteCode: params.inviteCode });
-  } catch (err) {
-    if (err instanceof ZodError) {
-      const validationError = fromZodError(err);
-      console.error(validationError.toString());
-      notFound();
-    }
-    ``;
-  } finally {
-    const result = await findOneEvent({ query });
-    if (!result) {
-      console.error(`page ${(query as EventQuery).inviteCode} not found`);
-      notFound();
-    }
-    const eventItem = eventDocSchema.safeParse(result);
-    if (eventItem.success) {
-      return {
-        title: `Verbose Octolamp - ${eventItem.data.eventName} invitation form`,
-      };
-    }
-
-    return { title: "verbose Octolamp" };
+export async function generateMetadata({ params }: { params: params }) {
+  const query = tryParse<EventQuery, EventQueryInput>(
+    { inviteCode: params.inviteCode },
+    EventQuerySchema,
+  );
+  const result = await findOneEvent(query);
+  if (!result) {
+    console.error(`page ${(query as EventQuery).inviteCode} not found`);
+    notFound();
   }
+  const eventItem = eventDocSchema.safeParse(result);
+  if (eventItem.success) {
+    return {
+      title: `Verbose Octolamp - ${eventItem.data.eventName} invitation form`,
+    };
+  }
+
+  return { title: "verbose Octolamp" };
 }
 
 export async function generateStaticParams() {
@@ -56,15 +44,15 @@ const Page = async ({
   params,
   searchParams,
 }: {
-  params: { inviteCode: string };
-  searchParams: { timezone: string };
+  params: params;
+  searchParams: searchParams;
 }) => {
   let query = tryParse<EventQuery, EventQueryInput>(
     { inviteCode: params.inviteCode },
-    EventQuerySchema
+    EventQuerySchema,
   );
 
-  const eventItem = await findOneEvent({ query });
+  const eventItem = await findOneEvent(query);
   if (!eventItem) {
     notFound();
   }
@@ -72,18 +60,19 @@ const Page = async ({
   return (
     <>
       <TimeTable
+        readonly={false}
+        timezone={searchParams.timezone}
+        userId={params.userId}
+        usingForm={true}
         eventItem={{
           ...eventItem,
-          startDate: DateTime.fromISO(eventItem.startDate).toISO({
-            includeOffset: false,
-          }) as string,
           endDate: DateTime.fromISO(eventItem.endDate).toISO({
             includeOffset: false,
           }) as string,
+          startDate: DateTime.fromISO(eventItem.startDate).toISO({
+            includeOffset: false,
+          }) as string,
         }}
-        readonly={false}
-        timezone={searchParams.timezone}
-        usingForm={true}
       />
     </>
   );

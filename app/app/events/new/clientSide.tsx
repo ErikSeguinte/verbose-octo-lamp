@@ -40,7 +40,7 @@ const NewEventCard = () => {
         .setZone("utc", { keepLocalTime: true })
         .toISO(),
     } as EventQuery;
-    const results = handleSubmit(user, newEvent).then(() =>
+    handleSubmit(user, newEvent).then(() =>
       router.push("http://localhost:3000/events"),
     );
     // const newEvent = EventType.fromJsDates(eventName, start!, end!);

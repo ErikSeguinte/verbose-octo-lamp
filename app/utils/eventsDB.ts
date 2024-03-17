@@ -1,12 +1,11 @@
 "use server";
+import { Set as ImmutableSet } from "immutable";
 import { Document, ObjectId } from "mongodb";
 import { ulid } from "ulid";
 import { z } from "zod";
 
 import {
   EventDoc,
-  EventDocCreate,
-  eventDocCreateSchema,
   EventDocInput,
   eventDocSchema,
   EventDTO,
@@ -28,11 +27,9 @@ export async function getEventDB<T extends Document = EventDoc>() {
   return events;
 }
 
-export async function findOneEvent({
-  query,
-}: {
-  query: EventQuery;
-}): Promise<EventDTO | null> {
+export async function findOneEvent(
+  query: EventQuery,
+): Promise<EventDTO | null> {
   const q = eventDocSchema.partial().parse(query);
   const events = await getEventDB();
   const eventDoc = await events.findOne(q);
@@ -115,12 +112,10 @@ export async function updateParticipants(query: EventQuery) {
   }
 
   const updatedParticipants = new Set([
-    ...result.participants.map((o) => o.toHexString()),
-    ...q.participants.map((o) => o.toHexString()),
+    ...result.participants,
+    ...q.participants,
   ]);
-  result.participants = Array.from(updatedParticipants).map(
-    (s) => new ObjectId(s),
-  );
+  result.participants = Array.from(updatedParticipants);
 
   const updatedcandidate = tryParse<EventDoc, EventDocInput>(
     result,
@@ -140,3 +135,49 @@ export async function updateParticipants(query: EventQuery) {
   );
   return updatedDoc;
 }
+
+export const updateTimeslots = async ({
+  eventId,
+  userId,
+  selectedTimeslots,
+}: {
+  eventId: string;
+  userId: string;
+  selectedTimeslots: string[];
+}) => {
+  const query = tryParse<EventQuery, EventQueryInput>(
+    { _id: eventId },
+    EventQuerySchema,
+  );
+  const eventDoc = await findOneEvent(query);
+  if (!eventDoc) throw Error("Event not found.");
+  const eventItem = tryParse<EventDTO, EventDTOInput>(eventDoc, eventDTOSchema);
+  if (eventItem.timeslots) {
+    const timeslots = ImmutableSet(ImmutableSet.fromKeys(eventItem.timeslots));
+    const selectedSet = ImmutableSet(selectedTimeslots);
+    timeslots.subtract(selectedSet).forEach((key) => {
+      eventItem.timeslots[key].delete(userId);
+      if (eventItem.timeslots[key].size === 0) {
+        delete eventItem.timeslots[key];
+      }
+    });
+  }
+  for (let key of selectedTimeslots) {
+    if (eventItem.timeslots[key]) {
+      eventItem.timeslots[key].add(userId);
+    } else {
+      eventItem.timeslots[key] = new Set([userId]);
+    }
+  }
+
+  const events = await getEventDB<EventDoc>();
+  const newDoc = tryParse<EventDoc, EventDocInput>(eventItem, eventDocSchema);
+
+  const newEventItem = await events.findOneAndReplace(
+    { _id: newDoc._id },
+    newDoc,
+  );
+  if (!newEventItem) throw Error("Could not replace document");
+
+  return tryParse<EventDTO, EventDTOInput>(newEventItem, eventDTOSchema);
+};

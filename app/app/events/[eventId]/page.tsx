@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: { eventId: string };
 }) {
   let query = tryParse<EventQuery>({ _id: params.eventId }, EventQuerySchema);
-  const result = await findOneEvent({ query });
+  const result = await findOneEvent(query);
   if (!result) {
     notFound();
   }
@@ -43,7 +43,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
     EventQuerySchema,
   );
 
-  const eventItem = await findOneEvent({ query: parsedEventQuery });
+  const eventItem = await findOneEvent(parsedEventQuery);
   if (!eventItem) return notFound();
   const invitecode = eventItem.inviteCode;
   const inviteLink: string = `http://localhost:3000/invite/${invitecode}`;

@@ -18,7 +18,7 @@ const InviteLayout = async ({
     { inviteCode: params.inviteCode },
     EventQuerySchema,
   );
-  const result = eventDTOSchema.safeParse(await cacheEvent({ query }));
+  const result = eventDTOSchema.safeParse(await cacheEvent(query));
   if (!result.success) {
     throw new Error();
   }

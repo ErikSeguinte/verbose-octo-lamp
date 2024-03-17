@@ -249,22 +249,9 @@ const transformToArrays = {
     // string[] to ObjectId[]
     .string()
     .refine((s) => isMongoId(s))
-    .transform((s) => new ObjectId(s))
-    .array()
-    // ObjectId[]
-    .or(z.instanceof(ObjectId).array()),
-
+    .array(),
   fromSets: z
-    // Set<ObjectId>
-    .set(z.instanceof(ObjectId))
-    // Set<String> to Set<ObjectId>
-    .or(
-      z
-        .set(z.string().refine((s) => isMongoId(s)))
-        .transform(
-          (set) => new Set(Array.from(set).map((str) => new ObjectId(str))),
-        ),
-    )
+    .set(z.string().refine((s) => isMongoId(s)))
     .transform((set) => Array.from(set)),
 };
 
@@ -293,7 +280,7 @@ export const timeslotToDocSchema = z.record(
 );
 
 type timeslotToDocSchema = z.infer<typeof timeslotToDocSchema>;
-type timeslotToDocSchemaInput = z.input<typeof timeslotToDocSchema>;
+// type timeslotToDocSchemaInput = z.input<typeof timeslotToDocSchema>;
 
 export const eventDocSchema = z.object({
   _id: z
@@ -322,19 +309,8 @@ const transformToSets = {
     .string()
     .refine((s) => isMongoId(s))
     .array()
-    .or(
-      z
-        .instanceof(ObjectId)
-        .array()
-        .transform((a) => a.map((o) => o.toHexString())),
-    )
     .transform((a) => new Set(a)),
-  fromSets: z.set(z.string().refine((s) => isMongoId(s))).or(
-    z.set(z.instanceof(ObjectId)).transform((o) => {
-      const arr = Array.from(o).map((o) => o.toHexString());
-      return new Set<string>(arr);
-    }),
-  ),
+  fromSets: z.set(z.string().refine((s) => isMongoId(s))),
 };
 
 export const participantsToSets = transformToSets.fromArrays.or(
@@ -348,7 +324,7 @@ export const timeslotToDTO = z.record(
 );
 
 export type timeslotToDTO = z.infer<typeof timeslotToDTO>;
-type timeslotToDTOInput = z.input<typeof timeslotToDTO>;
+// type timeslotToDTOInput = z.input<typeof timeslotToDTO>;
 
 export const eventDTOSchema = z.object({
   _id: z
