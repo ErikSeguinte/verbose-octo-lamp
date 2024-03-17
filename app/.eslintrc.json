@@ -40,12 +40,18 @@
       }
     ],
 
-    "no-console": ["warn", {"allow":["warn", "error"]}],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
     "sort-keys/sort-keys-fix": "warn",
     "autofix/sort-vars": "warn"
   },
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.mdx", "*.md"],
+      "extends": "plugin:mdx/recommended"
+    }
+  ]
 }

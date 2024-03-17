@@ -44,7 +44,7 @@ export const Form = ({ event }: { event: EventDTO }) => {
   const handleSubmit = (v: any) => {
     submitToServer(v).then((user) => {
       router.push(
-        `http://localhost:3000/invite/${event.inviteCode}/${user}?timezone=${encodeURIComponent(v.timezone)}`
+        `http://localhost:3000/invite/${event.inviteCode}/${user}?timezone=${encodeURIComponent(v.timezone)}`,
       );
     });
   };
