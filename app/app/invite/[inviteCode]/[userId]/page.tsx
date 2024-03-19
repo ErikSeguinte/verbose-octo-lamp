@@ -10,8 +10,7 @@ import {
   EventQueryInput,
   EventQuerySchema,
 } from "@/models/Event";
-import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
-import { tryParse } from "@/utils/utils";
+import { cacheEvent, tryParse } from "@/utils/utils";
 
 type params = { inviteCode: string; userId: string };
 type searchParams = { timezone: string };
@@ -21,7 +20,7 @@ export async function generateMetadata({ params }: { params: params }) {
     { inviteCode: params.inviteCode },
     EventQuerySchema,
   );
-  const result = await findOneEvent(query);
+  const result = await cacheEvent(query);
   if (!result) {
     console.error(`page ${(query as EventQuery).inviteCode} not found`);
     notFound();
@@ -36,11 +35,6 @@ export async function generateMetadata({ params }: { params: params }) {
   return { title: "verbose Octolamp" };
 }
 
-export async function generateStaticParams() {
-  const events = await findAllEvents();
-  return events ? events.map((e) => e.inviteCode) : [];
-}
-
 const Page = async ({
   params,
   searchParams,
@@ -53,7 +47,7 @@ const Page = async ({
     EventQuerySchema,
   );
 
-  const eventItem = await findOneEvent(query);
+  const eventItem = await cacheEvent(query);
   if (!eventItem) {
     notFound();
   }

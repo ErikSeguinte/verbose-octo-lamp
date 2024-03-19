@@ -2,7 +2,7 @@
 import { Affix, Button, Stack } from "@mantine/core";
 import classNames from "classnames";
 import { DateTime, Interval } from "luxon";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { saveTimeslots } from "@/app/invite/[inviteCode]/serveractions";
 import TimezoneProvider from "@/components/TimezoneProvider";
@@ -51,8 +51,6 @@ const Table = ({
 
   const router = useRouter();
 
-  const { inviteCode } = useParams();
-
   const submitAction = () => {
     const selected = document.querySelectorAll("[data-is-selected]");
 
@@ -68,7 +66,7 @@ const Table = ({
       userId: userId as string,
     };
     saveTimeslots(submission).then(() => {
-      router.push(`/invite/${inviteCode}/thankyou`);
+      router.push(`/invite/thankyou`);
     });
   };
 
@@ -178,7 +176,7 @@ export const TableHead = ({
     const classes = classNames(
       "flex",
       "justify-center",
-      `dt-date-${dt.toISODate()}`
+      `dt-date-${dt.toISODate()}`,
     );
     return (
       <div className={classes}>

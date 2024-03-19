@@ -79,12 +79,16 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
         </Paper>
       </MaxProse>
 
-      <AvailabilityProvider
-        availability={eventItem.timeslots}
-        maxSize={eventItem.participants.size}
-      >
-        <TimeTable eventItem={eventItem} readonly={true} usingForm={false} />
-      </AvailabilityProvider>
+      {eventItem.participants.size > 1 ? (
+        <AvailabilityProvider
+          availability={eventItem.timeslots}
+          maxSize={eventItem.participants.size}
+        >
+          <TimeTable eventItem={eventItem} readonly={true} usingForm={false} />
+        </AvailabilityProvider>
+      ) : (
+        <></>
+      )}
     </section>
   );
 };

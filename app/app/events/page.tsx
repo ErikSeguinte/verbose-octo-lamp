@@ -3,12 +3,12 @@ import Link from "next/link";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
-import { EventFromDoc, eventSortType } from "@/models/Event";
+import { EventDTO, eventSortType } from "@/models/Event";
 import { queryEvents } from "@/utils/eventsDB";
 
 import ClientSide from "./client";
 
-const nodify = (events: EventFromDoc[]) => {
+const nodify = (events: EventDTO[]) => {
   return (
     <>
       {events.map((e) => {

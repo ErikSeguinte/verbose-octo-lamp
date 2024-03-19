@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import { UserDTO } from "@/models/Users";
+import { cacheEvent } from "@/utils/utils";
 
 const ParticipantList = async ({
   participants,
@@ -13,11 +14,13 @@ const ParticipantList = async ({
   if (!participants) {
     return <></>;
   } else {
+    const eventItem = await cacheEvent({ _id: eventId });
+
     const users = participants.map((p) => {
       return (
         <ul className="list-disc" key={p._id}>
           <li>
-            <Link href={`/events/${eventId}/availabilities/${p._id}`}>
+            <Link href={`/invite/${eventItem?.inviteCode}/${p._id}`}>
               {p.name ? p.name : p.email}
             </Link>
           </li>

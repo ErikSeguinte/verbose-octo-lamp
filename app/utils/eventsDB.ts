@@ -65,7 +65,7 @@ export async function createEvent(dto: EventQuery): Promise<EventDTO> {
   return eventDTOSchema.parse(parsedEvent);
 }
 
-export async function findAllEvents() {
+export async function findAllEvents(): Promise<EventDTO[] | null> {
   const events = await getEventDB<EventDoc>();
 
   const eventDocs = await events.find({}).toArray();

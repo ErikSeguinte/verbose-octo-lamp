@@ -17,7 +17,7 @@ const Page = () => {
             Create a New Event
           </Title>
         </div>
-        <TimezoneProvider>
+        <TimezoneProvider value={""}>
           <NewEventCard />
         </TimezoneProvider>
       </Stack>

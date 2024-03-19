@@ -1,10 +1,33 @@
 import { Button, Container, Group, Text, Title } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 import octolamp from "@/assets/octolamp.png";
 
 import classes from "./HeroTitle.module.css";
+
+const GetStartedButton = React.forwardRef(function newButton(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  { onClick, href }: any,
+  ref,
+) {
+  return (
+    <Button
+      className={classes.control}
+      component="a"
+      gradient={{ from: "blue", to: "cyan" }}
+      href={href}
+      ref={ref as any}
+      size="xl"
+      variant="gradient"
+      onClick={onClick}
+    >
+      Get started
+    </Button>
+  );
+});
 
 export default function HeroTitle() {
   return (
@@ -26,31 +49,32 @@ export default function HeroTitle() {
           <Container className={classes.inner} size={700}>
             <h1 className={classes.title}>Verbose Octolamp</h1>
             <h2 className="-5rem"> Yet another Group Scheduling App</h2>
-            <Text className={classes.description} color="dimmed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ornare
-              arcu dui vivamus arcu felis bibendum ut tristique et. Netus et
-              malesuada fames ac turpis egestas maecenas pharetra.
+            <Text c="dimmed" className={classes.description}>
+              Verbose Octolamp is a utility designed from the ground up to help
+              Law of Names Media organize our own projects by making it easier
+              to schedule our diverse and myriad contributors across time and
+              space.
+            </Text>
+            <Text c="dimmed" className={classes.description} mt="0.5rem">
+              Mostly time.
+            </Text>
+            <Text c="dimmed" className={classes.description} mt="0.5rem">
+              Usually.
             </Text>
 
-            <Title mt="1rem" order={3}>
+            <Title mt="2rem" order={3}>
               A Law of Names utility
             </Title>
 
             <Group className={classes.controls}>
-              <Button
-                className={classes.control}
-                gradient={{ from: "blue", to: "cyan" }}
-                size="xl"
-                variant="gradient"
-              >
-                Get started
-              </Button>
+              <Link href="/events/new" legacyBehavior passHref>
+                <GetStartedButton />
+              </Link>
 
               <Button
                 className={classes.control}
                 component="a"
-                href="https://github.com/mantinedev/mantine"
+                href="https://github.com/ErikSeguinte/verbose-octo-lamp"
                 leftSection={<IconBrandGithub size={20} />}
                 size="xl"
                 variant="default"

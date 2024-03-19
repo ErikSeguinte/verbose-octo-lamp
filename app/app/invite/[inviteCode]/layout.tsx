@@ -20,9 +20,7 @@ const InviteLayout = async ({
   children,
 }: {
   params: Props;
-  children: Readonly<{
-    children: React.ReactNode;
-  }>;
+  children: React.ReactNode;
 }) => {
   const query = tryParse<EventQuery, EventQueryInput>(
     { inviteCode: params.inviteCode },
