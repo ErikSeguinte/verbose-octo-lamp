@@ -1,10 +1,12 @@
 "use server";
 import { Set as ImmutableSet } from "immutable";
+import { DateTime } from "luxon";
 import { Document, ObjectId } from "mongodb";
 import { ulid } from "ulid";
 import { z } from "zod";
 
 import {
+  dateToDateTime,
   EventDoc,
   EventDocInput,
   eventDocSchema,
@@ -154,7 +156,11 @@ export const updateTimeslots = async ({
   const eventItem = tryParse<EventDTO, EventDTOInput>(eventDoc, eventDTOSchema);
   if (eventItem.timeslots) {
     const timeslots = ImmutableSet(ImmutableSet.fromKeys(eventItem.timeslots));
-    const selectedSet = ImmutableSet(selectedTimeslots);
+    const selectedSet = ImmutableSet(
+      selectedTimeslots.map(
+        (s) => DateTime.fromISO(s, { zone: "utc" }).toISO() as string,
+      ),
+    );
     timeslots.subtract(selectedSet).forEach((key) => {
       eventItem.timeslots[key].delete(userId);
       if (eventItem.timeslots[key].size === 0) {

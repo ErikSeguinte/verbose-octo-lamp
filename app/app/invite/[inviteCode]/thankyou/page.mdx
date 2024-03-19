@@ -1,0 +1,26 @@
+import { TypographyStylesProvider } from "@mantine/core";
+import React from "react";
+
+import MaxProse from "@/components/MaxProse";
+
+## Availability submitted
+
+Thank you for submitting your availability for this event. 
+
+If, for whatever reason, you need to change or update your availability, you may do so by using the invite URL along with the same email address.
+Your organizer will have access to the invite URL if you need it.
+
+We at Law of Names look forward to working and creating with you.
+
+export default function MDXPage({ children }) {
+  return (
+    <div className="flex w-auto justify-center">
+      <div className="flex-col justify-center max-w-prose prose">
+      <TypographyStylesProvider>
+        {children}
+      </TypographyStylesProvider>
+      </div>
+    </div>
+
+);
+}

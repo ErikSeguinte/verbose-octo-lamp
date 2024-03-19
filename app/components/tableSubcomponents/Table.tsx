@@ -2,6 +2,7 @@
 import { Affix, Button, Stack } from "@mantine/core";
 import classNames from "classnames";
 import { DateTime, Interval } from "luxon";
+import { useParams, useRouter } from "next/navigation";
 import { string } from "zod";
 
 import { saveTimeslots } from "@/app/invite/[inviteCode]/serveractions";
@@ -48,6 +49,11 @@ const Table = ({
     }
   }
   const timeslots = eventItem.timeslots;
+
+  const router = useRouter();
+
+  const { inviteCode } = useParams();
+
   const submitAction = () => {
     const selected = document.querySelectorAll("[data-is-selected]");
 
@@ -62,7 +68,13 @@ const Table = ({
       timeslots: selectedDates,
       userId: userId as string,
     };
-    saveTimeslots(submission);
+    console.log("Pre push");
+    saveTimeslots(submission).then((doc) => {
+      console.log("pushing" + inviteCode);
+
+      router.push(`/invite/${inviteCode}/thankyou`);
+    });
+    console.log("after the async");
   };
 
   const key = keygen();
@@ -94,7 +106,9 @@ const Table = ({
             color="dark"
             size="lg"
             type="submit"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+
               submitAction();
             }}
           >

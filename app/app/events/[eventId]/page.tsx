@@ -46,7 +46,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
   const eventItem = await findOneEvent(parsedEventQuery);
   if (!eventItem) return notFound();
   const invitecode = eventItem.inviteCode;
-  const inviteLink: string = `http://localhost:3000/invite/${invitecode}`;
+  const inviteLink: string = `${process.env.BASE_URL as string}/invite/${invitecode}`;
   const parsedUserQuery = tryParse<UserAdvancedQuery>(
     { _id: { $in: Array.from(eventItem.participants) } },
     userAdvancedQuerySchema,

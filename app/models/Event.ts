@@ -258,19 +258,24 @@ const transformToArrays = {
 export const participantsToArrays = transformToArrays.fromArrays.or(
   transformToArrays.fromSets,
 );
+
 export type participantsToArrays = z.infer<typeof participantsToArrays>;
 export type participantsToArraysInput = z.input<typeof participantsToArrays>;
 
 export const dateToDateTime = z
   .date()
-  .transform((dt) => DateTime.fromJSDate(dt) as DateTime)
+  .transform((dt) => DateTime.fromJSDate(dt).toUTC() as DateTime)
   .or(
     z
       .string()
       .datetime({ offset: true })
-      .transform((s) => DateTime.fromISO(s) as DateTime),
+      .transform((s) => DateTime.fromISO(s).toUTC() as DateTime),
   )
-  .or(z.custom<DateTime>((dt) => DateTime.isDateTime(dt)));
+  .or(
+    z
+      .custom<DateTime>((dt) => DateTime.isDateTime(dt))
+      .transform((dt) => dt.toUTC()),
+  );
 export type dateToDateTime = z.infer<typeof dateToDateTime>;
 export type dateToDateTimeInput = z.input<typeof dateToDateTime>;
 
@@ -313,11 +318,14 @@ const transformToSets = {
   fromSets: z.set(z.string().refine((s) => isMongoId(s))),
 };
 
-export const participantsToSets = transformToSets.fromArrays.or(
+export const participantsToSets = z.union([
+  transformToSets.fromArrays,
   transformToSets.fromSets,
-);
+]);
+
 export type participantsToSets = z.infer<typeof participantsToSets>;
 export type participantsToSetsInput = z.input<typeof participantsToSets>;
+
 export const timeslotToDTO = z.record(
   dateToDateTime.transform((dt) => dt.toISO() as string),
   participantsToSets,

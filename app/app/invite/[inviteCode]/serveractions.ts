@@ -41,13 +41,13 @@ export async function saveTimeslots({
   userId: string;
   timeslots: string[];
 }) {
-  await updateTimeslots({
+  const doc = await updateTimeslots({
     eventId,
     selectedTimeslots: timeslots,
     userId,
-  })
-    .then
-    // (newDoc) => {
-    // console.log(JSON.stringify({ newDoc }, null, 2));}
-    ();
+  }).then((doc) => {
+    return doc;
+  });
+
+  return doc;
 }

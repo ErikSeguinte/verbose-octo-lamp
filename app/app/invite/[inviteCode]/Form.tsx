@@ -44,7 +44,7 @@ export const Form = ({ event }: { event: EventDTO }) => {
   const handleSubmit = (v: any) => {
     submitToServer(v).then((user) => {
       router.push(
-        `http://localhost:3000/invite/${event.inviteCode}/${user}?timezone=${encodeURIComponent(v.timezone)}`,
+        `/invite/${event.inviteCode}/${user}?timezone=${encodeURIComponent(v.timezone)}`,
       );
     });
   };
@@ -76,7 +76,8 @@ export const Form = ({ event }: { event: EventDTO }) => {
     };
     form.setFieldValue("timezone", local);
     setSelect(TimezoneSelect(props));
-  }, [form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
