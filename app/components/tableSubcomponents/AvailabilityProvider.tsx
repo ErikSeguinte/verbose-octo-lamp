@@ -1,12 +1,9 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
 
-import { participants, timeSlots } from "@/models/Event";
-
-const availabilityContext = createContext<[number, timeSlots]>([
-  0,
-  new Map<string, participants>(),
-]);
+const availabilityContext = createContext<
+  [number, Record<string, Set<string>>]
+>([0, {}]);
 
 export const useAvailabilityContext = () => {
   return useContext(availabilityContext);
@@ -18,11 +15,11 @@ const AvailabilityProvider = ({
   maxSize,
 }: {
   children: React.ReactNode;
-  availability: timeSlots;
+  availability: Record<string, Set<string>>;
   maxSize: number;
 }) => {
-  const [availabilityState, _] = useState<timeSlots>(
-    availability ? availability : new Map<string, participants>(),
+  const [availabilityState, _] = useState<Record<string, Set<string>>>(
+    availability ? availability : {},
   );
 
   return (

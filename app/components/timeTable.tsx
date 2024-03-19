@@ -64,14 +64,10 @@ const TimeTable = async ({
           userId={userId}
           usingForm={usingForm}
         >
-          <TableHead
-            endDate={eventItem.endDate}
-            startDate={eventItem.startDate}
-            timezone={timezone as string}
-          />
+          <TableHead endDate={localend} startDate={localStart} />
           <TableHeadWeekDay
-            endDate={eventItem.endDate}
-            startDate={eventItem.startDate}
+            endDate={localend}
+            startDate={localStart}
             timezone={timezone as string}
           />
         </Table>

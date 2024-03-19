@@ -129,8 +129,8 @@ const Cell = ({
     element.dataset.dt = utc;
     element.dataset.date = date.toISODate() as string;
     element.dataset.row = date.toFormat("hhmm");
-    const p = timeSlots.get(utc as string);
-    const isSelected = p ? p.size === maxSize : false;
+    const p = timeSlots[utc as string];
+    const isSelected = p ? p.size >= maxSize : false;
 
     setContent(
       <CellContents

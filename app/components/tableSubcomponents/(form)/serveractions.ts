@@ -11,8 +11,8 @@ interface submission {
 
 export async function submitToServer(s: submission) {
   // console.log(s);
-  const results = await saveUser(
-    new UserType({ discord: s.discord, email: s.email, name: s.name }),
-  );
+  // const results = await saveUser(
+  //   new UserType({ discord: s.discord, email: s.email, name: s.name }),
+  // );
   // console.log(`Results: ${JSON.stringify(results)}`);
 }

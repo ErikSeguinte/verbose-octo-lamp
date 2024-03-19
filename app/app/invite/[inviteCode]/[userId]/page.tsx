@@ -1,3 +1,4 @@
+import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
 import { DateTime } from "luxon";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -57,23 +58,31 @@ const Page = async ({
     notFound();
   }
 
+  const userslots: Record<string, Set<string>> = {};
+  for (let slot of Object.keys(eventItem.timeslots)) {
+    if (eventItem.timeslots[slot].has(params.userId)) {
+      userslots[slot] = eventItem.timeslots[slot];
+    }
+  }
   return (
     <>
-      <TimeTable
-        readonly={false}
-        timezone={searchParams.timezone}
-        userId={params.userId}
-        usingForm={true}
-        eventItem={{
-          ...eventItem,
-          endDate: DateTime.fromISO(eventItem.endDate).toISO({
-            includeOffset: false,
-          }) as string,
-          startDate: DateTime.fromISO(eventItem.startDate).toISO({
-            includeOffset: false,
-          }) as string,
-        }}
-      />
+      <AvailabilityProvider availability={userslots} maxSize={1}>
+        <TimeTable
+          readonly={false}
+          timezone={searchParams.timezone}
+          userId={params.userId}
+          usingForm={true}
+          eventItem={{
+            ...eventItem,
+            endDate: DateTime.fromISO(eventItem.endDate).toISO({
+              includeOffset: false,
+            }) as string,
+            startDate: DateTime.fromISO(eventItem.startDate).toISO({
+              includeOffset: false,
+            }) as string,
+          }}
+        />
+      </AvailabilityProvider>
     </>
   );
 };

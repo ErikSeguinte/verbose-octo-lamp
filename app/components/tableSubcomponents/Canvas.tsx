@@ -1,7 +1,5 @@
-import { Affix, Button } from "@mantine/core";
 import React from "react";
 
-import InputDrawer from "../../app/invite/[inviteCode]/(form)/Drawer";
 import {
   mouseDispatch,
   mouseEventActions,
@@ -11,12 +9,10 @@ import {
 const Canvas = ({
   children,
   readonly = false,
-  eventId,
 }: {
   children: React.ReactNode;
   usingForm?: boolean;
   readonly?: boolean;
-  eventId?: string;
 }) => {
   const [, mouseEventDispatch] = useMouseEventContext();
   const dispatch: mouseDispatch = { action: mouseEventActions.UP };
@@ -36,12 +32,7 @@ const Canvas = ({
       </div>
     </>
   );
-  return (
-    <>
-      {/* {usingForm ? <InputDrawer eventId={eventId as string} /> : null} */}
-      {readonly ? <> {children}</> : <> {mouseComponent} </>}
-    </>
-  );
+  return <>{readonly ? <> {children}</> : <> {mouseComponent} </>}</>;
 };
 
 export default Canvas;

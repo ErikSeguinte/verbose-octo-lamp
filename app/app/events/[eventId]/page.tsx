@@ -1,10 +1,10 @@
-// import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
+import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
 import { notFound } from "next/navigation";
 import React from "react";
 
 import MaxProse from "@/components/MaxProse";
-// import TimeTable from "@/components/timeTable";
+import TimeTable from "@/components/timeTable";
 import { eventDTOSchema, EventQuery, EventQuerySchema } from "@/models/Event";
 import { UserAdvancedQuery, userAdvancedQuerySchema } from "@/models/Users";
 import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
@@ -78,18 +78,13 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
           />
         </Paper>
       </MaxProse>
-      {/*
+
       <AvailabilityProvider
-        availability={eventItem.timeSlots}
-        maxSize={eventItem.participants.length}
+        availability={eventItem.timeslots}
+        maxSize={eventItem.participants.size}
       >
-        <TimeTable
-          eventId={params.eventId}
-          readonly={true}
-          slots={slots}
-          usingForm={false}
-        />
-      </AvailabilityProvider> */}
+        <TimeTable eventItem={eventItem} readonly={true} usingForm={false} />
+      </AvailabilityProvider>
     </section>
   );
 };

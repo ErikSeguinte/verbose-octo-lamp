@@ -11,7 +11,7 @@ import {
   EventQuerySchema,
 } from "@/models/Event";
 import { findOneEvent } from "@/utils/eventsDB";
-import { cacheEvent, tryParse } from "@/utils/utils";
+import { tryParse } from "@/utils/utils";
 
 type Props = { inviteCode: string };
 

@@ -3,7 +3,6 @@ import { Affix, Button, Stack } from "@mantine/core";
 import classNames from "classnames";
 import { DateTime, Interval } from "luxon";
 import { useParams, useRouter } from "next/navigation";
-import { string } from "zod";
 
 import { saveTimeslots } from "@/app/invite/[inviteCode]/serveractions";
 import TimezoneProvider from "@/components/TimezoneProvider";
@@ -68,13 +67,9 @@ const Table = ({
       timeslots: selectedDates,
       userId: userId as string,
     };
-    console.log("Pre push");
-    saveTimeslots(submission).then((doc) => {
-      console.log("pushing" + inviteCode);
-
+    saveTimeslots(submission).then(() => {
       router.push(`/invite/${inviteCode}/thankyou`);
     });
-    console.log("after the async");
   };
 
   const key = keygen();
@@ -91,11 +86,7 @@ const Table = ({
   return (
     <TimezoneProvider value={timezone ? timezone : ""}>
       <MouseEventProvider>
-        <Canvas
-          eventId={eventItem._id}
-          readonly={readonly}
-          usingForm={usingForm}
-        >
+        <Canvas readonly={readonly} usingForm={usingForm}>
           <table className="select-none p-8 mb-20 table-auto border-collapse">
             <thead className="bg-slate-300">{children}</thead>
             <tbody>{rows}</tbody>
@@ -162,23 +153,14 @@ const TableRow = ({
 export const TableHead = ({
   startDate,
   endDate,
-  timezone,
 }: {
   startDate: string;
   endDate: string;
-  timezone: string;
 }) => {
-  const start = DateTime.fromISO(startDate).setZone(
-    timezone ? timezone : "local",
-    { keepLocalTime: true },
-  );
-  const end = DateTime.fromISO(endDate)
-    .plus({ days: 1 })
-    .setZone(timezone ? timezone : "local", { keepLocalTime: true });
-  const interval = Interval.fromDateTimes(start, end);
+  const interval = getInterval(startDate, endDate);
 
   function* _cells() {
-    let date = start;
+    let date = interval.start as DateTime;
     const getNext = (date: DateTime) => {
       const d = date.plus({ day: 1 });
       return d;
@@ -196,7 +178,7 @@ export const TableHead = ({
     const classes = classNames(
       "flex",
       "justify-center",
-      `dt-date-${dt.toISODate()}`,
+      `dt-date-${dt.toISODate()}`
     );
     return (
       <div className={classes}>
