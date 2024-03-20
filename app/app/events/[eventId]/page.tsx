@@ -1,5 +1,6 @@
 import AvailabilityProvider from "@c/tableSubcomponents/AvailabilityProvider";
 import { Paper, Space, TypographyStylesProvider } from "@mantine/core";
+import { DateTime } from "luxon";
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -40,7 +41,7 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
     {
       _id: params.eventId,
     },
-    EventQuerySchema,
+    EventQuerySchema
   );
 
   const eventItem = await findOneEvent(parsedEventQuery);
@@ -49,15 +50,23 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
   const inviteLink: string = `${process.env.BASE_URL as string}/invite/${invitecode}`;
   const parsedUserQuery = tryParse<UserAdvancedQuery>(
     { _id: { $in: Array.from(eventItem.participants) } },
-    userAdvancedQuerySchema,
+    userAdvancedQuerySchema
   );
 
   const participants = await queryUsers({ query: parsedUserQuery });
+
+  const startDate = DateTime.fromISO(eventItem.startDate);
+  const endDate = DateTime.fromISO(eventItem.endDate);
   return (
     <section>
       <MaxProse>
         <TypographyStylesProvider>
-          <h1 className="text-center ">Event name: {eventItem?.eventName}</h1>
+          <h1 className="text-center ">{eventItem?.eventName}</h1>
+          <h2 className="text-center mb-8">
+            {startDate.toLocal().toLocaleString(DateTime.DATE_FULL)}
+            &nbsp;&ndash;&nbsp;
+            {endDate.toLocal().toLocaleString(DateTime.DATE_FULL)}
+          </h2>
 
           <Paper bg="var(--mantine-color-blue-light)" p="1rem" shadow="lg">
             <h2 className="text-center">Invite Link</h2>

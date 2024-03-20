@@ -6,7 +6,6 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import { DateTime } from "luxon";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 import DaterangePicker from "@/components/daterangePicker";
@@ -25,7 +24,6 @@ const NewEventCard = () => {
   const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
   const [eventName, setEventName] = useState<string>("");
   const [, setTimezone] = useState("");
-  const router = useRouter();
 
   const submitToServer = async (event: React.MouseEvent) => {
     event.preventDefault();
@@ -40,9 +38,9 @@ const NewEventCard = () => {
         .setZone("utc", { keepLocalTime: true })
         .toISO(),
     } as EventQuery;
-    handleSubmit(user, newEvent).then(() => router.push(`/events`));
-    // const newEvent = EventType.fromJsDates(eventName, start!, end!);
+    handleSubmit(user, newEvent);
   };
+
   useEffect(() => {
     setTimezone(localStorage.getItem("localTimezone") as string);
   }, []);

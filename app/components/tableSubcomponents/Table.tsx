@@ -90,20 +90,24 @@ const Table = ({
             <tbody>{rows}</tbody>
           </table>
         </Canvas>
-        <Affix pb="1rem" position={{ bottom: "0%", left: "50%" }}>
-          <Button
-            color="dark"
-            size="lg"
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
+        {!readonly ? (
+          <Affix pb="1rem" position={{ bottom: "0%", left: "50%" }}>
+            <Button
+              color="dark"
+              size="lg"
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
 
-              submitAction();
-            }}
-          >
-            Submit Availability
-          </Button>
-        </Affix>
+                submitAction();
+              }}
+            >
+              Submit Availability
+            </Button>
+          </Affix>
+        ) : (
+          <></>
+        )}
       </MouseEventProvider>
     </TimezoneProvider>
   );

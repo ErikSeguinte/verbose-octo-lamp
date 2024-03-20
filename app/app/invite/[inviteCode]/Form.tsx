@@ -28,7 +28,6 @@ import { submitToServer } from "./serveractions";
 const TimezoneText = () => {
   return (
     <p className="px-8 text-pretty mx-auto">
-      {" "}
       Events often span multiple timezones. To ensure that availabilities are
       properly synchronized, please ensure that the correct timezone is chosen
       below. The select box will have attempted its best guess at your current

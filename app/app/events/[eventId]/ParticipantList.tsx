@@ -34,7 +34,13 @@ const ParticipantList = async ({
         </ul>
       );
     });
-    return <>{users}</>;
+    return (
+      <>
+        {" "}
+        <h3>Participants</h3>
+        {users}
+      </>
+    );
   }
 };
 

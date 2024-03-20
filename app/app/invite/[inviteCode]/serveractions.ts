@@ -1,4 +1,6 @@
 "use server";
+import { revalidatePath } from "next/cache";
+
 import { EventQuery, EventQueryInput, EventQuerySchema } from "@/models/Event";
 import { UserQuery, userQuerySchema } from "@/models/Users";
 import { updateParticipants, updateTimeslots } from "@/utils/eventsDB";
@@ -18,13 +20,13 @@ export async function submitToServer(s: submission) {
 
   const userQuery = tryParse<UserQuery>(
     { discord, email, name },
-    userQuerySchema,
+    userQuerySchema
   );
   const user = await saveUser({ ...userQuery });
 
   const eventQuery = tryParse<EventQuery, EventQueryInput>(
     { _id: eventId, participants: [user._id] },
-    EventQuerySchema,
+    EventQuerySchema
   );
   const eventDoc = await updateParticipants(eventQuery);
   if (!eventDoc) throw Error();
@@ -46,6 +48,7 @@ export async function saveTimeslots({
     selectedTimeslots: timeslots,
     userId,
   }).then((doc) => {
+    revalidatePath(`/events/${eventId}`);
     return doc;
   });
 
