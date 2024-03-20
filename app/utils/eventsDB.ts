@@ -6,7 +6,6 @@ import { ulid } from "ulid";
 import { z } from "zod";
 
 import {
-  dateToDateTime,
   EventDoc,
   EventDocInput,
   eventDocSchema,

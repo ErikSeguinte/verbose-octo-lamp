@@ -2,32 +2,6 @@ import { ObjectId } from "mongodb";
 import ismongoid from "validator/es/lib/isMongoId";
 import { z } from "zod";
 
-import { oid } from "./common";
-
-export class UserType {
-  _id: oid;
-  email: string;
-  discord: string;
-  name: string;
-
-  constructor({
-    id = { $oid: "" },
-    email,
-    discord = "",
-    name = "",
-  }: {
-    id?: oid;
-    email: string;
-    discord?: string;
-    name?: string;
-  }) {
-    this._id = id;
-    this.email = email;
-    this.discord = discord;
-    this.name = name;
-  }
-}
-
 export const userFromDocSchema = z.object({
   _id: z.instanceof(ObjectId).transform((o) => o.toHexString()),
   discord: z
