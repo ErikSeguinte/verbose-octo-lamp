@@ -232,6 +232,7 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
       <td
         className={classes}
         data-dt={utcISOdt}
+        data-is-selected={isSelected ? true : null}
         key={utcISOdt}
         ref={ref}
         onPointerDown={readonly ? undefined : mousedown}
@@ -246,7 +247,6 @@ const CellContents = forwardRef<HTMLTableCellElement, contentProps>(
                 mouseEventDispatch(dispatch);
               }
         }
-        data-is-selected={isSelected ? true : null}
       >
         <span className="inline-block whitespace-nowrap">
           {f(originalDt)}&nbsp;

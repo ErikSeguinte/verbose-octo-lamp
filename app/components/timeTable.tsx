@@ -55,7 +55,7 @@ const TimeTable = async ({
 
   return (
     <>
-      <div className="px-12 w-screen overflow-x-auto flex justify-around">
+      <div className="px-12 w-screen justify-around">
         <Table
           eventItem={eventItem}
           readonly={readonly}

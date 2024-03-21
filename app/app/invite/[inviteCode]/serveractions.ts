@@ -20,13 +20,13 @@ export async function submitToServer(s: submission) {
 
   const userQuery = tryParse<UserQuery>(
     { discord, email, name },
-    userQuerySchema
+    userQuerySchema,
   );
   const user = await saveUser({ ...userQuery });
 
   const eventQuery = tryParse<EventQuery, EventQueryInput>(
     { _id: eventId, participants: [user._id] },
-    EventQuerySchema
+    EventQuerySchema,
   );
   const eventDoc = await updateParticipants(eventQuery);
   if (!eventDoc) throw Error();

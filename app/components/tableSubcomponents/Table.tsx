@@ -85,7 +85,7 @@ const Table = ({
     <TimezoneProvider value={timezone ? timezone : ""}>
       <MouseEventProvider>
         <Canvas readonly={readonly} usingForm={usingForm}>
-          <table className="select-none p-8 mb-20 table-auto border-collapse">
+          <table className="select-none p-8 mb-20 table-auto border-collapse w-auto mx-auto">
             <thead className="bg-slate-300">{children}</thead>
             <tbody>{rows}</tbody>
           </table>

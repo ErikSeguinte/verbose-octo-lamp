@@ -8,7 +8,7 @@ import MaxProse from "@/components/MaxProse";
 import TimeTable from "@/components/timeTable";
 import { eventDTOSchema, EventQuery, EventQuerySchema } from "@/models/Event";
 import { UserAdvancedQuery, userAdvancedQuerySchema } from "@/models/Users";
-import { findAllEvents, findOneEvent } from "@/utils/eventsDB";
+import { findOneEvent } from "@/utils/eventsDB";
 import { queryUsers } from "@/utils/usersDB";
 import { tryParse } from "@/utils/utils";
 
@@ -31,12 +31,13 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const events = await findAllEvents();
-  return events ? events.map((e) => e.inviteCode) : [];
-}
-
-const Page = async ({ params }: { params: { eventId: string } }) => {
+const Page = async ({
+  params,
+  searchParams,
+}: {
+  params: { eventId: string };
+  searchParams: { timezone: string };
+}) => {
   const parsedEventQuery = tryParse<EventQuery>(
     {
       _id: params.eventId,
@@ -93,7 +94,12 @@ const Page = async ({ params }: { params: { eventId: string } }) => {
           availability={eventItem.timeslots}
           maxSize={eventItem.participants.size}
         >
-          <TimeTable eventItem={eventItem} readonly={true} usingForm={false} />
+          <TimeTable
+            eventItem={eventItem}
+            readonly={true}
+            timezone={searchParams.timezone ? searchParams.timezone : undefined}
+            usingForm={false}
+          />
         </AvailabilityProvider>
       ) : (
         <></>
