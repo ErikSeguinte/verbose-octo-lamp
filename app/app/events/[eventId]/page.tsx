@@ -42,7 +42,7 @@ const Page = async ({
     {
       _id: params.eventId,
     },
-    EventQuerySchema
+    EventQuerySchema,
   );
 
   const eventItem = await findOneEvent(parsedEventQuery);
@@ -51,7 +51,7 @@ const Page = async ({
   const inviteLink: string = `${process.env.BASE_URL as string}/invite/${invitecode}`;
   const parsedUserQuery = tryParse<UserAdvancedQuery>(
     { _id: { $in: Array.from(eventItem.participants) } },
-    userAdvancedQuerySchema
+    userAdvancedQuerySchema,
   );
 
   const participants = await queryUsers({ query: parsedUserQuery });

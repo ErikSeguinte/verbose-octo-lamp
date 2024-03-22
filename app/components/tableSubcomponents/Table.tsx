@@ -85,8 +85,8 @@ const Table = ({
     <TimezoneProvider value={timezone ? timezone : ""}>
       <MouseEventProvider>
         <Canvas readonly={readonly} usingForm={usingForm}>
-          <table className="select-none p-8 mb-20 table-auto border-collapse w-auto mx-auto">
-            <thead className="bg-slate-300">{children}</thead>
+          <table className="select-none p-8 mb-20 table-auto border-seperate w-auto mx-auto relative">
+            <thead className="">{children}</thead>
             <tbody>{rows}</tbody>
           </table>
         </Canvas>
@@ -180,7 +180,7 @@ export const TableHead = ({
     const classes = classNames(
       "flex",
       "justify-center",
-      `dt-date-${dt.toISODate()}`,
+      `dt-date-${dt.toISODate()}`
     );
     return (
       <div className={classes}>
@@ -193,11 +193,11 @@ export const TableHead = ({
     );
   };
   return (
-    <tr key="row_0">
+    <tr className="" key="row_0">
       {dtr.map((dt) => {
         return (
           <th
-            className="border-slate-950 border-b-1 border-b-4 border-solid border-x border-t-2"
+            className="border-slate-950 border-b-1 border-b-4 border-solid border-x border-t-2 sticky bg-slate-300 top-0 h-24"
             key={dt.toISODate()}
           >
             {format(dt)}
@@ -219,7 +219,7 @@ export const TableHeadWeekDay = ({
 }) => {
   const start = DateTime.fromISO(startDate).setZone(
     timezone ? timezone : "local",
-    { keepLocalTime: true },
+    { keepLocalTime: true }
   );
   const end = DateTime.fromISO(endDate)
     .plus({ days: 1 })
@@ -245,7 +245,7 @@ export const TableHeadWeekDay = ({
     const classes = classNames(
       "flex",
       "justify-center",
-      `dt-date-${dt.toISODate()}`,
+      `dt-date-${dt.toISODate()}`
     );
     return (
       <div className={classes}>
@@ -256,11 +256,11 @@ export const TableHeadWeekDay = ({
     );
   };
   return (
-    <tr key="row_0">
+    <tr className="" key="row_0">
       {dtr.map((dt) => {
         return (
           <td
-            className="border-slate-950 border-b-1 border-b-4 border-solid border-x border-t-2"
+            className="border-slate-950 border-b-1 border-b-4 border-t-0 border-solid border-x sticky bg-slate-300 top-[96px]"
             key={dt.toISODate()}
           >
             {format(dt)}
