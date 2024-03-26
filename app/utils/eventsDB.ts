@@ -16,6 +16,10 @@ import {
   EventQueryInput,
   EventQuerySchema,
   eventSortType,
+  recordingGroupToDocPartialSchema,
+  recordingGroupToDTO,
+  recordingGroupToDTOPartial,
+  recordingGroupToDTOPartialSchema,
 } from "@/models/Event";
 
 import clientPromise from "./database";
@@ -29,7 +33,7 @@ export async function getEventDB<T extends Document = EventDoc>() {
 }
 
 export async function findOneEvent(
-  query: EventQuery,
+  query: EventQuery
 ): Promise<EventDTO | null> {
   const q = eventDocSchema.partial().parse(query);
   const events = await getEventDB();
@@ -46,9 +50,10 @@ export async function createEvent(dto: EventQuery): Promise<EventDTO> {
       ...dto,
       inviteCode: ulid(),
       participants: new Set<string>(),
+      recordingGroups: [],
       timeslots: {},
     },
-    eventDocCreateSchema,
+    eventDocCreateSchema
   );
   const events = await getEventDB<EventDocCreateOutput>();
   const { insertedId } = await events.insertOne(q);
@@ -58,7 +63,7 @@ export async function createEvent(dto: EventQuery): Promise<EventDTO> {
   }
   const parsedEvent = tryParse<EventDTO, EventDTOInput>(
     newEvent,
-    eventDTOSchema,
+    eventDTOSchema
   );
 
   return eventDTOSchema.parse(parsedEvent);
@@ -103,7 +108,7 @@ export async function updateParticipants(query: EventQuery) {
   type EventDocQueryInput = z.input<typeof eventDocQuerySchema>;
   const q = tryParse<EventDocQuery, EventDocQueryInput>(
     query,
-    eventDocQuerySchema,
+    eventDocQuerySchema
   );
 
   const events = await getEventDB();
@@ -120,19 +125,19 @@ export async function updateParticipants(query: EventQuery) {
 
   const updatedcandidate = tryParse<EventDoc, EventDocInput>(
     result,
-    eventDocSchema,
+    eventDocSchema
   );
   const updatedResult = await events.findOneAndUpdate(
     { _id: updatedcandidate._id },
     { $set: { participants: updatedcandidate.participants } },
-    { returnDocument: "after" },
+    { returnDocument: "after" }
   );
   if (!updatedResult) {
     throw new Error();
   }
   const updatedDoc = tryParse<EventDTO, EventDTOInput>(
     updatedResult,
-    EventQuerySchema,
+    EventQuerySchema
   );
   return updatedDoc;
 }
@@ -148,7 +153,7 @@ export const updateTimeslots = async ({
 }) => {
   const query = tryParse<EventQuery, EventQueryInput>(
     { _id: eventId },
-    EventQuerySchema,
+    EventQuerySchema
   );
   const eventDoc = await findOneEvent(query);
   if (!eventDoc) throw Error("Event not found.");
@@ -157,9 +162,11 @@ export const updateTimeslots = async ({
     const timeslots = ImmutableSet(ImmutableSet.fromKeys(eventItem.timeslots));
     const selectedSet = ImmutableSet(
       selectedTimeslots.map(
-        (s) => DateTime.fromISO(s, { zone: "utc" }).toISO() as string,
-      ),
+        (s) => DateTime.fromISO(s, { zone: "utc" }).toISO() as string
+      )
     );
+
+    // Get set if slots that have not been selected and remove user if included
     timeslots.subtract(selectedSet).forEach((key) => {
       eventItem.timeslots[key].delete(userId);
       if (eventItem.timeslots[key].size === 0) {
@@ -167,6 +174,8 @@ export const updateTimeslots = async ({
       }
     });
   }
+
+  // Add user to selected time slots.
   for (let key of selectedTimeslots) {
     if (eventItem.timeslots[key]) {
       eventItem.timeslots[key].add(userId);
@@ -180,9 +189,53 @@ export const updateTimeslots = async ({
 
   const newEventItem = await events.findOneAndReplace(
     { _id: newDoc._id },
-    newDoc,
+    newDoc
   );
   if (!newEventItem) throw Error("Could not replace document");
 
   return tryParse<EventDTO, EventDTOInput>(newEventItem, eventDTOSchema);
 };
+
+async function updateRecordingGroup(
+  eventId: string,
+  query: recordingGroupToDTOPartial
+) {
+  const eventItem = await findOneEvent({ _id: eventId });
+
+  if (!eventItem) {
+    throw Error("Event not found");
+  }
+
+  const recordingGroups = eventItem.recordingGroups;
+
+  const q = recordingGroupToDTOPartialSchema.parse(query);
+
+  if (!q._id && !q.groupName) {
+    throw Error();
+  }
+
+  let existingGroup: recordingGroupToDTO | null = null;
+
+  if (q._id) {
+    existingGroup = recordingGroups?.filter((g) => g._id === q._id)[0];
+  } else if (q.groupName) {
+    existingGroup = recordingGroups?.filter(
+      (g) => g.groupName === q.groupName
+    )[0];
+  }
+
+  if (!existingGroup) {
+    // create group
+    const newgroup: recordingGroupToDTO = {
+      _id: new ObjectId().toHexString(),
+      groupName: q.groupName as string,
+      participants: q.participants as Set<string>,
+    };
+
+    recordingGroups.push(newgroup);
+  } else {
+    // update group
+  }
+
+  updateEvent(eventItem);
+}

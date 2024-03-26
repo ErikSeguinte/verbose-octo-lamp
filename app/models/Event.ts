@@ -3,24 +3,6 @@ import { ObjectId } from "mongodb";
 import { isMongoId } from "validator";
 import { z } from "zod";
 
-import { oid } from "./common";
-
-export type participants = Set<string>;
-type ISOstring = string;
-
-export type timeSlots = Map<ISOstring, participants>;
-
-export type eventsJson = {
-  id: { $oid: string };
-  startDate: DateTime;
-  endDate: DateTime;
-  eventName: string;
-  organizer: oid;
-  participants: oid[];
-  inviteCode: string;
-  timeSlots: timeSlots;
-};
-
 const transformToArrays = {
   fromArrays: z
     // string[] to ObjectId[]
@@ -33,7 +15,7 @@ const transformToArrays = {
 };
 
 export const participantsToArrays = transformToArrays.fromArrays.or(
-  transformToArrays.fromSets,
+  transformToArrays.fromSets
 );
 
 export type participantsToArrays = z.infer<typeof participantsToArrays>;
@@ -46,23 +28,33 @@ export const dateToDateTime = z
     z
       .string()
       .datetime({ offset: true })
-      .transform((s) => DateTime.fromISO(s).toUTC() as DateTime),
+      .transform((s) => DateTime.fromISO(s).toUTC() as DateTime)
   )
   .or(
     z
       .custom<DateTime>((dt) => DateTime.isDateTime(dt))
-      .transform((dt) => dt.toUTC()),
+      .transform((dt) => dt.toUTC())
   );
 export type dateToDateTime = z.infer<typeof dateToDateTime>;
 export type dateToDateTimeInput = z.input<typeof dateToDateTime>;
 
 export const timeslotToDocSchema = z.record(
   dateToDateTime.transform((dt) => dt.toISO() as string),
-  participantsToArrays,
+  participantsToArrays
 );
 
 type timeslotToDocSchema = z.infer<typeof timeslotToDocSchema>;
 // type timeslotToDocSchemaInput = z.input<typeof timeslotToDocSchema>;
+
+export const recordingGroupToDocSchema = z.object({
+  _id: z
+    .string()
+    .refine((s) => isMongoId(s))
+    .transform((s) => new ObjectId(s))
+    .or(z.instanceof(ObjectId)),
+  groupName: z.string(),
+  participants: participantsToArrays,
+});
 
 export const eventDocSchema = z.object({
   _id: z
@@ -79,6 +71,7 @@ export const eventDocSchema = z.object({
     .transform((s) => new ObjectId(s))
     .or(z.instanceof(ObjectId)),
   participants: participantsToArrays,
+  recordingGroups: recordingGroupToDocSchema.array(),
   startDate: dateToDateTime.transform((dt) => dt.toJSDate()),
   timeslots: timeslotToDocSchema,
 });
@@ -105,11 +98,20 @@ export type participantsToSetsInput = z.input<typeof participantsToSets>;
 
 export const timeslotToDTO = z.record(
   dateToDateTime.transform((dt) => dt.toISO() as string),
-  participantsToSets,
+  participantsToSets
 );
 
 export type timeslotToDTO = z.infer<typeof timeslotToDTO>;
 // type timeslotToDTOInput = z.input<typeof timeslotToDTO>;
+
+export const recordingGroupToDTOSchema = z.object({
+  _id: z
+    .string()
+    .refine((s) => isMongoId(s))
+    .or(z.instanceof(ObjectId).transform((o) => o.toHexString())),
+  groupName: z.string(),
+  participants: participantsToSets,
+});
 
 export const eventDTOSchema = z.object({
   _id: z
@@ -124,6 +126,7 @@ export const eventDTOSchema = z.object({
     .refine((s) => isMongoId(s))
     .or(z.instanceof(ObjectId).transform((o) => o.toHexString())),
   participants: participantsToSets,
+  recordingGroups: recordingGroupToDTOSchema.array(),
   startDate: dateToDateTime.transform((dt) => dt.toISO() as string),
   timeslots: timeslotToDTO,
 });
@@ -150,3 +153,17 @@ export const eventSortType = {
 } as const;
 
 export type eventSortType = (typeof eventSortType)[keyof typeof eventSortType];
+
+export type recordingGroupToDoc = z.infer<typeof recordingGroupToDocSchema>;
+export const recordingGroupToDocPartialSchema =
+  recordingGroupToDocSchema.partial();
+export type recordingGroupToDocPartial = z.infer<
+  typeof recordingGroupToDocPartialSchema
+>;
+
+export type recordingGroupToDTO = z.infer<typeof recordingGroupToDTOSchema>;
+export const recordingGroupToDTOPartialSchema =
+  recordingGroupToDTOSchema.partial();
+export type recordingGroupToDTOPartial = z.infer<
+  typeof recordingGroupToDTOPartialSchema
+>;
